@@ -2,7 +2,8 @@
 Hos's neovim config
 
 #### Screenshot
-![shots/shot-init-lua.png](init-lua)
+
+![init-lua](shots/shot-init-lua.png)
 
 #### ToDo
 
