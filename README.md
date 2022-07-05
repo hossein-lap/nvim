@@ -11,3 +11,4 @@ Hos's neovim config
 - [ ] Auto Complete `( { [ " '`
 - [ ] port `netrw` config
 - [ ] port `status.vim`
+- [ ] Complete the `README.md` file
