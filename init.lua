@@ -4,6 +4,11 @@ HOME = os.getenv("HOME")
 NHOME = HOME .. '/.config/nvim'
 set = vim.opt
 cmd = vim.cmd
+api = vim.api
+
+-- <leader> key
+vim.g.mapleader = '\\'
+
 --key = vim.keymap.set
 
 -- some options
