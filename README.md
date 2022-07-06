@@ -7,8 +7,8 @@ Hos's neovim config
 
 #### ToDo
 
-- [ ] Run and Compile (in progress)
-- [ ] Auto Complete `( { [ " '`
+- [x] Run and Compile
+- [ ] Auto Complete `( { [ " '` (in progress)
 - [ ] port `netrw` config
 - [ ] port `status.vim`
 - [ ] Complete the `README.md` file
