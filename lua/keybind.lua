@@ -14,7 +14,7 @@ map('n', '<C-n>',  ':set nohlsearch<CR>', {silent = true})
 map('n', '_', ':tabprevious<CR>', {silent = true})
 
 -- comment lines via - and uncomment via +
-au({ 'c', 'cpp', 'java', 'scala', 'json' },
+au({ 'c', 'cpp', 'java', 'scala', 'json', 'rust' },
 	[[let b:comment_leader = '//']])
 au({ 'sh', 'ruby', 'python', 'conf', 'yaml', 'make', 'toml', 'rmd' },
 	[[let b:comment_leader = '#']])

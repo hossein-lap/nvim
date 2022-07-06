@@ -1,7 +1,7 @@
 Expand = vim.fn.expand
 
 -- Term-Wrapper function {{{
-function TermWrapRun(wrapandrun)
+function TermWrap(wrapand)
 	if not Split_style then
 		Split_style = 'h'
 	end
@@ -19,8 +19,8 @@ function TermWrapRun(wrapandrun)
 	--print(wrapandrun)
 	api.nvim_command(Buffercmd)
 	api.nvim_command('setlocal nornu nonu')
-	if wrapandrun then
-		api.nvim_command('term ' .. wrapandrun)
+	if wrapand then
+		api.nvim_command('term ' .. wrapand)
 	else
 		print('ERROR!\n TermWrapRun() function needs an argument')
 	end
@@ -42,6 +42,10 @@ function TriggerC(file_type)
 		CC = 'g++'
 		CARGS = '-Wall'
 		OUT_NAME = ''
+	elseif file_type == 'rust' then
+		CC = 'rustc'
+		CARGS = ''
+		OUT_NAME = ''
 	elseif file_type == 'nroff' then
 		CC = 'groff'
 		CARGS = '-mspdf -Tpdf >'
@@ -56,7 +60,7 @@ function TriggerC(file_type)
 		OUT_NAME = ''
 	end
 
-	TermWrapRun(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS .. ' ' .. OUT_NAME)
+	TermWrap(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS .. ' ' .. OUT_NAME)
 end
 -- }}}
 -- Run {{{
@@ -65,11 +69,12 @@ function TriggerR(file_type)
 
 -- C
 	if file_type == 'c' or
-		file_type == 'cpp'
+		file_type == 'cpp' or
+		file_type == 'rust'
 	then
 		CC = ''
 		CARGS = ''
-		SRC_NAME = './a.out'
+		SRC_NAME = './' .. Expand('%:r')
 -- Groff, Rmarkdown, LaTeX
 	elseif file_type == 'nroff' or
 		file_type == 'rmd' or file_type == 'tex'
@@ -95,7 +100,7 @@ function TriggerR(file_type)
 		CARGS = '-p'
 	end
 
-	TermWrapRun(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS)
+	TermWrap(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS)
 end
 -- }}}
 -- Debug {{{
@@ -117,4 +122,4 @@ map('n', '<leader>fw', CompilerCMD, { silent = true })
 map('n', '<leader>fq', DebugCMD, { silent = true })
 
 -- makefile
-map('n', '<leader>cc', ':lua TermWrapRun("make")<CR>', { silent = true })
+map('n', '<leader>cc', ':lua TermWrap("make")<CR>', { silent = true })
