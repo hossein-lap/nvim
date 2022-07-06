@@ -1,18 +1,15 @@
---  _  _ ___
--- | || | __|   H
--- | __ | _|    A
--- |_||_|___|   P
---
+Expand = vim.fn.expand
 
-function TermWrapRun(wrapandrun, file_name)
-	if not split_style then
-		split_style = 'h'
+-- Term-Wrapper function {{{
+function TermWrapRun(wrapandrun)
+	if not Split_style then
+		Split_style = 'h'
 	end
 
-	if split_style == 'v' then
-		buffercmd = '45vnew'
-	elseif split_style == 'h' then
-		buffercmd = '15new'
+	if Split_style == 'v' then
+		Buffercmd = '45vnew'
+	elseif Split_style == 'h' then
+		Buffercmd = '15new'
 	else
 		print("ERROR!")
 		print("split_style have not a valid value")
@@ -20,19 +17,104 @@ function TermWrapRun(wrapandrun, file_name)
 	end
 
 	--print(wrapandrun)
-	api.nvim_command(buffercmd)
+	api.nvim_command(Buffercmd)
 	api.nvim_command('setlocal nornu nonu')
-	if file_name then
-		api.nvim_command('term ' .. wrapandrun .. ' ' .. file_name)
-	else
+	if wrapandrun then
 		api.nvim_command('term ' .. wrapandrun)
+	else
+		print('ERROR!\n TermWrapRun() function needs an argument')
 	end
 	api.nvim_command('startinsert')
 end
+-- }}}
+--
+-- Trigger functions {{{
+-- Compile {{{
+function TriggerC(file_type)
+	SRC_NAME = Expand('%')
+	OUT_NAME = Expand('%:r')
 
-split_style = 'h'
+	if file_type == 'c' then
+		CC = 'gcc'
+		CARGS = '-Wall'
+		OUT_NAME = ''
+	elseif file_type == 'cpp' then
+		CC = 'g++'
+		CARGS = '-Wall'
+		OUT_NAME = ''
+	elseif file_type == 'nroff' then
+		CC = 'groff'
+		CARGS = '-mspdf -Tpdf >'
+	elseif file_type == 'rmd' then
+		CC = 'Rscript'
+		CARGS = ''
+		SRC_NAME = [[-e "rmarkdown::render(']] .. Expand('%') .. [[')"]]
+		OUT_NAME = ''
+	elseif file_type == 'tex' then
+		CC = 'xelatex'
+		CARGS = ''
+		OUT_NAME = ''
+	end
 
---fpath = api.nvim_buf_get_name(0)
---map('n', '<leader>cc', ':lua TermWrapRun("make ", fpath)<CR>')
+	TermWrapRun(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS .. ' ' .. OUT_NAME)
+end
+-- }}}
+-- Run {{{
+function TriggerR(file_type)
+	SRC_NAME = Expand('%')
 
-map('n', '<leader>cc', ':lua TermWrapRun("make")<CR>')
+-- C
+	if file_type == 'c' or
+		file_type == 'cpp'
+	then
+		CC = ''
+		CARGS = ''
+		SRC_NAME = './a.out'
+-- Groff, Rmarkdown, LaTeX
+	elseif file_type == 'nroff' or
+		file_type == 'rmd' or file_type == 'tex'
+	then
+		CC = 'nohup zathura'
+		CARGS = '>/dev/null &'
+		SRC_NAME = SRC_NAME .. '.pdf'
+-- Python
+	elseif file_type == 'python' then
+		CC = 'python'
+		CARGS = ''
+-- Shell
+	elseif file_type == 'sh' then
+		CC = 'bash'
+		CARGS = ''
+-- Lua
+	elseif file_type == 'lua' then
+		CC = 'lua'
+		CARGS = ''
+-- Markdown
+	elseif file_type == 'markdown' then
+		CC = 'glow'
+		CARGS = '-p'
+	end
+
+	TermWrapRun(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS)
+end
+-- }}}
+-- Debug {{{
+function TriggerD(file_type)
+	print("Debug function is not ready yet, sorry :.)")
+end
+-- }}}
+-- }}}
+
+Split_style = 'h'
+
+RunnerCMD = ':lua TriggerR(vim.bo.filetype)<CR>'
+CompilerCMD = ':lua TriggerC(vim.bo.filetype)<CR>'
+DebugCMD = ':lua TriggerD(vim.bo.filetype)<CR>'
+
+-- Compile/Run keymaps
+map('n', '<leader>fe', RunnerCMD, { silent = true })
+map('n', '<leader>fw', CompilerCMD, { silent = true })
+map('n', '<leader>fq', DebugCMD, { silent = true })
+
+-- makefile
+map('n', '<leader>cc', ':lua TermWrapRun("make")<CR>', { silent = true })
