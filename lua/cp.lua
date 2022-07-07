@@ -68,17 +68,12 @@ function TriggerR(file_type)
 	SRC_NAME = Expand('%')
 
 -- C
-	if file_type == 'c' or
-		file_type == 'cpp' or
-		file_type == 'rust'
-	then
+	if file_type == 'c' or 'cpp' or 'rust' then
 		CC = ''
 		CARGS = ''
 		SRC_NAME = './' .. Expand('%:r')
 -- Groff, Rmarkdown, LaTeX
-	elseif file_type == 'nroff' or
-		file_type == 'rmd' or file_type == 'tex'
-	then
+	elseif file_type == 'nroff' or 'rmd' or 'tex' then
 		CC = 'nohup zathura'
 		CARGS = '>/dev/null &'
 		SRC_NAME = SRC_NAME .. '.pdf'
