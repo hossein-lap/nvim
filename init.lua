@@ -14,10 +14,15 @@ vim.g.mapleader = '\\'
 -- some options
 set.termguicolors = true
 
-cmd 'colorscheme hybrid_material'
+--cmd 'colorscheme hybrid_material'
+--cmd 'colorscheme sunbather'
+cmd 'colorscheme hos'
+--cmd 'colorscheme dalton'
+
 set.termguicolors = true
 
 cmd 'source $HOME/.config/nvim/vim/status.vim'
+cmd 'source $HOME/.config/nvim/vim/netrw.vim'
 
 -- modules
 require('functions')
