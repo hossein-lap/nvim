@@ -19,3 +19,12 @@ function map(mode, key, command, opts)
 	api.nvim_set_keymap(mode, key, command, options)
 end
 -- }}}
+--
+function umap(mode, key)
+	if not mode or not key then
+		print('Error on using umap()')
+		print('umap(mode, key) must have both arguments')
+		return 1
+	end
+	api.nvim_del_keymap(mode, key)
+end
