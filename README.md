@@ -9,6 +9,4 @@ Hos's neovim config
 
 - [x] Run and Compile
 - [x] Auto Complete `( { [ " '`
-~~- [ ] port `netrw` config~~
-~~- [ ] port `status.vim`~~
 - [ ] Complete the `README.md` file (in progress)
