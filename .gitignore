@@ -1,2 +1,5 @@
 vim
 *.luav
+.tmp/
+*.bak
+*.old
