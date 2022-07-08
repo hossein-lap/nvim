@@ -1,5 +1,5 @@
 -- netrw toggle
-map('n', '<leader>ff', ':24Lexplore<CR><C-w>w')
+--map('n', '<leader>ff', ':24Lexplore<CR><C-w>w')
 
 -- toggle paste mode
 map('n', '<C-P>', ':set paste!<CR>')
@@ -13,40 +13,49 @@ map('n', '<C-n>',  ':set nohlsearch<CR>', {silent = true})
 -- switch tabs
 map('n', '_', ':tabprevious<CR>', {silent = true})
 
--- comment lines via - and uncomment via +
+---- comment lines via - and uncomment via + {{{
+-- comment_leader var definition {{{
 au({ 'c', 'cpp', 'java', 'scala', 'json', 'rust' },
 	[[let b:comment_leader = '//']])
+
 au({ 'sh', 'ruby', 'python', 'conf', 'yaml', 'make', 'toml', 'rmd' },
 	[[let b:comment_leader = '#']])
+
 au({ 'haskell', 'lua', },
 	[[let b:comment_leader = '--']])
+
 au({ 'vim', },
 	[[let b:comment_leader = '"']])
+
 au({ 'tex', 'plaintex', },
 	[[let b:comment_leader = '%']])
+
 au({ 'nroff', },
 	[[let b:comment_leader = '\"']])
 
 au({ 'asm', },
 	[[let b:comment_leader = ';']])
-
--- cmd 'let'
-
--- map the keybinding
+-- }}}
+-- keybinding
 map('',
 	'-',
 	[[:s;\v^(\s*);\1<C-R>=escape(b:comment_leader,'\ ')<CR><CR>:nohlsearch<CR>]],
 	{ silent = true }
 )
 
--- map('',
-	-- '+',
-	-- [[:s;\v^(\s*)\<C-R>=escape(b:comment_leader,'\; ')<CR>;\1;<CR>:nohlsearch<CR>]],
-	-- { silent = true }
--- )
+map('',
+	 '+',
+	 [[:s;\v^(\s*)\<C-R>=escape(b:comment_leader,'\; ')<CR>;\1;<CR>:nohlsearch<CR>]],
+	 { silent = true }
+)
+-- }}}
+--
+-- Compile/Run keymaps {{{
+map('n', '<leader>fe', RunnerCMD, { silent = true })
+map('n', '<leader>fw', CompilerCMD, { silent = true })
+map('n', '<leader>fq', DebugCMD, { silent = true })
 
-
-cmd [[
-"noremap <silent> - :<C-B>silent <C-E>s;\v^(\s*);\1<C-R>=escape(b:comment_leader,'\ ')<CR><CR>:nohlsearch<CR>
-noremap <silent> + :<C-B>silent <C-E>s;\v^(\s*)\<C-R>=escape(b:comment_leader,'\; ')<CR>;\1;<CR>:nohlsearch<CR>
-]]
+-- makefile
+map('n', '<leader>cc', ':lua TermWrap("make")<CR>', { silent = true })
+-- }}}
+--
