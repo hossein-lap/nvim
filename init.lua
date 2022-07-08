@@ -1,14 +1,6 @@
 --** neovim config **--
--- variables
-HOME = os.getenv("HOME")
-NHOME = HOME .. '/.config/nvim'
-set = vim.opt
-cmd = vim.cmd
-api = vim.api
---key = vim.keymap.set
-
--- set <leader> key
-vim.g.mapleader = '\\'
+-- helper functions module
+require('helper')
 
 -- some options
 set.termguicolors = true
@@ -24,24 +16,29 @@ cmd 'source $HOME/.config/nvim/vim/simplestatus.vim'
 -- netrw config
 cmd 'source $HOME/.config/nvim/vim/netrw.vim'
 
----- modules
--- helper functions
-require('functions')
 -- main options
 require('main')
+
 -- ftype specific extra options
 require('extra')
+
 -- plugin manager
-require('plugin')
+require('plugins')
+
 -- lsp configs
-require('lsp')
+require('plugins.lsp')
+
 -- snipper manager configs
-require('snippet')
+require('plugins.snippet')
+
 -- to input templates
 require('skel')
+
 -- compile and execute programs
-require('cp')
+require('cexecute')
+
 -- set the keybindings and shortcuts
 require('keybind')
+
 -- treesitter settings
-require('treesitter')
+require('plugins.treesitter')
