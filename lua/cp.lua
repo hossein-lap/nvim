@@ -58,6 +58,9 @@ function TriggerC(file_type)
 		CC = 'xelatex'
 		CARGS = ''
 		OUT_NAME = ''
+	else
+		print('Not executable')
+		return 1
 	end
 
 	TermWrap(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS .. ' ' .. OUT_NAME)
@@ -68,12 +71,16 @@ function TriggerR(file_type)
 	SRC_NAME = Expand('%')
 
 -- C
-	if file_type == 'c' or 'cpp' or 'rust' then
+	if file_type == 'c' or
+		file_type == 'cpp' or
+		file_type == 'rust' then
 		CC = ''
 		CARGS = ''
 		SRC_NAME = './' .. Expand('%:r')
 -- Groff, Rmarkdown, LaTeX
-	elseif file_type == 'nroff' or 'rmd' or 'tex' then
+	elseif file_type == 'nroff' or
+		file_type == 'rmd' or
+		file_type == 'tex' then
 		CC = 'nohup zathura'
 		CARGS = '>/dev/null &'
 		SRC_NAME = SRC_NAME .. '.pdf'
@@ -110,11 +117,3 @@ Split_style = 'h'
 RunnerCMD = ':lua TriggerR(vim.bo.filetype)<CR>'
 CompilerCMD = ':lua TriggerC(vim.bo.filetype)<CR>'
 DebugCMD = ':lua TriggerD(vim.bo.filetype)<CR>'
-
--- Compile/Run keymaps
-map('n', '<leader>fe', RunnerCMD, { silent = true })
-map('n', '<leader>fw', CompilerCMD, { silent = true })
-map('n', '<leader>fq', DebugCMD, { silent = true })
-
--- makefile
-map('n', '<leader>cc', ':lua TermWrap("make")<CR>', { silent = true })
