@@ -1,3 +1,13 @@
+-- some variables
+HOME = os.getenv("HOME")
+NHOME = HOME .. '/.config/nvim'
+set = vim.opt
+cmd = vim.cmd
+api = vim.api
+
+-- set <leader> key
+vim.g.mapleader = '\\'
+
 -- autocmd function {{{
 function au(patterns, commands, evnt)
 	if evnt == nil then
