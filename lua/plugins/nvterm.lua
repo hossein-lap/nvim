@@ -10,7 +10,7 @@ require("nvterm").setup({
         height = 0.5,
         border = "single",
       },
-      horizontal = { location = "rightbelow", split_ratio = .5, },
+      horizontal = { location = "rightbelow", split_ratio = .4, },
       vertical = { location = "rightbelow", split_ratio = .5 },
     }
   },
@@ -40,8 +40,8 @@ local toggle_modes = {'n', 't'}
 
 local mappings = {
   { 'n', '<leader>tf', function () terminal.send(ft_cmds[vim.bo.filetype], 'vertical') end },
-  --{ toggle_modes, '<leader>th', function () require("nvterm.terminal").toggle('horizontal') end },
-  --{ toggle_modes, '<leader>tv', function () require("nvterm.terminal").toggle('vertical') end },
+  { toggle_modes, '<leader>th', function () require("nvterm.terminal").toggle('horizontal') end },
+  { toggle_modes, '<leader>tv', function () require("nvterm.terminal").toggle('vertical') end },
   { toggle_modes, '<leader>tt', function () terminal.toggle('float') end },
   { 'n', '<leader>qt', function () terminal.send(ft_cmds[vim.bo.filetype] .. '<C-w>w', 'float') end },
 }

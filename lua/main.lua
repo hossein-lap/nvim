@@ -5,6 +5,9 @@ set.wrap = true
 -- change dir to the current file's directory
 set.autochdir = true
 
+--  mouse click
+set.mouse = 'a'
+
 -- wild menu
 set.wildmenu = true
 set.wildmode = 'longest:list,full'
