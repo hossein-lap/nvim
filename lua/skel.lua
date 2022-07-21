@@ -8,3 +8,5 @@ map('n', ',ms', ':-1read ~/.config/nvim/template/skel.ms<CR>G')
 map('n', ',tex', ':-1read ~/.config/nvim/template/skel.tex<CR>G')
 map('n', ',rmd', ':-1read ~/.config/nvim/template/skel.rmd<CR>G')
 map('n', ',html', ':-1read ~/.config/nvim/template/skel.html<CR>G')
+
+map('n', ',eb', ':read ~/.config/nvim/template/eb.latex<CR>o')

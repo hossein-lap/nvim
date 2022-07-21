@@ -1,4 +1,4 @@
--- some variables
+-- variables {{{
 HOME = os.getenv("HOME")
 NHOME = HOME .. '/.config/nvim'
 set = vim.opt
@@ -7,9 +7,10 @@ api = vim.api
 
 -- set <leader> key
 vim.g.mapleader = '\\'
-
--- autocmd function {{{
-function au(patterns, commands, evnt)
+-- }}}
+-- Functions {{{
+-- autocmd {{{
+function au(commands, patterns, evnt)
 	if evnt == nil then
 		evnt = 'FileType'
 	end
@@ -20,7 +21,7 @@ function au(patterns, commands, evnt)
 	})
 end
 -- }}}
--- key mapping function {{{
+-- key mapping {{{
 function map(mode, key, command, opts)
 	local options = { noremap = true }
 	if opts then
@@ -29,7 +30,7 @@ function map(mode, key, command, opts)
 	api.nvim_set_keymap(mode, key, command, options)
 end
 -- }}}
---
+-- unmap {{{
 function umap(mode, key)
 	if not mode or not key then
 		print('Error on using umap()')
@@ -38,3 +39,19 @@ function umap(mode, key)
 	end
 	api.nvim_del_keymap(mode, key)
 end
+-- }}}
+-- NvimTree Toggle {{{
+NTreeOpen = 0
+
+function NTToggle()
+	if NTreeOpen == 0 then
+		NTreeOpen = 1
+		cmd [[:NvimTreeOpen]]
+		cmd "call win_gotoid(1000)"
+	else
+		NTreeOpen = 0
+		cmd [[:NvimTreeClose]]
+	end
+end
+-- }}}
+-- }}}

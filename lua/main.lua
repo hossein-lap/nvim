@@ -49,3 +49,6 @@ set.spelllang='en_us,de'
 set.hidden = true
 set.list = true
 set.listchars='tab:¦ ,trail:⋅'
+
+-- Bidi Support
+set.termbidi = true

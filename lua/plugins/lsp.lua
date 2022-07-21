@@ -50,7 +50,9 @@ end
     ---- Server-specific settings...
 --}
 
-require('plugins.lspconfig.pyright')
-require('plugins.lspconfig.clangd')
-require('plugins.lspconfig.texlab')
-require('plugins.lspconfig.sumneko_lua')
+-- LSP Configs
+require('plugins.conf-lsp.pyright')
+require('plugins.conf-lsp.clangd')
+require('plugins.conf-lsp.texlab')
+require('plugins.conf-lsp.sumneko_lua')
+require('plugins.conf-lsp.bashls')

@@ -1,22 +1,24 @@
 -- autocmds {{{
-au({ 'c', 'make', 'asm' }, "set noexpandtab" )
-au({ 'c', 'make', 'asm' }, "set tabstop=8" )
-au({ 'c', 'make', 'asm' }, "set softtabstop=8" )
-au({ 'c', 'make', 'asm' }, "set shiftwidth=8" )
-au({ 'asm' }, "syntax=nasm" )
+au( "set noexpandtab",        { 'c', 'make', 'nasm' })
+au( "set tabstop=8",        { 'c', 'make', 'nasm' })
+au( "set softtabstop=8",    { 'c', 'make', 'nasm' })
+au( "set shiftwidth=8",        { 'c', 'make', 'nasm' })
 
-au({ 'python', 'toml', 'yaml', 'nvim', 'markdown', 'rmd' }, "set expandtab" )
-au({ 'python', 'toml', 'yaml', 'nvim', 'markdown', 'rmd' }, "set tabstop=4" )
-au({ 'python', 'toml', 'yaml', 'nvim', 'markdown', 'rmd' }, "set softtabstop=4" )
-au({ 'python', 'toml', 'yaml', 'nvim', 'markdown', 'rmd' }, "set shiftwidth=4" )
+au( "set expandtab",        { 'python', 'toml', 'yaml', 'nvim', 'markdown', 'rmd' })
+au( "set tabstop=4",        { 'python', 'toml', 'yaml', 'nvim', 'markdown', 'rmd' })
+au( "set softtabstop=4",    { 'python', 'toml', 'yaml', 'nvim', 'markdown', 'rmd' })
+au( "set shiftwidth=4",        { 'python', 'toml', 'yaml', 'nvim', 'markdown', 'rmd' })
 
-au({ 'plaintex', }, "set filetype=tex")
+au( "set filetype=tex", { 'plaintex' })
 
-au({ 'markdown', 'rmd' }, ':silent lua AutoFillMarkdown()')
+au( ":silent lua AutoFillMarkdown()", { 'markdown', 'rmd' })
 
-au({ 'c', 'cpp', 'python', 'lua', 'sh', 'make' },
-	':silent lua AutoFill()'
-)
+au( ":silent lua AutoFill()", { 'c', 'cpp', 'python', 'lua', 'sh', 'make', 'tex' })
+----
+au( "set filetype=c", {'*.h'}, {'BufRead', 'BufNewFile'} )
+
+au( "set filetype=nasm", {'*.s', '*.asm'}, {'BufRead', 'BufNewFile'} )
+
 -- }}}
 
 -- global autofill function {{{

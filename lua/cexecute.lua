@@ -1,7 +1,7 @@
 Expand = vim.fn.expand
 
 -- Term-Wrapper function {{{
-function TermWrap(wrapand)
+function Terminal(wrapand)
 	if not Split_style then
 		Split_style = 'h'
 	end
@@ -20,14 +20,13 @@ function TermWrap(wrapand)
 	api.nvim_command(Buffercmd)
 	api.nvim_command('setlocal nornu nonu')
 	if wrapand then
-		api.nvim_command('term ' .. wrapand)
+		api.nvim_command("term " .. wrapand)
 	else
-		print('ERROR!\n TermWrapRun() function needs an argument')
+		api.nvim_command('term')
 	end
 	api.nvim_command('startinsert')
 end
 -- }}}
---
 -- Trigger functions {{{
 -- Compile {{{
 function TriggerC(file_type)
@@ -63,7 +62,7 @@ function TriggerC(file_type)
 		return 1
 	end
 
-	TermWrap(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS .. ' ' .. OUT_NAME)
+	Terminal(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS .. ' ' .. OUT_NAME)
 end
 -- }}}
 -- Run {{{
@@ -102,7 +101,7 @@ function TriggerR(file_type)
 		CARGS = '-p'
 	end
 
-	TermWrap(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS)
+	Terminal(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS)
 end
 -- }}}
 -- Debug {{{
@@ -117,3 +116,23 @@ Split_style = 'h'
 RunnerCMD = ':lua TriggerR(vim.bo.filetype)<CR>'
 CompilerCMD = ':lua TriggerC(vim.bo.filetype)<CR>'
 DebugCMD = ':lua TriggerD(vim.bo.filetype)<CR>'
+
+function Term(input)
+	Split_style = 'h'
+	if input then
+		Terminal('echo "\27[33;1m' .. input ..'\27[0m"' .. ' && ' .. input)
+	else
+		Terminal()
+	end
+end
+
+
+map('n', '<leader>tt', ":lua Terminal()<CR>")
+-- Git commands
+map('n', '<leader>gs', ":lua Term('git status -s')<CR>")
+map('n', '<leader>gl', ":lua Term('git log --oneline --all --graph')<CR>")
+map('n', '<leader>ga', ":lua Term('git add .')<CR>")
+map('n', '<leader>gd', ":lua Term('git diff .')<CR>")
+map('n', '<leader>gc', ":lua Term('git commit')<CR>")
+map('n', '<leader>gt', ":lua Term('git tag')<CR>")
+map('n', '<leader>gb', ":lua Term('git branch')<CR>")
