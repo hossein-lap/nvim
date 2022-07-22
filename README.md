@@ -71,4 +71,5 @@ note that I have `,` set to **read some template files located in
 
 - [x] Run and Compile
 - [x] Auto Complete `( { [ " '`
+- [ ] Write every custom plugins modular
 - [ ] Complete the `README.md` file (in progress)
