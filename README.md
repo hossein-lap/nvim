@@ -65,7 +65,7 @@ note that I have `,` set to **read some template files located in
 
 #### Screenshot
 
-![init-lua](shots/nvim-tree_sitter_term_c.png)
+![init-lua](shots/tree_sitter_term_c.png)
 
 #### ToDo
 
