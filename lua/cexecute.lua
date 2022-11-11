@@ -1,138 +1,144 @@
-Expand = vim.fn.expand
+Split_style = 'h'
 
+-- Toggle Split_style {{{
+function Split_style_Toggle()
+	if Split_style == 'h' then
+		Split_style = 'v'
+	else
+		Split_style = 'h'
+	end
+end
+map('n', '<leader>fs', ":lua Split_style_Toggle()<CR>", { silent = true })
+--}}}
 -- Term-Wrapper function {{{
-function Terminal(wrapand)
+function runTerminal(wrapand)
 	if not Split_style then
 		Split_style = 'h'
 	end
 
 	if Split_style == 'v' then
-		Buffercmd = '45vnew'
+		Buffercmd = 'vs '
 	elseif Split_style == 'h' then
-		Buffercmd = '15new'
+		Buffercmd = 'split '
 	else
-		print("ERROR!")
-		print("split_style have not a valid value")
-		print("(must be 'h' or 'v')")
+		print("ERROR! Split_style have not a valid value (must be 'h' or 'v')")
+		return -1
 	end
 
 	--print(wrapandrun)
 	api.nvim_command(Buffercmd)
-	api.nvim_command('setlocal nornu nonu')
+	api.nvim_command('set nornu nonu')
 	if wrapand then
+		api.nvim_command('set ls=0')
 		api.nvim_command("term " .. wrapand)
 	else
 		api.nvim_command('term')
 	end
 	api.nvim_command('startinsert')
 end
--- }}}
--- Trigger functions {{{
--- Compile {{{
-function TriggerC(file_type)
-	SRC_NAME = Expand('%')
-	OUT_NAME = Expand('%:r')
 
-	if file_type == 'c' then
-		CC = 'gcc'
-		CARGS = '-Wall'
-		OUT_NAME = ''
-	elseif file_type == 'cpp' then
-		CC = 'g++'
-		CARGS = '-Wall'
-		OUT_NAME = ''
-	elseif file_type == 'rust' then
-		CC = 'rustc'
-		CARGS = ''
-		OUT_NAME = ''
-	elseif file_type == 'nroff' then
-		CC = 'groff'
-		CARGS = '-mspdf -Tpdf >'
-	elseif file_type == 'rmd' then
-		CC = 'Rscript'
-		CARGS = ''
-		SRC_NAME = [[-e "rmarkdown::render(']] .. Expand('%') .. [[')"]]
-		OUT_NAME = ''
-	elseif file_type == 'tex' then
-		CC = 'xelatex'
-		CARGS = ''
-		OUT_NAME = ''
-	else
-		print('Not executable')
+-- }}}
+
+au('set ls=2', '*', 'TermLeave')
+
+-- Trigger functions
+-- Run {{{
+function TriggerRun(file_type)
+	local src_name = expand('%')
+	local out_name = expand('%:r')
+	--local pandoc_path = '/home/hos/.config/pandoc/plain/'
+	local pandoc_path = '/home/hos/.config/pandoc/persian/persian.yaml '
+
+	local runner = {
+		c = './' .. out_name,
+		cpp = './' .. out_name,
+		rust = './' .. out_name,
+		python = 'python ' .. src_name,
+		lua = 'lua5.4 ' .. src_name,
+		sh = 'bash ' .. src_name,
+		csh = 'csh ' .. src_name,
+		zsh = 'zsh ' .. src_name,
+		--markdown = 'pandoc --defaults ' .. pandoc_path .. 'persian.yaml ' .. src_name .. ' -o ' .. out_name .. '.pdf'
+		markdown = 'pandoc --defaults ' .. pandoc_path .. src_name .. ' -o ' .. out_name .. '.pdf'
+		--markdown = 'glow -p ' .. src_name,
+	}
+	print(type(runner))
+
+	if runner[file_type] == nil then
+		print('Not exec')
 		return 1
 	end
 
-	Terminal(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS .. ' ' .. OUT_NAME)
+	runTerminal(runner[file_type])
 end
 -- }}}
--- Run {{{
-function TriggerR(file_type)
-	SRC_NAME = Expand('%')
+-- Compile{{{
+function TriggerCompile(file_type)
+	local src_name = expand('%')
+	local out_name = expand('%:r')
+	local pandoc_path = '/home/hos/.config/pandoc/english/english.yaml '
 
--- C
-	if file_type == 'c' or
-		file_type == 'cpp' or
-		file_type == 'rust' then
-		CC = ''
-		CARGS = ''
-		SRC_NAME = './' .. Expand('%:r')
--- Groff, Rmarkdown, LaTeX
-	elseif file_type == 'nroff' or
-		file_type == 'rmd' or
-		file_type == 'tex' then
-		CC = 'nohup zathura'
-		CARGS = '>/dev/null &'
-		SRC_NAME = SRC_NAME .. '.pdf'
--- Python
-	elseif file_type == 'python' then
-		CC = 'python'
-		CARGS = ''
--- Shell
-	elseif file_type == 'sh' then
-		CC = 'bash'
-		CARGS = ''
--- Lua
-	elseif file_type == 'lua' then
-		CC = 'lua'
-		CARGS = ''
--- Markdown
-	elseif file_type == 'markdown' then
-		CC = 'glow'
-		CARGS = '-p'
+	local compiler = {
+		c = 'gcc -Wall ' .. src_name .. ' -o ' .. out_name,
+		cpp = 'g++ -Wall ' .. src_name .. ' -o ' .. out_name,
+		rust = 'rustc ' .. src_name,
+		nroff = 'groff -mspdf -T pdf >' .. out_name .. '.pdf ' .. src_name,
+		tex = 'xelatex ' .. src_name,
+		rmd = [[Rscript -e "rmarkdown::render(input = ']] .. src_name .. [[', output_format = \"pdf_document\")"]],
+		markdown = 'pandoc --defaults ' .. pandoc_path .. src_name .. ' -o ' .. out_name .. '.pdf'
+	}
+	if compiler[file_type] == nil then
+		print('Not src')
+		return 1
 	end
 
-	Terminal(CC .. ' ' .. SRC_NAME .. ' ' .. CARGS)
+	runTerminal(compiler[file_type])
 end
 -- }}}
--- Debug {{{
-function TriggerD(file_type)
-	print("Debug function is not ready yet, sorry :.)")
-end
--- }}}
--- }}}
+-- Extra {{{
+function TriggerExtra(file_type)
+	local src_name = expand('%')
+	local out_name = expand('%:r')
+	local pdf_viewer = 'nohup zathura '
+	local log_handler =  '.pdf & 2>&1 > /dev/null'
+	local pandoc_path = '/home/hos/.config/pandoc/beamer/beamer.yaml '
 
-Split_style = 'h'
-
-RunnerCMD = ':lua TriggerR(vim.bo.filetype)<CR>'
-CompilerCMD = ':lua TriggerC(vim.bo.filetype)<CR>'
-DebugCMD = ':lua TriggerD(vim.bo.filetype)<CR>'
-
-function Term(input)
-	Split_style = 'h'
-	if input then
-		Terminal('echo "\27[33;1m' .. input ..'\27[0m"' .. ' && ' .. input)
-	else
-		Terminal()
+	local extra = {
+		rmd = pdf_viewer .. out_name .. log_handler,
+		nroff = pdf_viewer .. out_name ..log_handler,
+		--markdown = pdf_viewer .. out_name .. log_handler,
+		markdown = 'pandoc --defaults ' .. pandoc_path .. '-t beamer ' .. src_name .. ' -o ' .. out_name .. '.pdf'
+	}
+	if extra[file_type] == nil then
+		print('No extra works yet :/')
+		return 1
 	end
+
+	runTerminal(extra[file_type])
 end
+-- }}}
 
+RunnerCMD = ':lua TriggerRun(vim.bo.filetype)<CR>'
+CompilerCMD = ':lua TriggerCompile(vim.bo.filetype)<CR>'
+ExtraCMD = ':lua TriggerExtra(vim.bo.filetype)<CR>'
 
-map('n', '<leader>tt', ":lua Terminal()<CR>")
--- Git commands
-map('n', '<leader>gs', ":lua Term('git status -s')<CR>")
-map('n', '<leader>gl', ":lua Term('git log --oneline --all --graph')<CR>")
-map('n', '<leader>ga', ":lua Term('git add .')<CR>")
-map('n', '<leader>gd', ":lua Term('git diff .')<CR>")
-map('n', '<leader>gc', ":lua Term('git commit')<CR>")
-map('n', '<leader>gt', ":lua Term('git tag')<CR>")
-map('n', '<leader>gb', ":lua Term('git branch')<CR>")
+-- Keymaps {{{
+---- Compile/Run/Extra
+map('n', '<leader>fe', RunnerCMD, { silent = true })
+map('n', '<leader>fw', CompilerCMD, { silent = true })
+map('n', '<leader>fq', ExtraCMD, { silent = true })
+
+---- makefile
+map('n', '<leader>cc', ':lua runTerminal("make")<CR>', { silent = true })
+
+---- Run terminal
+map('n', '<leader>tt', ":lua runTerminal()<CR>", { silent = true })
+
+---- Git commands
+map('n', '<leader>gs', ":lua runTerminal('git status -s')<CR>", { silent = true })
+map('n', '<leader>gl', ":lua runTerminal('git log --oneline --all --graph')<CR>", { silent = true })
+map('n', '<leader>ga', ":lua runTerminal('git add .')<CR>", { silent = true })
+map('n', '<leader>gd', ":lua runTerminal('git diff .')<CR>", { silent = true })
+map('n', '<leader>gt', ":lua runTerminal('git tag')<CR>", { silent = true })
+map('n', '<leader>gb', ":lua runTerminal('git branch')<CR>", { silent = true })
+-- }}}
