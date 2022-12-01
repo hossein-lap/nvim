@@ -1,3 +1,49 @@
+-- helper {{{
+local api = vim.api
+local expand = vim.fn.expand
+-- map() {{{
+local function map(mode, key, command, opts)
+	local options = { noremap = true }
+	if opts then
+		options = vim.tbl_extend("force", options, opts)
+	end
+	api.nvim_set_keymap(mode, key, command, options)
+end
+-- keymap function {{{
+function map(mode, key, command, opts)
+	local options = { noremap = true }
+	if opts then
+		options = vim.tbl_extend("force", options, opts)
+	end
+	api.nvim_set_keymap(mode, key, command, options)
+end
+--}}}
+ 
+-- }}}
+---- unmap {{{
+--local function umap(mode, key)
+--	if not mode or not key then
+--		print('Error on using umap()')
+--		print('umap(mode, key) must have both arguments')
+--		return 1
+--	end
+--	api.nvim_del_keymap(mode, key)
+--end
+---- }}}
+-- autocmd {{{
+local function au(commands, patterns, evnt)
+	if evnt == nil then
+		evnt = 'FileType'
+	end
+	api.nvim_create_autocmd(evnt, {
+		pattern = patterns,
+		command = commands,
+--		 group = patterns .. 'groups'
+	})
+end
+-- }}}
+-- }}}
+
 Split_style = 'h'
 
 -- Toggle Split_style {{{
@@ -25,7 +71,7 @@ function runTerminal(wrapand)
 		return -1
 	end
 
-	--print(wrapandrun)
+--	print(wrapandrun)
 	api.nvim_command(Buffercmd)
 	api.nvim_command('set nornu nonu')
 	if wrapand then
@@ -41,28 +87,41 @@ end
 
 au('set ls=2', '*', 'TermLeave')
 
+-- swtich pandoc configs {{{
+local list = { 'dracula', 'solarized', 'english', 'monochrome' }
+local pandoc_defaults = list[4]
+--
+--function switch_pandoc_config()
+--	pandoc_defaults = list[1]
+--end
+--
+--switch_pandoc_config()
+--
+--print(pandoc_defaults)
+-- }}}
+
 -- Trigger functions
 -- Run {{{
 function TriggerRun(file_type)
 	local src_name = expand('%')
 	local out_name = expand('%:r')
-	--local pandoc_path = '/home/hos/.config/pandoc/plain/'
+--	local pandoc_path = '/home/hos/.config/pandoc/plain/'
 	local pandoc_path = '/home/hos/.config/pandoc/persian/persian.yaml '
 
 	local runner = {
 		c = './' .. out_name,
 		cpp = './' .. out_name,
 		rust = './' .. out_name,
+		go = 'go run ' .. src_name,
 		python = 'python ' .. src_name,
 		lua = 'lua5.4 ' .. src_name,
 		sh = 'bash ' .. src_name,
 		csh = 'csh ' .. src_name,
 		zsh = 'zsh ' .. src_name,
-		--markdown = 'pandoc --defaults ' .. pandoc_path .. 'persian.yaml ' .. src_name .. ' -o ' .. out_name .. '.pdf'
+--		markdown = 'pandoc --defaults ' .. pandoc_path .. 'persian.yaml ' .. src_name .. ' -o ' .. out_name .. '.pdf'
 		markdown = 'pandoc --defaults ' .. pandoc_path .. src_name .. ' -o ' .. out_name .. '.pdf'
-		--markdown = 'glow -p ' .. src_name,
+--		markdown = 'glow -p ' .. src_name,
 	}
-	print(type(runner))
 
 	if runner[file_type] == nil then
 		print('Not exec')
@@ -76,12 +135,13 @@ end
 function TriggerCompile(file_type)
 	local src_name = expand('%')
 	local out_name = expand('%:r')
-	local pandoc_path = '/home/hos/.config/pandoc/english/english.yaml '
+	local pandoc_path = '/home/hos/.config/pandoc/' .. pandoc_defaults .. '/' .. pandoc_defaults .. '.yaml '
 
 	local compiler = {
 		c = 'gcc -Wall ' .. src_name .. ' -o ' .. out_name,
 		cpp = 'g++ -Wall ' .. src_name .. ' -o ' .. out_name,
 		rust = 'rustc ' .. src_name,
+		go = 'go build ' .. src_name,
 		nroff = 'groff -mspdf -T pdf >' .. out_name .. '.pdf ' .. src_name,
 		tex = 'xelatex ' .. src_name,
 		rmd = [[Rscript -e "rmarkdown::render(input = ']] .. src_name .. [[', output_format = \"pdf_document\")"]],
@@ -106,7 +166,7 @@ function TriggerExtra(file_type)
 	local extra = {
 		rmd = pdf_viewer .. out_name .. log_handler,
 		nroff = pdf_viewer .. out_name ..log_handler,
-		--markdown = pdf_viewer .. out_name .. log_handler,
+--		markdown = pdf_viewer .. out_name .. log_handler,
 		markdown = 'pandoc --defaults ' .. pandoc_path .. '-t beamer ' .. src_name .. ' -o ' .. out_name .. '.pdf'
 	}
 	if extra[file_type] == nil then
@@ -132,7 +192,7 @@ map('n', '<leader>fq', ExtraCMD, { silent = true })
 map('n', '<leader>cc', ':lua runTerminal("make")<CR>', { silent = true })
 
 ---- Run terminal
-map('n', '<leader>tt', ":lua runTerminal()<CR>", { silent = true })
+map('n', '<leader>tt', ':lua runTerminal("bash")<CR>', { silent = true })
 
 ---- Git commands
 map('n', '<leader>gs', ":lua runTerminal('git status -s')<CR>", { silent = true })
