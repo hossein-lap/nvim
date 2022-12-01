@@ -1,69 +1,49 @@
---** neovim config **--
--- helper functions module
-require('helper')
+----*** neovim config ***---
+--require('helper') ---- helper functions module
 
--- some options
+-- helper {{{
+local set = vim.opt
+local cmd = vim.cmd
+-- }}}
+
+-- some options {{{
 set.termguicolors = true
+-- }}}
+-- modules {{{
+require('main') ---- main options
+require('extra') ---- ftype specific extra options
+require('skel') ---- to input templates
+require('cexecute') ---- compile and execute with built-in term
+require('keybind') ---- set the keybindings and shortcuts
+-- }}}
+-- Plugins {{{
+require('plugins') ---- packer plugin-manager
+require('plugins.lsp') ---- lsp configs
+require('plugins.cmp') ---- Snippet Manager Configs
+require('plugins.colorizer') ---- Colorizer Plugin
+require('plugins.lualine') ---- Lualine [status line]
+require('plugins.tokyodark') ---- Colorscheme
+require('plugins.nvimtree') ---- NvimTree
+require('plugins.treesitter') ---- Treesitter Settings
+require('plugins.which-key') ---- GitSigns Settings
+require('plugins.gitsigns') ---- Treesitter Settings
+--require('plugins.toggleterm') ---- Treesitter Settings
+-- }}}
+-- colorscheme {{{
+--cmd [[ colorscheme dracula ]]
 
 ---- some favorate colorschemes
---'hybrid_material'
---'sunbather'
---'dalton'
-cmd 'colorscheme tokyodark'
---cmd 'colorscheme onehalfdark'
---require('onedark').load()
---require('onedark').setup {
-    --style = 'warmer'
---}
+--[[ hybrid_material sunbather dalton tokyodark
+     solarized material nord onedark
+]]
 
--- status line config
---cmd 'source $HOME/.config/nvim/vim/simplestatus.vim'
---cmd 'source $HOME/.config/nvim/vim/status.vim'
--- netrw config
---cmd 'source $HOME/.config/nvim/vim/netrw.vim'
--- miniSnip
---cmd 'source $HOME/.config/nvim/vim/snippet.vim'
-
--- main options
-require('main')
-
--- ftype specific extra options
-require('extra')
-
--- to input templates
-require('skel')
-
--- compile and execute programs
-require('cexecute')
-
--- set the keybindings and shortcuts
-require('keybind')
-
--- Plugins {{{
--- packer plugin-manager
-require('plugins')
-
--- lsp configs
-require('plugins.lsp')
-
--- Snippet Manager Configs
-require('plugins.cmp')
-
--- Colorizer Plugin
-require('plugins.colorizer')
-
--- Floating terminal
-require('plugins.nvterm')
-
--- Lualine [status line]
-require('plugins.lualine')
-
--- Colorscheme
-require('plugins.tokyodark')
-
--- NvimTree
-require('plugins.ntree')
-
----- Treesitter Settings
-require('plugins.treesitter')
+---- colorscheme options
+vim.g.tokyodark_transparent_background = false
+vim.g.tokyodark_enable_italic_comment = false
+vim.g.tokyodark_enable_italic = false
+vim.g.tokyodark_color_gamma = "1.0"
+cmd [[ colorscheme tokyodark ]]
+-- }}}
+-- NeoVide {{{
+vim.o.guifont = "Fira Mono:h12"
 -- }}}
