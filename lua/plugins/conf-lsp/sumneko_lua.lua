@@ -1,24 +1,24 @@
 local util = require 'lspconfig.util'
 
 local root_files = {
-  '.luarc.json',
-  '.luacheckrc',
-  '.stylua.toml',
-  'selene.toml',
+	'.luarc.json',
+	'.luacheckrc',
+	'.stylua.toml',
+	'selene.toml',
 }
 return {
-  default_config = {
-    cmd = { 'lua-language-server' },
-    filetypes = { 'lua' },
-    root_dir = function(fname)
-      return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
-    end,
-    single_file_support = true,
-    log_level = vim.lsp.protocol.MessageType.Warning,
-    settings = { Lua = { telemetry = { enable = false } } },
-  },
-  docs = {
-    description = [[
+	default_config = {
+		cmd = { 'lua-language-server' },
+		filetypes = { 'lua' },
+		root_dir = function(fname)
+			return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
+		end,
+		single_file_support = true,
+		log_level = vim.lsp.protocol.MessageType.Warning,
+		settings = { Lua = { telemetry = { enable = false } } },
+	},
+	docs = {
+		description = [[
 https://github.com/sumneko/lua-language-server
 
 Lua language server.
@@ -37,26 +37,26 @@ Completion results will include a workspace indexing progress message until the 
 
 ```lua
 require'lspconfig'.sumneko_lua.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
+   settings = {
+      Lua = {
+         runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT',
+         },
+         diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {'vim'},
+         },
+         workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = api.nvim_get_runtime_file("", true),
+         },
+         -- Do not send telemetry data containing a randomized but unique identifier
+         telemetry = {
+            enable = false,
+         },
       },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
+   },
 }
 ```
 
@@ -65,8 +65,8 @@ See `lua-language-server`'s [documentation](https://github.com/sumneko/lua-langu
 * [Lua.workspace.library](https://github.com/sumneko/lua-language-server/blob/076dd3e5c4e03f9cef0c5757dfa09a010c0ec6bf/locale/en-us/setting.lua#L77-L78)
 
 ]],
-    default_config = {
-      root_dir = [[root_pattern(".luarc.json", ".luacheckrc", ".stylua.toml", "selene.toml", ".git")]],
-    },
-  },
+		default_config = {
+			root_dir = [[root_pattern(".luarc.json", ".luacheckrc", ".stylua.toml", "selene.toml", ".git")]],
+		},
+	},
 }
