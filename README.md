@@ -1,29 +1,31 @@
 # nvim
 Hos's neovim config
 
-Alright! Finally that day have came and I
-rewrote my `nvim` config with `lua` :)
+Alright! Finally that day have came and I rewrote my `nvim` config with `lua` :)
 
-I've created a module for specific types of work,
-and I did my best to write them as modular as possible.
+I've created a module for specific types of work, and I did my best to write
+them as modular as possible.
+
+## Dependencies
+
+- Plugin Manager: packer
+- For LSP:
+    - C/C++: clangd
+    - Python: pyright
+    - LaTeX: texlab
+    - Bash: bash-language-server
+    - Lua: sumneko_lua
 
 ## Modules
 
-### Helper
-
-As you can guess, this module has some
-global functions and variables to helping
-writing the configs.
-
 #### Keep that in mind
 
-This module have to be the **first** module you call,
-because others have dependencies on this one.
+This module have to be the **first** module you call, because others have
+dependencies on this one.
 
 ### Main
 
-This module sets very basic configuration
-for `nvim`.
+This module sets very basic configuration for `nvim`.
 
 Things like:
 
@@ -65,7 +67,7 @@ note that I have `,` set to **read some template files located in
 
 #### Screenshot
 
-![init-lua](shots/tree_sitter_term_c.png)
+![init-lua](shots/nvim-lua-md-treesitter.png)
 
 #### ToDo
 
