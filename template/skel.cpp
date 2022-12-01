@@ -1,10 +1,3 @@
-/*   ____     _
- *  |  _ \   | |
- *  | |_) |  | |
- *  |  __/ |_| |
- *  |_|   \___/
- */
-
 #include <iostream>
 
 int main(int argc, char **argv[])

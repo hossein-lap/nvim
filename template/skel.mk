@@ -1,25 +1,16 @@
-#   ____     _
-#  |  _ \   | |
-#  | |_) |  | |
-#  |  __/ |_| |
-#  |_|   \___/
-#
-
+NAME = name
 CC   = gcc
-ARG  = -Wall
-AARG = -c
-OBJ  = .o
-EXT  = .c
-OUT  = a.out
-NAME = main
+CARG = -Wall -std=c99
+OARG = -o
+TARG = -c
+EXT = c
+OBJ = o
 
-$(OUT): $(NAME)$(OBJ) Makefile
-	$(CC) $(ARG) $(NAME)$(OBJ) 
-
-$(NAME)$(OBJ): $(NAME)$(EXT)
-	$(CC) $(ARG) $(AARG) $(NAME)$(EXT) 
+all:
+	$(CC) $(CARG) $(TARG) $(NAME).$(EXT)
+	$(CC) $(CARG) $(OARG) $(NAME) $(NAME).$(OBJ)
 
 clean:
 	touch *
-	make 
-	rm *$(OBJ)
+	make
+	rm *.$(OBJ)

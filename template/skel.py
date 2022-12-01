@@ -1,8 +1,7 @@
 #!/bin/python3
-#   ____     _
-#  |  _ \   | |
-#  | |_) |  | |
-#  |  __/ |_| |
-#  |_|   \___/
-#
 
+a = 6
+for i in range(a):
+    for j in range(a):
+        print(i * j, end = '\t')
+    print()

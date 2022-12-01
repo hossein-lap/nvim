@@ -1,7 +1,9 @@
 ---
-title: TheTitle
-author: TheAuthor
+title:
+- '****'
+author:
+- ''
+date:
+- ''
 ---
 
-# Heading
-paragraph
