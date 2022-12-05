@@ -3,19 +3,15 @@ local expand = vim.fn.expand
 -- }}}
 -- autofill sym {{{
 local function showautofill()
-	local Achar = ''
-	local Mchar = ''
-	local Schar = ''
 	if Autofill == 1 then
-		Achar = 'α'
+		return 'α'
+	elseif Autofill == 2 then
+		return 'β'
+	elseif Autofill == 3 then
+		return 'γ'
+	else
+		return ''
 	end
-	if Mautofill == 1 then
-		Mchar = 'μ'
-	end
-	if Sautofill == 1 then
-		Mchar = 'Σ'
-	end
-	return Achar .. Mchar .. Schar
 end
 -- }}}
 -- split sym {{{

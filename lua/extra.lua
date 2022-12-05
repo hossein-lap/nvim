@@ -74,6 +74,8 @@ end
 -- basic autofill function {{{
 Autofill = 0
 function AutoFill()
+	local ft = vim.bo.filetype
+
 	if Autofill == 0 then
 		Autofill = 1
 		map('i', '"', '""<Left>')
@@ -93,32 +95,20 @@ function AutoFill()
 		umap('i', '{')
 --		print("AutoFill() [Disabled]")
 	end
-end
---}}}
--- markdown autofill function {{{
-Mautofill = 0
-function AutoFillMarkdown()
-	local ft = vim.bo.filetype
+
 	if ft == 'markdown' or ft == 'rmd' then
-		if Mautofill == 0 then
-			Mautofill = 1
+		if Autofill == 1 then
+			Autofill = Autofill + 1
 			map('i', '*', '**<Left>')
 			map('i', '_', '__<Left>')
 		else
-			Mautofill = 0
+			Autofill = Autofill - 1
 			umap('i', '*')
 			umap('i', '_')
 		end
-	end
-end
---}}}
--- sent autofill function {{{
-Sautofill = 0
-function AutoFillSent()
-	local ft = vim.bo.filetype
-	if ft == 'sent' then
-		if Sautofill == 0 then
-			Sautofill = 1
+	elseif ft == 'txt' or ft == 'text' then
+		if Autofill == 1 then
+			Autofill = Autofill + 1
 			map('i',	'>',	'›')
 			map('i',	'<',	'‹')
 			map('i',	'>>',	'»')
@@ -143,8 +133,16 @@ function AutoFillSent()
 			map('i',	'!=',	'≠')
 			map('i',	'~=',	'≃')
 			map('i',	'~~',	'≈')
+		elseif ft == 'tex' or ft == 'plaintex' then
+			if Autofill == 1 then
+				Autofill = Autofill + 1
+				map('i', '$', '$$<Left><Left>')
+			else
+				Autofill = Autofill - 1
+				umap('i', '$')
+			end
 		else --[[   ]]
-			Sautofill = 0
+			Autofill = Autofill - 1
 			umap('i',	'>')
 			umap('i',	'<')
 			umap('i',	'>>')
@@ -173,6 +171,84 @@ function AutoFillSent()
 	end
 end
 --}}}
+---- markdown autofill function {{{
+--Mautofill = 0
+--function AutoFillMarkdown()
+--	local ft = vim.bo.filetype
+--	if ft == 'markdown' or ft == 'rmd' then
+--		if Mautofill == 0 then
+--			Mautofill = 1
+--			map('i', '*', '**<Left>')
+--			map('i', '_', '__<Left>')
+--		else
+--			Mautofill = 0
+--			umap('i', '*')
+--			umap('i', '_')
+--		end
+--	end
+--end
+----}}}
+---- sent autofill function {{{
+--Sautofill = 0
+--function AutoFillSent()
+--	local ft = vim.bo.filetype
+--	if ft == 'sent' then
+--		if Sautofill == 0 then
+--			Sautofill = 1
+--			map('i',	'>',	'›')
+--			map('i',	'<',	'‹')
+--			map('i',	'>>',	'»')
+--			map('i',	'<<',	'«')
+--			map('i',	'>>>',	'⟩')
+--			map('i',	'<<<',	'⟨')
+--			map('i',	'|',	'¦')
+--			map('i',	'`',	'●')
+--			map('i',	'.',	'•')
+--			map('i',	',',	'▸')
+--			map('i',	'->',	'→')
+--			map('i',	'-<',	'←')
+--			map('i',	'=>',	'⇒')
+--			map('i',	'=<',	'⇐')
+--			map('i',	';x',	'×')
+--			map('i',	';e',	'≡')
+--			map('i',	';c',	'©')
+--			map('i',	';r',	'®')
+--			map('i',	';t',	'™')
+--			map('i',	'<=',	'≤')
+--			map('i',	'>=',	'≥')
+--			map('i',	'!=',	'≠')
+--			map('i',	'~=',	'≃')
+--			map('i',	'~~',	'≈')
+--		else --[[   ]]
+--			Sautofill = 0
+--			umap('i',	'>')
+--			umap('i',	'<')
+--			umap('i',	'>>')
+--			umap('i',	'<<')
+--			umap('i',	'>>>')
+--			umap('i',	'<<<')
+--			umap('i',	'|')
+--			umap('i',	'->')
+--			umap('i',	'-<')
+--			umap('i',	'=>')
+--			umap('i',	'=<')
+--			umap('i',	'.')
+--			umap('i',	',')
+--			umap('i',	'`')
+--			umap('i',	';x')
+--			umap('i',	';e')
+--			umap('i',	';c')
+--			umap('i',	';r')
+--			umap('i',	';t')
+--			umap('i',	'<=')
+--			umap('i',	'>=')
+--			umap('i',	'!=')
+--			umap('i',	'~=')
+--			umap('i',	'~~')
+--		end
+--	end
+--end
+----}}}
 -- }}}
 ---- paste mode toggle {{{
 --Pastetoggle = 0
