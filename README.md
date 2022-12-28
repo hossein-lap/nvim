@@ -15,7 +15,7 @@ them as modular as possible.
         - `nodejs`, `npm` or `yarn`
     - Bash: `bash-language-server`
         - `nodejs`, `npm` or `yarn`
-    - Lua: `sumneko_lua`
+    - Lua: `sumneko_lua` (`lua-language-server`)
     - LaTeX: `texlab`
 - `python`, `python3-neovim`
 - `xclip`
