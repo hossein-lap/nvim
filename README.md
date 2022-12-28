@@ -17,6 +17,7 @@ them as modular as possible.
         - `nodejs`, `npm` or `yarn`
     - Lua: `sumneko_lua` (`lua-language-server`)
     - LaTeX: `texlab`
+    - Go: `golangci-lint`
 - `python`, `python3-neovim`
 - `xclip`
 
