@@ -13,8 +13,10 @@ them as modular as possible.
     - C/C++: `clangd`
     - Python: `pyright`
         - `nodejs`, `npm` or `yarn`
+        - Install both python and js modules
     - Bash: `bash-language-server`
         - `nodejs`, `npm` or `yarn`
+        - Install js module
     - Lua: `sumneko_lua` (`lua-language-server`)
     - LaTeX: `texlab`
     - Go: `golangci-lint`
