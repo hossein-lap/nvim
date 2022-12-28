@@ -8,13 +8,17 @@ them as modular as possible.
 
 ## Dependencies
 
-- Plugin Manager: packer
+- Plugin Manager: `packer`
 - For LSP:
-    - C/C++: clangd
-    - Python: pyright
-    - LaTeX: texlab
-    - Bash: bash-language-server
-    - Lua: sumneko_lua
+    - C/C++: `clangd`
+    - Python: `pyright`
+        - `nodejs`, `npm` or `yarn`
+    - Bash: `bash-language-server`
+        - `nodejs`, `npm` or `yarn`
+    - Lua: `sumneko_lua`
+    - LaTeX: `texlab`
+- `python`, `python3-neovim`
+- `xclip`
 
 ## Modules
 
