@@ -2,9 +2,6 @@
 
 Hos's neovim config
 
-Alright! Finally that day have came and I rewrote my `nvim` config with `lua`
-:)
-
 I've created some modules for specific type of works, and I did my best to
 write them as modular as possible.
 
@@ -14,17 +11,6 @@ write them as modular as possible.
 + [lua](#lua)
     + [module](#module)
     + [plugin](#plugin)
-        + [alpha](#alpha)
-        + [cmp](#cmp)
-        + [colorizer](#colorizer)
-        + [gitsigns](#gitsigns)
-        + [lsp](#lsp)
-        + [lualine](#lualine)
-        + [nvimtree](#nvimtree)
-        + [symbols-outline](#symbols-outline)
-        + [telescope](#telescope)
-        + [treesitter](#treesitter)
-        + [which-key](#which-key)
     + [scheme](#scheme)
 + [shots](#shots)
 
@@ -94,43 +80,40 @@ My custom configs are here as modules.
 ### plugin
 
 + Plugin Manager
-        + [packer](https://github.com/wbthomason/packer.nvim)
-+ Plugins
-    + LSP
-        + [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
-    + Snippets
-        + [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
-        + [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
-            + [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)
-            + [cmp-nvim-lua](https://github.com/hrsh7th/cmp-nvim-lua)
-            + [cmp-buffer](https://github.com/hrsh7th/cmp-buffer)
-            + [cmp-path](https://github.com/hrsh7th/cmp-path)
-    + Go to definition
-        + [nvim-gtd](https://github.com/hrsh7th/nvim-gtd)
-    + Statusline
-        + [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
-    + File tree
-        + [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua)
-    + Programming Symbols
-        + [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim)
-    + More colors and diagnosis
-        + [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-    + Render Hex colors
-        + [nvim-cololizer.lua](https://github.com/norcalli/nvim-colorizer.lua)
-    + Greetings
-        + [alpha-nvim](https://github.com/goolord/alpha-nvim)
-    + Git
-        + [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
-    + Show keymaps
-        + [which-key.nvim](https://github.com/folke/which-key.nvim)
-    + Icons
-        + [nvim-web-devicons](https://github.com/kyazdani42/nvim-web-devicons)
-    + Fuzzy finder tools
-        + [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-        + [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
-        + [lazygit.nvim](https://github.com/nvim-lua/plenary.nvim)
-        + [ripgrep](https://github.com/BurntSushi/ripgrep)
-        + [fd](https://github.com/sharkdp/fd)
+    + [packer](https://github.com/wbthomason/packer.nvim)
++ LSP
+    + [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
++ Snippets
+    + [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
+    + [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
+        + [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)
+        + [cmp-nvim-lua](https://github.com/hrsh7th/cmp-nvim-lua)
+        + [cmp-buffer](https://github.com/hrsh7th/cmp-buffer)
+        + [cmp-path](https://github.com/hrsh7th/cmp-path)
++ Statusline
+    + [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
++ File tree
+    + [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua)
++ Programming Symbols
+    + [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim)
++ More colors and diagnosis
+    + [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
++ Render Hex colors
+    + [nvim-cololizer.lua](https://github.com/norcalli/nvim-colorizer.lua)
++ Greetings
+    + [alpha-nvim](https://github.com/goolord/alpha-nvim)
++ Git
+    + [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
++ Show keymaps
+    + [which-key.nvim](https://github.com/folke/which-key.nvim)
++ Icons
+    + [nvim-web-devicons](https://github.com/kyazdani42/nvim-web-devicons)
++ Fuzzy finder tools
+    + [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+    + [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
+    + [lazygit.nvim](https://github.com/nvim-lua/plenary.nvim)
+    + [ripgrep](https://github.com/BurntSushi/ripgrep)
+    + [fd](https://github.com/sharkdp/fd)
 
 ### scheme
 
@@ -145,11 +128,13 @@ My custom configs are here as modules.
 
 ### shots
 
-![alpha](shots/nvim.png)
++ [screen-shot](shot-230421_alpha-colors.png)
 
-![init-lua](shots/nvim-lua-md-treesitter.png)
++ [screen-shot](shot-230421_sitter-term.png)
 
-![Floating Terminal](shots/floating-term.png)
++ [screen-shot](shot-230421_term_tree_lsp.png)
+
++ [screen-shot](shot-230421_tree-term-symb.png)
 
 ## Dependencies
 
@@ -181,6 +166,6 @@ My custom configs are here as modules.
 - [x] Run and Compile
 - [x] Auto Complete `( { [ " '`
 - [x] Write every custom plugins modular
-- [ ] Complete the `README.md` file (in progress)
+- [x] Complete the `README.md` file (in progress)
 
 
