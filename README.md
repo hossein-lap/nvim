@@ -10,160 +10,140 @@ write them as modular as possible.
 
 ## Tree structure
 
-<?xml version="1.0" encoding="UTF-8"?>
-<tree>
-  <directory name=".">
-    <directory name="ftdetect">
-      <file name="sent.vim"></file>
-    </directory>
-    <file name="init.lua"></file>
-    <file name="LICENSE"></file>
-    <directory name="lua">
-      <directory name="modules">
-        <file name="extra.lua"></file>
-        <file name="helper.lua"></file>
-        <file name="keybind.lua"></file>
-        <file name="main.lua"></file>
-        <file name="netrw.lua"></file>
-        <file name="rce.lua"></file>
-        <file name="skel.lua"></file>
-      </directory>
-      <directory name="plugin">
-        <directory name="alpha"></directory>
-        <directory name="cmp"></directory>
-        <directory name="colorizer"></directory>
-        <directory name="gitsigns"></directory>
-        <file name="init.lua"></file>
-        <directory name="lsp"></directory>
-        <directory name="lualine"></directory>
-        <directory name="nvimtree"></directory>
-        <directory name="symbols-outline"></directory>
-        <directory name="telescope"></directory>
-        <directory name="treesitter"></directory>
-        <directory name="which-key"></directory>
-      </directory>
-      <directory name="schemes">
-        <file name="ayu.lua"></file>
-        <file name="catppuccin.lua"></file>
-        <file name="dracula.lua"></file>
-        <file name="material.lua"></file>
-        <file name="nightfox.lua"></file>
-        <file name="nord.lua"></file>
-        <file name="onedark.lua"></file>
-        <file name="solarized.lua"></file>
-        <file name="tokyodark.lua"></file>
-        <file name="tokyonight.lua"></file>
-      </directory>
-    </directory>
-    <directory name="plugin">
-      <file name="packer_compiled.lua"></file>
-    </directory>
-    <file name="README.md"></file>
-    <directory name="shots">
-      <file name="floating-term.png"></file>
-      <file name="nvim-lua-md-treesitter.png"></file>
-      <file name="nvim.png"></file>
-      <file name="tree_sitter_term_c.png"></file>
-    </directory>
-  </directory>
-  <report>
-    <directories>19</directories>
-    <files>27</files>
-  </report>
-</tree>
++ [ftdetect](#ftdetect)
++ [lua](#lua)
+    + [module](#module)
+    + [plugin](#plugin)
+        + [alpha](#alpha)
+        + [cmp](#cmp)
+        + [colorizer](#colorizer)
+        + [gitsigns](#gitsigns)
+        + [lsp](#lsp)
+        + [lualine](#lualine)
+        + [nvimtree](#nvimtree)
+        + [symbols-outline](#symbols-outline)
+        + [telescope](#telescope)
+        + [treesitter](#treesitter)
+        + [which-key](#which-key)
+    + [scheme](#scheme)
++ [shots](#shots)
 
-## Main
+Let't me explain a little :)
 
-This module sets very basic configuration for `nvim`.
+## ftdetect
 
-Things like:
+It can contain files to define new filetype for vim.
+For example I've defined a new filetype called `sent` which is a suckless
+presentation tool. The program igores everyline which begins with `#` so
+that's the character for commenting. You get the idea.
 
-- Line numbering
-- Wrap lines
-- Highlight current line
-- Set spell check language(s)
-- etc...
+## lua
 
-## Keybind
+All Lua codes, settings, configs, plugins, etc.. will be here.
 
-Contains keybindings for:
+### module
 
-- Add/Remove comment [`-`, `+`]
-- Compile/Execute programs [`<leader>fw`, `<leader>fe`]
-- Enable/Disable **paste** mode [`<C-p>`]
-- Enable/Disable **spell check** [`<leader>ss`]
-- etc...
+My custom configs are here as modules.
 
-## Extra
++ `main.lua`
+    + Main settings
+        + Show line-number
+        + Enable relative number
+        + Show Statusline
+        + Tab width
+        + Set spell language
+        + etc..
++ `keybind.lua`
+    + Some basic keybinds
+        + Escape in term-mode
+        + Toggle paste-mode
+        + Toggle spell-check
+        + Move into buffers
+        + Comment/uncomment lines
+        + Some git commands
++ `extra.lua`
+    + Extra options
+        + Autocmds (based on filetype, filename, BufEnter, etc..)
+            + *e.g.* Insert spaces in Python files instead of tabs
+        + Toggle autofill (auto-pair) `' " [ { (`
++ `skel.lua`
+    + Import some templates from ready-to-use files
+        + C
+        + C++
+        + Shell
+        + Lua
+        + Markdown
+        + Groff (ms)
+        + Python
+        + LaTeX
+        + R Markdown
+        + Makefile
+        + HTML
+        + Lorem Ipsum dummy text (1-9 paragraphs)
++ `rce.lua`
+    + This is a plugin that I wrote to Compile, Run, Debug and more.
+    + All it do is to split window (also can be float) and run a command
+      inside the new pane 
+    + The command can be a shell to have a nice terminal open
++ `netrw.lua` (Disabled by default)
+    + Some preferred options for built-in file explorer
+    + Also a dirty function to Auto open/close `netrw`
++ `helper.lua` (Disabled by default)
+    + Some common functions (as aliases) for having less code
 
-It adds some extra features like:
+### plugin
 
-- Insert actual <tab> instead of spaces on
-    some specific filetypes.
-- Make sure to insert spaces instead of <tab>
-    on some space-sensitive languages.
-- A function to toggle auto-fill `' " { [ (` chars
-    and enable the auto-fill for some filetypes.
-    - Also auto-fill `_` and `*` for `makrdown` and `rmarkdown` files.
-
-## Skel
-
-If you want to set the leader key [or anything] to `,`
-note that I have `,` set to **read some template files located in
-`$HOME/.config/nvim/templates/` directory to the current file**.
-
-## Tools and plugins
-
-+ Plugin Manager: [packer](https://github.com/wbthomason/packer.nvim)
++ Plugin Manager
+        + [packer](https://github.com/wbthomason/packer.nvim)
 + Plugins
-    + LSP: [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
-    + Snippets: [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
+    + LSP
+        + [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
+    + Snippets
+        + [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
         + [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
             + [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)
             + [cmp-nvim-lua](https://github.com/hrsh7th/cmp-nvim-lua)
             + [cmp-buffer](https://github.com/hrsh7th/cmp-buffer)
             + [cmp-path](https://github.com/hrsh7th/cmp-path)
-    + Go to definition: [nvim-gtd](https://github.com/hrsh7th/nvim-gtd)
-    + Statusline: [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
-    + File tree: [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua)
-    + Programming Symbols: [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim)
-    + More colors and diagnosis: [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-    + Render Hex colors: [nvim-cololizer.lua](https://github.com/norcalli/nvim-colorizer.lua)
-    + Greetings: [alpha-nvim](https://github.com/goolord/alpha-nvim)
-    + Git: [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
-    + Show keymaps: [which-key.nvim](https://github.com/folke/which-key.nvim)
-    + Icons: [nvim-web-devicons](https://github.com/kyazdani42/nvim-web-devicons)
-    + Fuzzy finder tools: [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+    + Go to definition
+        + [nvim-gtd](https://github.com/hrsh7th/nvim-gtd)
+    + Statusline
+        + [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
+    + File tree
+        + [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua)
+    + Programming Symbols
+        + [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim)
+    + More colors and diagnosis
+        + [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+    + Render Hex colors
+        + [nvim-cololizer.lua](https://github.com/norcalli/nvim-colorizer.lua)
+    + Greetings
+        + [alpha-nvim](https://github.com/goolord/alpha-nvim)
+    + Git
+        + [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
+    + Show keymaps
+        + [which-key.nvim](https://github.com/folke/which-key.nvim)
+    + Icons
+        + [nvim-web-devicons](https://github.com/kyazdani42/nvim-web-devicons)
+    + Fuzzy finder tools
+        + [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
         + [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
         + [lazygit.nvim](https://github.com/nvim-lua/plenary.nvim)
         + [ripgrep](https://github.com/BurntSushi/ripgrep)
         + [fd](https://github.com/sharkdp/fd)
-+ Colorschemes:
-    + [ayu](https://github.com/Shatur/neovim-ayu)
-    + [dracula](https://github.com/Mofiqul/dracula.nvim)
-    + [tokyodark](https://github.com/tiagovla/tokyodark.nvim)
-    + [256noir](https://github.com/hossein-lap/vim-256noir)
-    + [sunbather](https://github.com/hossein-lap/vim-sunbather)
-    + [paramount](https://github.com/hossein-lap/vim-paramount)
-    + [lupper](https://github.com/hossein-lap/vim-lupper)
-    + [octave](https://github.com/hossein-lap/vim-octave)
-+ LSPs:
-    + C/C++: `clangd`
-    + Python: `pyright`
-        + `nodejs`, `npm` or `yarn`
-        + Install both python and js modules
-    + Bash: `bash-language-server`
-        + Note: it's disabled right now, but the config exists
-        + `nodejs`, `npm` or `yarn`
-        + Install js module
-    + Lua: `lua_ls` (`lua-language-server`)
-    + LaTeX: `texlab`
-    + Go: `gopls`
-+ `xclip`
-+ `lazygit`
-    + 
 
-#### Screenshot
+### scheme
+
++ [ayu](https://github.com/Shatur/neovim-ayu)
++ [dracula](https://github.com/Mofiqul/dracula.nvim)
++ [tokyodark](https://github.com/tiagovla/tokyodark.nvim)
++ [256noir](https://github.com/hossein-lap/vim-256noir)
++ [sunbather](https://github.com/hossein-lap/vim-sunbather)
++ [paramount](https://github.com/hossein-lap/vim-paramount)
++ [lupper](https://github.com/hossein-lap/vim-lupper)
++ [octave](https://github.com/hossein-lap/vim-octave)
+
+### shots
 
 ![alpha](shots/nvim.png)
 
@@ -171,7 +151,32 @@ note that I have `,` set to **read some template files located in
 
 ![Floating Terminal](shots/floating-term.png)
 
-#### ToDo
+## Dependencies
+
++ LSPs
+    + C/C++
+        + `clangd`
+    + Python
+        + `pyright`
+        + `nodejs`, `npm` or `yarn`
+        + Install both python and js modules
+    + Bash
+        + Note: it's disabled right now, but the config exists
+        + `bash-language-server`
+        + `nodejs`, `npm` or `yarn`
+        + Install js module
+    + Lua
+        + `lua_ls` (`lua-language-server`)
+    + LaTeX
+        + `texlab`
+    + Go
+        + `gopls`
++ Clipboard
+    + `xclip`
++ More fuzzy things (for git and Telescope)
+    + `lazygit`
+
+## ToDo
 
 - [x] Run and Compile
 - [x] Auto Complete `( { [ " '`
