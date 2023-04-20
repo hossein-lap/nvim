@@ -1,26 +1,63 @@
 # nvim
+
 Hos's neovim config
 
-Alright! Finally that day have came and I rewrote my `nvim` config with `lua` :)
+Alright! Finally that day have came and I rewrote my `nvim` config with `lua`
+:)
 
-I've created modules for any specific types of work, and I did my best to be as modular as possible.
+I've created some modules for specific type of works, and I did my best to
+write them as modular as possible.
 
 ## Dependencies
 
-- Plugin Manager: `packer`
-- For LSP:
-    - C/C++: `clangd`
-    - Python: `pyright`
-        - `nodejs`, `npm` or `yarn`
-        - Install both python and js modules
-    - Bash: `bash-language-server`
-        - `nodejs`, `npm` or `yarn`
-        - Install js module
-    - Lua: `sumneko_lua` (`lua-language-server`)
-    - LaTeX: `texlab`
-    - Go: `golangci-lint`
-- `python`, `python3-neovim`
-- `xclip`
++ Plugin Manager: [packer](wbthomason/packer.nvim)
++ Plugins:
+    + LSP: [nvim-lspconfig](neovim/nvim-lspconfig)
+    + Snippets: [LuaSnip](L3MON4D3/LuaSnip)
+        + [nvim-cmp](hrsh7th/nvim-cmp)
+            + [cmp-nvim-lsp](hrsh7th/cmp-nvim-lsp)
+            + [cmp-nvim-lua](hrsh7th/cmp-nvim-lua)
+            + [cmp-buffer](hrsh7th/cmp-buffer)
+            + [cmp-path](hrsh7th/cmp-path)
+    + Go to definition: [nvim-gtd](hrsh7th/nvim-gtd)
+    + Statusline: [lualine.nvim]()
+    + Tree: [nvim-tree.lua]()
+    + Programming Symbols: [symbols-outline.nvim]()
+    + More colors and diagnosis: [nvim-treesitter]()
+    + Render Hex colors: [nvim-cololizer.lua]()
+    + Greetings: [alpha-nvim]()
+    + Git: [gitsigns.nvim]()
+    + Show keymaps: [which-key.nvim]()
+    + Icons: [nvim-web-devicons]()
+    + Fuzzy finder tools: [telescope.nvim]()
+        + [plenary.nvim]()
+        + [lazygit.nvim]()
+        + [ripgrep](BurntSushi/ripgrep)
+        + [fd](sharkdp/fd)
++ Colorschemes:
+    + [ayu](Shatur/neovim-ayu)
+    + [dracula](Mofiqul/dracula.nvim)
+    + [tokyodark](tiagovla/tokyodark.nvim)
+    + [256noir](hossein-lap/vim-256noir)
+    + [sunbather](hossein-lap/vim-sunbather)
+    + [paramount](hossein-lap/vim-paramount)
+    + [lupper](hossein-lap/vim-lupper)
+    + [octave](hossein-lap/vim-octave)
++ LSPs:
+    + C/C++: `clangd`
+    + Python: `pyright`
+        + `nodejs`, `npm` or `yarn`
+        + Install both python and js modules
+    + Bash: `bash-language-server`
+        + Note: it's disabled right now, but the config exists
+        + `nodejs`, `npm` or `yarn`
+        + Install js module
+    + Lua: `lua_ls` (`lua-language-server`)
+    + LaTeX: `texlab`
+    + Go: `gopls`
++ `xclip`
++ `lazygit`
+    + 
 
 ## Modules
 
@@ -73,11 +110,17 @@ note that I have `,` set to **read some template files located in
 
 #### Screenshot
 
+![alpha](shots/nvim.png)
+
 ![init-lua](shots/nvim-lua-md-treesitter.png)
+
+![Floating Terminal](shots/floating-term.png)
 
 #### ToDo
 
 - [x] Run and Compile
 - [x] Auto Complete `( { [ " '`
-- [ ] Write every custom plugins modular
+- [x] Write every custom plugins modular
 - [ ] Complete the `README.md` file (in progress)
+
+
