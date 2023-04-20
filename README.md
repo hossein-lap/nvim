@@ -8,10 +8,114 @@ Alright! Finally that day have came and I rewrote my `nvim` config with `lua`
 I've created some modules for specific type of works, and I did my best to
 write them as modular as possible.
 
-## Dependencies
+## Tree structure
 
-+ Plugin Manager: [packer](github.com/wbthomason/packer.nvim)
-+ Plugins:
+<?xml version="1.0" encoding="UTF-8"?>
+<tree>
+  <directory name=".">
+    <directory name="ftdetect">
+      <file name="sent.vim"></file>
+    </directory>
+    <file name="init.lua"></file>
+    <file name="LICENSE"></file>
+    <directory name="lua">
+      <directory name="modules">
+        <file name="extra.lua"></file>
+        <file name="helper.lua"></file>
+        <file name="keybind.lua"></file>
+        <file name="main.lua"></file>
+        <file name="netrw.lua"></file>
+        <file name="rce.lua"></file>
+        <file name="skel.lua"></file>
+      </directory>
+      <directory name="plugin">
+        <directory name="alpha"></directory>
+        <directory name="cmp"></directory>
+        <directory name="colorizer"></directory>
+        <directory name="gitsigns"></directory>
+        <file name="init.lua"></file>
+        <directory name="lsp"></directory>
+        <directory name="lualine"></directory>
+        <directory name="nvimtree"></directory>
+        <directory name="symbols-outline"></directory>
+        <directory name="telescope"></directory>
+        <directory name="treesitter"></directory>
+        <directory name="which-key"></directory>
+      </directory>
+      <directory name="schemes">
+        <file name="ayu.lua"></file>
+        <file name="catppuccin.lua"></file>
+        <file name="dracula.lua"></file>
+        <file name="material.lua"></file>
+        <file name="nightfox.lua"></file>
+        <file name="nord.lua"></file>
+        <file name="onedark.lua"></file>
+        <file name="solarized.lua"></file>
+        <file name="tokyodark.lua"></file>
+        <file name="tokyonight.lua"></file>
+      </directory>
+    </directory>
+    <directory name="plugin">
+      <file name="packer_compiled.lua"></file>
+    </directory>
+    <file name="README.md"></file>
+    <directory name="shots">
+      <file name="floating-term.png"></file>
+      <file name="nvim-lua-md-treesitter.png"></file>
+      <file name="nvim.png"></file>
+      <file name="tree_sitter_term_c.png"></file>
+    </directory>
+  </directory>
+  <report>
+    <directories>19</directories>
+    <files>27</files>
+  </report>
+</tree>
+
+## Main
+
+This module sets very basic configuration for `nvim`.
+
+Things like:
+
+- Line numbering
+- Wrap lines
+- Highlight current line
+- Set spell check language(s)
+- etc...
+
+## Keybind
+
+Contains keybindings for:
+
+- Add/Remove comment [`-`, `+`]
+- Compile/Execute programs [`<leader>fw`, `<leader>fe`]
+- Enable/Disable **paste** mode [`<C-p>`]
+- Enable/Disable **spell check** [`<leader>ss`]
+- etc...
+
+## Extra
+
+It adds some extra features like:
+
+- Insert actual <tab> instead of spaces on
+    some specific filetypes.
+- Make sure to insert spaces instead of <tab>
+    on some space-sensitive languages.
+- A function to toggle auto-fill `' " { [ (` chars
+    and enable the auto-fill for some filetypes.
+    - Also auto-fill `_` and `*` for `makrdown` and `rmarkdown` files.
+
+## Skel
+
+If you want to set the leader key [or anything] to `,`
+note that I have `,` set to **read some template files located in
+`$HOME/.config/nvim/templates/` directory to the current file**.
+
+## Tools and plugins
+
++ Plugin Manager: [packer](https://github.com/wbthomason/packer.nvim)
++ Plugins
     + LSP: [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
     + Snippets: [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
         + [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
@@ -58,55 +162,6 @@ write them as modular as possible.
 + `xclip`
 + `lazygit`
     + 
-
-## Modules
-
-#### Keep that in mind
-
-This module have to be the **first** module you call, because others have
-dependencies on this one.
-
-### Main
-
-This module sets very basic configuration for `nvim`.
-
-Things like:
-
-- Line numbering
-- Wrap lines
-- Highlight current line
-- Set spell check language(s)
-- etc...
-
-### Keybind
-
-Contains keybindings for:
-
-- Add/Remove comment [`-`, `+`]
-- Compile/Execute programs [`<leader>fw`, `<leader>fe`]
-- Enable/Disable **paste** mode [`<C-p>`]
-- Enable/Disable **spell check** [`<leader>ss`]
-- etc...
-
-### Extra
-
-It adds some extra features like:
-
-- Insert actual <tab> instead of spaces on
-    some specific filetypes.
-- Make sure to insert spaces instead of <tab>
-    on some space-sensitive languages.
-- A function to toggle auto-fill `' " { [ (` chars
-    and enable the auto-fill for some filetypes.
-    - Also auto-fill `_` and `*` for `makrdown` and `rmarkdown` files.
-
-### Skel
-
-If you want to set the leader key [or anything] to `,`
-note that I have `,` set to **read some template files located in
-`$HOME/.config/nvim/templates/` directory to the current file**.
-
-### cp
 
 #### Screenshot
 
