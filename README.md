@@ -3,8 +3,7 @@ Hos's neovim config
 
 Alright! Finally that day have came and I rewrote my `nvim` config with `lua` :)
 
-I've created a module for specific types of work, and I did my best to write
-them as modular as possible.
+I've created modules for any specific types of work, and I did my best to be as modular as possible.
 
 ## Dependencies
 
