@@ -48,7 +48,7 @@ require('module/keybind') -- set the keybindings and shortcuts
 --vim.cmd.colorscheme "paramount" -- purple
 --vim.cmd.colorscheme "sunbather" -- pink
 --vim.cmd.colorscheme "lupper" -- blue
-vim.cmd.colorscheme "hos" -- red
+vim.cmd.colorscheme "octave" -- orange
 -- }}}
 -- plugins {{{
 require('plugin') -- packer plugin-manager
