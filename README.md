@@ -41,6 +41,11 @@ My custom configs are here as modules.
         + etc..
 + `keybind.lua`
     + Some basic keybinds
+        + `\` is set as `<leader>`
+            + `<leader>f` is for working with `file` (e.g. compile, run, etc..)
+            + `<leader>q` is for `Telescope` commands (only one for nvim-tree)
+            + `<leader>v` is for working with doc + split styles (see it as visuals)
+        + `Space` is set as `<localleader>`
         + Escape in term-mode
         + Toggle paste-mode
         + Toggle spell-check
@@ -54,6 +59,7 @@ My custom configs are here as modules.
         + Toggle autofill (auto-pair) `' " [ { (`
 + `skel.lua`
     + Import some templates from ready-to-use files
+    + Trigger is `<localleader>`
         + C
         + C++
         + Shell
