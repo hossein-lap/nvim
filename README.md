@@ -14,7 +14,7 @@ write them as modular as possible.
     + [scheme](#scheme)
 + [shots](#shots)
 
-Let't me explain a little :)
+Let me explain a little :)
 
 ## ftdetect
 
@@ -35,12 +35,12 @@ My custom configs are here as modules.
     + Main settings
         + Show line-number
         + Enable relative number
-        + Show Statusline
+        + Show statusline
         + Tab width
         + Set spell language
         + etc..
 + `keybind.lua`
-    + Some basic keybinds
+    + Some basic keybindings
         + `\` is set as `<leader>`
             + `<leader>f` is for working with `file` (e.g. compile, run, etc..)
             + `<leader>q` is for `Telescope` commands (only one for nvim-tree)
@@ -50,7 +50,7 @@ My custom configs are here as modules.
         + Toggle paste-mode
         + Toggle spell-check
         + Move into buffers
-        + Comment/uncomment lines
+        + Comment/Uncomment lines
         + Some git commands
 + `extra.lua`
     + Extra options
@@ -59,7 +59,7 @@ My custom configs are here as modules.
         + Toggle autofill (auto-pair) `' " [ { (`
 + `skel.lua`
     + Import some templates from ready-to-use files
-    + Trigger is `<localleader>`
+    + Trigger key is `<localleader>`
         + C
         + C++
         + Shell
@@ -77,6 +77,19 @@ My custom configs are here as modules.
     + All it do is to split window (also can be float) and run a command
       inside the new pane 
     + The command can be a shell to have a nice terminal open
+        + `<leader>tt`: spawn bash shell
+        + `<leader>cc`: execute `make` command on CWD
+        + `<leader>fe`: run the current file (file must have `#!` and `x`
+          permission)
+        + `<leader>fw`: compile current file (for things like shell scripts, it
+          will run the script but in a different way or different
+          flags/versions)
+        + `<leader>fq`: extra works like debug, compile/run with also different
+          flags, etc..
+    + You can run everything you want in terminal with `:lua
+      RUNterminal('command')`
+        + the function can take a optional string for its style `:lua
+          RUNterminal('ls', 'f')`
 + `netrw.lua` (Disabled by default)
     + Some preferred options for built-in file explorer
     + Also a dirty function to Auto open/close `netrw`
