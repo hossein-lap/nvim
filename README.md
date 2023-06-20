@@ -158,13 +158,7 @@ My custom configs are here as modules.
 
 ### shots
 
-+ [screen-shot](shots/shot-230512_173840.png)
-
-+ [screen-shot](shots/shot-230512_174902.png)
-
-+ [screen-shot](shots/shot-230512_175447.png)
-
-+ [screen-shot](shots/shot-230512_181949.png)
++ ![screen-shot](shots/shot-230620_143136.png)
 
 ## Dependencies
 
