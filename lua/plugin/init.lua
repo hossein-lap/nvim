@@ -132,7 +132,7 @@ return packer.startup(function(use)
 	use 'mbbill/undotree' -- undotree
 --	use 'shydefoo/trouble-nvim' -- quickfix and more list
 
-	use 'nvim-treesitter/nvim-treesitter' -- treesitter [more syntax color]
+	use {'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}}-- treesitter [more syntax color]
 
 	use 'norcalli/nvim-colorizer.lua' -- hex color preview
 
@@ -184,21 +184,21 @@ return packer.startup(function(use)
 			{'hrsh7th/cmp-nvim-lsp'}, -- Required
 			{'L3MON4D3/LuaSnip'},     -- Required
 
---			-- Linting
+			-- Linting
 		}
 	}
 
 	---- colorschemes
 	use 'Shatur/neovim-ayu'
-	-- use 'hossein-lap/vim-256noir' -- black-red
-	-- use 'hossein-lap/vim-sunbather' -- black-pink
+	use 'hossein-lap/vim-256noir' -- black-red
+	use 'hossein-lap/vim-sunbather' -- black-pink
 	use 'hossein-lap/vim-paramount' -- black-purple
 	use 'hossein-lap/vim-lupper' -- black-blue
 	use 'hossein-lap/vim-octave' -- black-orange
-	use '/data/dev/hossein-lap/vim-colors/vim-sunbather' -- custom
-	use '/data/dev/hossein-lap/vim-colors/vim-256noir' -- custom
-	use '/data/dev/hossein-lap/vim-colors/vim-hos' -- custom
-	use '/data/dev/hossein-lap/vim-colors/vim-test' -- custom
+	-- use '/data/dev/hossein-lap/vim-colors/vim-sunbather' -- custom
+	-- use '/data/dev/hossein-lap/vim-colors/vim-256noir' -- custom
+	-- use '/data/dev/hossein-lap/vim-colors/vim-hos' -- custom
+	-- use '/data/dev/hossein-lap/vim-colors/vim-test' -- custom
 	use 'Mofiqul/dracula.nvim'
 	use 'tiagovla/tokyodark.nvim'
 	use 'ishan9299/nvim-solarized-lua'
