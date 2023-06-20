@@ -8,6 +8,7 @@ write them as modular as possible.
 ## Tree structure
 
 + [ftdetect](#ftdetect)
++ [after](#after)
 + [lua](#lua)
     + [module](#module)
     + [plugin](#plugin)
@@ -22,6 +23,12 @@ It can contain files to define new filetype for vim.
 For example I've defined a new filetype called `sent` which is a suckless
 presentation tool. The program igores everyline which begins with `#` so
 that's the character for commenting. You get the idea.
+
+## after
+
+Plugins settings are living here.
+All of the files in `after/` will be loaded after nvim's
+configs (these are the last ones).
 
 ## lua
 
@@ -111,8 +118,8 @@ My custom configs are here as modules.
         + [cmp-path](https://github.com/hrsh7th/cmp-path)
 + Statusline
     + [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
-+ File tree
-    + [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua)
++ Terminal session
+    + [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)
 + Programming Symbols
     + [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim)
 + More colors and diagnosis
@@ -133,12 +140,16 @@ My custom configs are here as modules.
     + [lazygit.nvim](https://github.com/nvim-lua/plenary.nvim)
     + [ripgrep](https://github.com/BurntSushi/ripgrep)
     + [fd](https://github.com/sharkdp/fd)
++ Draw ASCII art
+    + [DrawIt](https://github.com/vim-scripts/DrawIt)
+    + [venn](https://github.com/jbyuki/venn.nvim)
 
 ### scheme
 
 + [ayu](https://github.com/Shatur/neovim-ayu)
 + [dracula](https://github.com/Mofiqul/dracula.nvim)
 + [tokyodark](https://github.com/tiagovla/tokyodark.nvim)
+
 + [256noir](https://github.com/hossein-lap/vim-256noir)
 + [sunbather](https://github.com/hossein-lap/vim-sunbather)
 + [paramount](https://github.com/hossein-lap/vim-paramount)
@@ -147,13 +158,13 @@ My custom configs are here as modules.
 
 ### shots
 
-+ [screen-shot](shot-230421_alpha-colors.png)
++ [screen-shot](shots/shot-230512_173840.png)
 
-+ [screen-shot](shot-230421_sitter-term.png)
++ [screen-shot](shots/shot-230512_174902.png)
 
-+ [screen-shot](shot-230421_term_tree_lsp.png)
++ [screen-shot](shots/shot-230512_175447.png)
 
-+ [screen-shot](shot-230421_tree-term-symb.png)
++ [screen-shot](shots/shot-230512_181949.png)
 
 ## Dependencies
 

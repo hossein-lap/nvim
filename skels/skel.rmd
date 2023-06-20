@@ -1,0 +1,39 @@
+---
+# Preambles {{{
+header-includes:
+    - \usepackage{/home/hos/.config/pandoc/defaults/english/main}
+#    - \usepackage{/home/hos/.config/pandoc/defaults/main}
+#dir: rtl
+output:
+    pdf_document:
+        latex_engine: xelatex
+        toc: false
+        number_sections: true
+        fig_caption: true
+        keep_tex: true
+        highlight: /home/hos/.config/pandoc/highlight/monochrome.theme
+        pandoc_args: ["--lua-filter=/home/hos/.config/pandoc/filters/tex-quoteblock-en.lua", "--lua-filter=/home/hos/.config/pandoc/filters/tex-codeblock-en.lua"]
+#    word_document:
+#        toc: false
+    html_document:
+        toc: true
+        toc_float:
+            collapsed: true
+            smooth_scroll: true
+        highlight: tango
+        theme: lumen
+        ## theme: lumen, darkly[zenburn]
+# }}}
+
+title: "**Title**"
+subtitle: "Subtitle"
+author:
+- "**Author**"
+- "**Author**"
+- "**Author**"
+- "**Author**"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+institute: '*Institution*'
+abstract: 'The abstract'
+---
+

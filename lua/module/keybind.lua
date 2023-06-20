@@ -1,13 +1,15 @@
 -- helper {{{
--- map {{{
-local function map(mode, key, command, opts)
-	local options = { noremap = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.api.nvim_set_keymap(mode, key, command, options)
-end
--- }}}
+---- map {{{
+--
+-----@param map string set keybinding using nvim's Lua API
+--local function map(mode, key, command, opts)
+--	local options = {}
+--	if opts then
+--		options = vim.tbl_extend("force", options, opts)
+--	end
+--	vim.api.nvim_set_keymap(mode, key, command, options)
+--end
+---- }}}
 ---- umap {{{
 --local function umap(mode, key)
 --	if not mode or not key then
@@ -32,21 +34,27 @@ end
 -- }}}
 -- }}}
 
--- Folding {{{
-map('n', '<leader>da', ':mkview<CR>',
-		{ desc = "Save folds" })
-map('n', '<leader>dw', ':loadview<CR>',
-		{ desc = "Load folds" })
--- }}}
+---- folding {{{
+--map('n', '<leader>da', ':mkview<CR>', { noremap = true, desc = "Save folds" })
+--map('n', '<leader>dw', ':loadview<CR>', { noremap = true, desc = "Load folds" })
+---- }}}
 -- back to normal-mode in terminal {{{
-map('t', '<Esc>', '<C-\\><C-n>',
-		{ desc = "Exit insert mode in Terminal" })
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, desc = "Exit insert mode in Terminal" })
 --map('t', '<C-d>', '<C-c><C-c> <space> exit<CR>',
---		{ silent = true, desc = "Exit Terminal" })
+--		{ silent = true, noremap = true, desc = "Exit Terminal" })
 -- }}}
 -- back to normal mode {{{
-map('i', '<C-c>', '<Esc>',
-		{ desc = "Exit insert mode" })
+vim.keymap.set('i', '<C-c>', '<Esc>', {noremap = true, desc = "Exit insert mode"})
+-- }}}
+-- delete without changing what register contains {{{
+vim.keymap.set('x', '<localleader>p', '"_dP')
+
+vim.keymap.set('v', '<localleader>y', '"+y')
+vim.keymap.set('n', '<localleader>y', '"+y')
+vim.keymap.set('n', '<localleader>Y', '"+Y')
+
+vim.keymap.set('v', '<localleader>d', '"_d')
+vim.keymap.set('n', '<localleader>d', '"_d')
 -- }}}
 -- toggle paste mode {{{
 PasteModeEnable = 0
@@ -59,27 +67,41 @@ function tmpNotify()
 		vim.notify("paste mode disabled", 2)
 	end
 end
-map('n', '<C-P>', ':set paste! nu! list!<CR>:lua <CR>',
-		{ silent = true, desc = "Toggle › paste mode, disable decorations" })
+vim.keymap.set('n', '<C-P>', ':set paste! nu! list!<CR>:lua <CR>',
+		{ silent = true, noremap = true, desc = "Toggle › paste mode, disable decorations" })
 -- }}}
 -- spelling check {{{
-map('n', '<leader>ss',  ':set spell!<CR>',
-		{ silent = true, desc = "Toggle › spell check" })
+vim.keymap.set('n', '<leader>ss',  ':set spell!<CR>',
+		{ silent = true, noremap = true, desc = "Toggle › spell check" })
 -- }}}
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv") -- move line down in visual mode
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv") -- move line up in visual mode
+vim.keymap.set('n', 'J', 'mzJ`z') -- append lines
+vim.keymap.set('n', '<C-d>', '<C-d>zz') -- half-page down on the mid-page
+vim.keymap.set('n', '<C-u>', '<C-u>zz') -- half-page up on the mid-page
+vim.keymap.set('n', 'n', 'nzzzv') -- keep search on the mid-page
+vim.keymap.set('n', 'N', 'Nzzzv') -- keep search on the mid-page
+vim.keymap.set('n', 'Q', '<nop>') -- no ex-mode
+-- quickfix navs
+vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
+vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz')
+vim.keymap.set('n', '<localleader>k', '<cmd>lnext<CR>zz')
+vim.keymap.set('n', '<localleader>j', '<cmd>lprev<CR>zz')
+vim.keymap.set('n', '<localleader>s', ':%s/\\<<C-r><C-w>\\>/<<C-r><C-w>/gI<Left><Left><Left>')
 -- go to next/previous buffer {{{
-map('n', '<C-n>',  ':bnext<CR>',
-		{ silent = true, desc = "Next file in buffer" })
-map('n', '<C-b>',  ':bprevious<CR>',
-		{ silent = true, desc = "Previous file in buffer" })
+vim.keymap.set('n', '<C-n>',  ':bnext<CR>',
+		{ silent = true, noremap = true, desc = "Next buffer" })
+vim.keymap.set('n', '<C-b>',  ':bprevious<CR>',
+		{ silent = true, noremap = true, desc = "Previous buffer" })
 -- }}}
 ---- switch tabs {{{
 --map('n', '_', ':tabnext<CR>',
---		{ silent = true, desc = "Next file in tab" })
+--		{ silent = true, noremap = true, desc = "Next file in tab" })
 ---- }}}
 -- comment lines via - and uncomment via + {{{
 -- comment_leader var definition {{{
 au( [[let b:comment_leader = '//']],
-	{ 'c', 'cpp', 'java', 'scala', 'json', 'rust' })
+	{ 'c', 'cpp', 'java', 'scala', 'json', 'rust', 'go' })
 
 au( [[let b:comment_leader = '#']],
 	{ 'sh', 'zsh', 'csh', 'ruby', 'python', 'conf', 'yaml', 'make', 'toml', 'rmd', 'sent' })
@@ -104,47 +126,28 @@ au( [[let b:comment_leader = ';']],
 -- noremap <silent> + :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 -- keybinding
-map('', '-',
+vim.keymap.set('', '<leader>1',
 	[[:<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>]],
---	[[:s=\v^(\s*)=\1<C-R>=escape(b:comment_leader,'\ ')<CR><CR>:nohlsearch<CR>]],
-	{ silent = true, desc = "Comment line(s)" }
-)
-
-map('', '+',
+	{ silent = true, noremap = true, desc = "Comment line(s) - no indent" })
+vim.keymap.set('', '<leader>2',
 	[[:<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>]],
---	[[:s=\v^(\s*)\<C-R>=escape(b:comment_leader,'\= ')<CR>=\1=<CR>:nohlsearch<CR>]],
-	{ silent = true, desc = "Uncomment line(s)" }
-)
+	{ silent = true, noremap = true, desc = "Uncomment line(s) - no indent" })
+
+vim.keymap.set('', '<localleader>1',
+	[[:s=\v^(\s*)=\1<C-R>=escape(b:comment_leader,'\ ')<CR><CR>:nohlsearch<CR>]],
+	{ silent = true, noremap = true, desc = "Comment line(s) - with indent" })
+vim.keymap.set('', '<localleader>2',
+	[[:s=\v^(\s*)\<C-R>=escape(b:comment_leader,'\= ')<CR>=\1=<CR>:nohlsearch<CR>]],
+	{ silent = true, noremap = true, desc = "Uncomment line(s) - with indent" })
+
 -- }}}
 -- autofill {{{
-map('n', '<leader>aa', ':lua AutoFill()<CR>',
-		{ silent = true, desc = "Toggle autofill (all)" })
-map('n', '<leader>af', ':lua AutoFillToggle()<CR>',
-		{ silent = true, desc = "Toggle basic autofill" })
-map('n', '<leader>ad', ':lua AutoFillMarkdownToggle()<CR>',
-		{ silent = true, desc = "Toggle markdown autofill" })
-map('n', '<leader>as', ':lua AutoFillSentToggle()<CR>',
-		{ silent = true, desc = "Toggle sent autofill" })
--- }}}
--- Git commands {{{
-map('n', '<leader>gg', ":lua RUNterminal('lazygit', 'f')<CR>",
-	{ silent = true, desc = "git › lazygit" })
-map('n', '<leader>gi', ":lua RUNterminal('git init', 'f')<CR>",
-	{ silent = true, desc = "git › initial local repo" })
-map('n', '<leader>gs', ":lua RUNterminal('git status -s', 'f')<CR>",
-	{ silent = true, desc = "git › current branch's status" })
-map('n', '<leader>gl', ":lua RUNterminal('git log --oneline --all --graph', 'f')<CR>",
-	{ silent = true, desc = "git › log" })
---map('n', '<leader>ga', ":lua RUNterminal('git add %', 'f')<CR>",
---	{ silent = true, desc = "git › add current file to stage area" })
-map('n', '<leader>gd', ":lua RUNterminal('git diff %', 'f')<CR>",
-	{ silent = true, desc = "git › diff changes of current file" })
-map('n', '<leader>gt', ":lua RUNterminal('git tag', 'f')<CR>",
-	{ silent = true, desc = "git › Tags" })
-map('n', '<leader>gb', ":lua RUNterminal('git branch', 'f')<CR>",
-	{ silent = true, desc = "git › Branchs" })
---map('n', '<leader>gc', ":lua RUNterminal('git commit', 'f')<CR>",
---	{ silent = true, desc = "git › Commit the changes" })
-map('n', '<leader>gh', ":lua RUNterminal('git show HEAD~1:./%', 'f')<CR>",
-	{ silent = true, desc = "git › Previous version of the current file" })
+vim.keymap.set('n', '<leader>aa', ':lua AutoFill()<CR>',
+		{ silent = true, noremap = true, desc = "Toggle autofill (all)" })
+vim.keymap.set('n', '<leader>af', ':lua AutoFillToggle()<CR>',
+		{ silent = true, noremap = true, desc = "Toggle basic autofill" })
+vim.keymap.set('n', '<leader>ad', ':lua AutoFillMarkdownToggle()<CR>',
+		{ silent = true, noremap = true, desc = "Toggle markdown autofill" })
+vim.keymap.set('n', '<leader>as', ':lua AutoFillSentToggle()<CR>',
+		{ silent = true, noremap = true, desc = "Toggle sent autofill" })
 -- }}}

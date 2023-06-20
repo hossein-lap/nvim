@@ -58,16 +58,16 @@ au("set softtabstop=2",  {'sent', 'yaml', 'text', 'html', 'xml'})
 au("set shiftwidth=2",   {'sent', 'yaml', 'text', 'html', 'xml'})
 
 au("set tabstop=4", {
-	'python', 'bash', 'sh', 'toml', 'nvim',
-	'markdown', 'nim', 'rmd', 'lua', 'vim'
+	'python', 'bash', 'sh', 'toml', 'nvim', 'go',
+	'markdown', 'nim', 'rmd', 'lua', 'vim', 'tex'
 })
 au("set softtabstop=4", {
-	'python', 'bash', 'sh', 'toml', 'nvim',
-	'markdown', 'nim', 'rmd', 'lua', 'vim'
+	'python', 'bash', 'sh', 'toml', 'nvim', 'go',
+	'markdown', 'nim', 'rmd', 'lua', 'vim', 'tex'
 })
 au("set shiftwidth=4", {
-	'python', 'bash', 'sh', 'toml', 'nvim',
-	'markdown', 'nim', 'rmd', 'lua', 'vim'
+	'python', 'bash', 'sh', 'toml', 'nvim', 'go',
+	'markdown', 'nim', 'rmd', 'lua', 'vim', 'tex'
 })
 au("set expandtab", {
 	'python', 'toml', 'yaml', 'markdown', 'nim', 'rmd',

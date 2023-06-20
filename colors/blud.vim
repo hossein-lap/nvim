@@ -1,0 +1,1 @@
+/data/dev/hossein-lap/vim-colors/vim-blud/colors/blud.vim

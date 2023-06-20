@@ -1,7 +1,6 @@
 local options = {
 	belloff = "all", -- no bells
 	inccommand = "nosplit", -- preview `:%s` commands live
-	undofile = false, -- DO NOT keep track of undos between sessions
 	grepprg = "rg --vimgrep --smart-case --no-heading", -- search with rg
 	grepformat = "%f:%l:%c:%m", -- filename:line number:column number:error message
 	mousescroll = "ver:3,hor:0", -- scroll vertically by 3 lines, no horizontal scrolling
@@ -9,14 +8,17 @@ local options = {
 
 	backup = false, -- do not create backup file
 	swapfile = false, -- do not create swapfile
+	undofile = true,
+	undodir = os.getenv("HOME")..'/.config/nvim/undodir',
 	number = true, -- enable line number
 	relativenumber = true, -- enable relative number
 	wrap = true, -- enable wrapping
+	laststatus = 3, -- status line
 	autochdir = true, -- auto-switch base directory
-	linebreak = true, -- set wrapping on `breaking` words (e.g: `,`)
+	linebreak = true, -- set wrapping on words (and breaking chars. e.g. `,`)
 	wildmenu = true, -- enable popup menu
-	wildmode = { -- popmenu style
-		'longest:list',
+	wildmode = { -- popmenu style in `ex` prompt
+	-- 'longest:list',
 		'full',
 	},
     --          --        
@@ -29,11 +31,13 @@ local options = {
 		'unnamedplus'
 	},
 	showcmd = true, -- show presses keys in normal mode
-	showmode = false, -- do not show vim-mode in `ex` prompt
+	showmode = true, -- do not show vim-mode in `ex` prompt
 	tabstop = 8, -- set actual tab width
 	shiftwidth = 4, -- set tab key shift width
 	autoindent = true, -- enable indentation
-	hlsearch = true, -- highligh search keywords
+	smartindent = true, -- more indentation
+	incsearch = true, -- live highligh search
+	hlsearch = false, -- highligh search keywords
 	cursorline = true, -- highlight current line
 	scrolloff = 2, -- set where scrolling begins
 	foldmethod = 'marker', -- folding style (set to use `{{{ ... }}}` characters)
@@ -44,28 +48,32 @@ local options = {
 	splitright = true, -- set vertical split-style
 	spelllang = { -- spell-check languages
 		'en_us',
---		'de',
+	-- 'de',
 	},
 	spellsuggest = 'best', -- suggestion method
 	hidden = true, -- hide the buffer
 	list = true, -- enable special characters (e.g: `EOL`, `TAB`, `TRAIL`)
 	listchars = {
 		tab = '› ', -- <Tab> special character
---		tab = '⎪ ', -- <Tab> special character
---		trail = '⋅',
---		lead = '-',
---		eol = ' ', -- <End Of Line> special character
---		nbsp = "␣",
---		extends = "+",
---		precedes = "·",
---		multispace = "…", -- show chars if I have multiple spaces between text
---		leadmultispace = "—", -- also show when they're at the start
+	-- tab = '⎪ ', -- <Tab> special character
+	-- trail = '⋅',
+	-- lead = '-',
+	-- eol = ' ', -- <End Of Line> special character
+	-- nbsp = "␣",
+	-- extends = "+",
+	-- precedes = "·",
+	-- multispace = "…", -- show chars if I have multiple spaces between text
+	-- leadmultispace = "—", -- also show when they're at the start
 	},
 	termbidi = true, -- enable bidirectional support
 	background = 'dark', -- set background style
---	colorcolumn = '66', -- highlight maximum preferred column
---	colorcolumn= '85', -- highlight maximum preferred column
-	colorcolumn= '79', -- highlight maximum preferred column
+	-- colorcolumn = '66', -- highlight maximum preferred column
+	colorcolumn= '80', -- highlight maximum preferred column
+	-- colorcolumn= '79', -- highlight maximum preferred column
+	guicursor = "",
+	-- guicursor = "n-v-c-i:block",
+	-- guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20",
+	updatetime = 50,
 }
 
 for key, value in pairs(options) do

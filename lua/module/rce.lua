@@ -1,10 +1,4 @@
 -- helper {{{
-local api = vim.api
-local expand = vim.fn.expand
---local ft = vim.bo.filetype
---local g = vim.g
---local vim.notify = require("")
-
 -- map() {{{
 local function map(mode, key, command, opts)
 	if not mode or not key then
@@ -16,7 +10,7 @@ local function map(mode, key, command, opts)
 	if opts then
 		options = vim.tbl_extend("force", options, opts)
 	end
-	api.nvim_set_keymap(mode, key, command, options)
+	vim.api.nvim_set_keymap(mode, key, command, options)
 end
 -- }}}
 ---- umap {{{
@@ -26,7 +20,7 @@ end
 --			{title = 'Error on using umap()'})
 --		return 1
 --	end
---	api.nvim_del_keymap(mode, key)
+--	vim.api.nvim_del_keymap(mode, key)
 --end
 ---- }}}
 ---- autocmd {{{
@@ -34,7 +28,7 @@ end
 --	if evnt == nil then
 --		evnt = 'FileType'
 --	end
---	api.nvim_create_autocmd(evnt, {
+--	vim.api.nvim_create_autocmd(evnt, {
 --		pattern = patterns,
 --		command = commands,
 ----		 group = patterns .. 'groups'
@@ -43,11 +37,13 @@ end
 ---- }}}
 -- }}}
 
-WindowStyle = 'horizontal'
+WindowStyle = 'h'
 
--- Toggle WindowStyle {{{
+-- toggle WindowStyle {{{
 local WindowStyles = {
-	'horizontal', 'vertical', 'floating',
+	'h',
+	'v',
+--	'f',
 }
 
 function WindowStyle_Toggle(i)
@@ -78,155 +74,10 @@ end
 --map('n', '<leader>vs3', ":lua WindowStyle_Toggle(3)<CR>",
 --	{ silent = true, desc = "term › float Window" })
 -- }}}
--- Float Term {{{
-function Fterminal(wrapand)
-	local buf --, win
-
-	buf = api.nvim_create_buf(false, true) -- create new emtpy buffer
-	api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
-
-	-- get dimensions {{{
-	local width = api.nvim_get_option("columns")
-	local height = api.nvim_get_option("lines")
-	-- }}}
-	-- calculate our floating window size {{{
-	local scale = 0.9
-	local win_height = math.ceil(height * scale - 4)
-	local win_width = math.ceil(width * scale)
-	-- }}}
-	-- and its starting position {{{
-	local row = math.ceil((height - win_height) / 2 - 2)
-	local col = math.ceil((width - win_width) / 2)
-	-- }}}
-	-- border style {{{
-	local borderstyle = {
-		ascii = {
-			{ "/", 'FloatBorder' },
-			{ "-", 'FloatBorder' },
-			{ "\\", 'FloatBorder' },
-			{ "|", 'FloatBorder' },
-		},
-		single = {
-			{ "┌", 'FloatBorder' },
-			{ "─", 'FloatBorder' },
-			{ "┐", 'FloatBorder' },
-			{ "│", 'FloatBorder' },
-			{ "┘", 'FloatBorder' },
-			{ "─", 'FloatBorder' },
-			{ "└", 'FloatBorder' },
-			{ "│", 'FloatBorder' },
-		},
-		double = {
-			{ "╔", 'FloatBorder' },
-			{ "═", 'FloatBorder' },
-			{ "╗", 'FloatBorder' },
-			{ "║", 'FloatBorder' },
-			{ "╝", 'FloatBorder' },
-			{ "═", 'FloatBorder' },
-			{ "╚", 'FloatBorder' },
-			{ "║", 'FloatBorder' },
-		},
-		round = {
-			{ "╭", 'FloatBorder' },
-			{ "─", 'FloatBorder' },
-			{ "╮", 'FloatBorder' },
-			{ "│", 'FloatBorder' },
-			{ "╯", 'FloatBorder' },
-			{ "─", 'FloatBorder' },
-			{ "╰", 'FloatBorder' },
-			{ "│", 'FloatBorder' },
-		},
-	}
-	-- }}}
-
-	local opts = {
-		noautocmd = true,
-		style = "minimal",
-		border = borderstyle['round'],
-		relative = "editor",
-		width = win_width,
-		height = win_height,
-		row = row,
-		col = col
-	}
-
-	-- and finally create it with buffer attached
-	api.nvim_open_win(buf, true, opts)
-
-	if wrapand then
-		api.nvim_command("term " .. wrapand)
-	else
-		api.nvim_command('term')
-	end
-	api.nvim_command('startinsert')
-end
--- }}}
--- V/H Term {{{
-function VHterminal(wrapand, windowstyle)
-	if windowstyle == nil then
-		windowstyle = 'horizontal'
-		vim.notify(string.format('windowstyle is not set, swtiched to default (%s)',
-				windowstyle), 3,
-			{title = 'VHterminal'})
-	end
-
-	if windowstyle == 'vertical' then
-		Buffercmd = 'vs '
-	elseif windowstyle == 'horizontal' then
-		Buffercmd = 'split '
-	else
-		vim.notify(string.format('** windowstyle is not set %s',
-				'to use `VHterminal()`\n** try `Fterminal()`'), 4,
-			{title = 'VHterminal'})
-		return -1
-	end
-
---	print(wrapandrun)
-	api.nvim_command(Buffercmd)
-	api.nvim_command('set nornu nonu')
-	if wrapand then
-		api.nvim_command("term " .. wrapand)
-	else
-		api.nvim_command('term')
-	end
-	api.nvim_command('startinsert')
-end
--- }}}
-
--- RUNterminal {{{
-function RUNterminal(inputcmd, wstyle)
-	local windowstyle
-	local ws_list = {
-		h = 'horizontal',
-		v = 'vertical',
-		f = 'floating'
-	}
-
---	api.nvim_command('set ls=0')
-	if wstyle == nil then
-		windowstyle = WindowStyle
-	else
-		windowstyle = ws_list[wstyle]
-	end
-
-	if windowstyle == 'floating' then
-		Fterminal(inputcmd)
-	else
-		VHterminal(inputcmd, windowstyle)
-	end
-
---	-- print the executed command
---	vim.notify(inputcmd, 2, {title = 'Command executed'})
-end
-
---au('set ls=0', '*', 'TermEnter')
---au('set ls=3', '*', 'TermLeave')
--- }}}
-
 -- swtich pandoc configs {{{
 	-- article {{{
 	Pandoc_article_list = {
-		'nord', 'dracula', 'solarized',
+		'dracula', 'solarized', 'nord',
 		'english', 'monochrome',
 		'persian', 'fa'
 	}
@@ -279,13 +130,46 @@ end
 	-- }}}
 -- }}}
 
+-- Term_run {{{
+function Term_run(wrapped, windowstyle)
+	if windowstyle == nil then
+		windowstyle = 'h'
+--		vim.notify(string.format('windowstyle is not set, swtiched to default (%s)',
+--				windowstyle), 3,
+--			{title = 'Term_run'})
+	end
+
+	if windowstyle == 'v' then
+		Buffercmd = 'vs '
+	elseif windowstyle == 'h' then
+		Buffercmd = 'split '
+	else
+		vim.notify(string.format('** windowstyle is not set %s',
+				'to use `Term_run()`'), 4,
+			{title = 'Term_run'})
+		return -1
+	end
+
+--	vim.notify(wrapped, 2, {title = 'Command executed'})
+	vim.api.nvim_command(Buffercmd)
+	vim.api.nvim_command('set nornu nonu')
+	if wrapped then
+		vim.api.nvim_command("term " .. wrapped)
+	else
+		vim.api.nvim_command('term')
+	end
+	vim.api.nvim_command('startinsert')
+end
+-- }}}
+
 -- Trigger functions:
 -- Run {{{
 function TriggerRun(file_type)
-	local src_name = expand('%')
-	local out_name = expand('%:r')
+	local src_name = vim.fn.expand('%')
+	local out_name = vim.fn.expand('%:r')
 	local pandoc_path = string.format(' %s %s ',
 		'-t ms', '--defaults ~/.config/pandoc/defaults/groff/groff.yaml')
+	local rmd_pandoc_path = '/home/hos/.config/pandoc/defaults/dracula/dracula.yaml'
 --	local pandoc_path = ' -t ms --highlight monochrome '
 
 	local runner = {
@@ -304,9 +188,20 @@ function TriggerRun(file_type)
 			pandoc_path, src_name, out_name),
 		nroff = string.format('groff %s %s > %s.pdf',
 			src_name, '-m me -keUs -Tpdf', out_name), -- -egGjkpRstU
-		rmd = string.format("%s = '%s', %s",
-			'Rscript -e "rmarkdown::render(input', src_name,
-			'output_format = \\"md_document\\")"')
+			-- Rscript -e "source('/home/hos/.config/pandoc/config.r'); rmarkdown::render(input = 'test.rmd', output_format = 'pdf_document' )"
+		-- rmd = string.format([[Rscript -e "source('/home/hos/.config/pandoc/config.r'); rmarkdown::render(input = '%s', output_format = 'pdf_document', params = list(pandoc_options = c(args = '--defaults', '/home/hos/.config/pandoc/defaults/dracula/dracula.yaml')))" ]], src_name)
+		-- rmd = string.format([[Rscript -e "source('%s'); rmarkdown::render(input = '%s', '%s', params = list(pandoc_options = c(args = '%s', '%s')))"]],
+		       -- '/home/hos/.config/pandoc/config.r', src_name, 'output_format = \\"pdf_document\\"', '--defaults', rmd_pandoc_path)
+
+		-- rmd = string.format("%s %s = '%s', %s %s",
+		-- 	[[Rscript -e "source('/home/hos/.config/pandoc/defaults/r/config.r');]],
+		-- 	[[ rmarkdown::render(input]], src_name, [[output_yaml = ']]..rmd_pandoc_path,
+		-- 	[[', output_format = 'pdf_document')"]])
+
+		rmd = string.format("%s %s = '%s', %s %s",
+			[[Rscript -e "source('/home/hos/.config/pandoc/defaults/r/config.r');]],
+			[[ rmarkdown::render(input]], src_name, [[output_yaml = ']]..rmd_pandoc_path,
+			[['"]])
 	}
 
 	if runner[file_type] == nil then
@@ -314,16 +209,16 @@ function TriggerRun(file_type)
 		return 1
 	end
 
-	RUNterminal(runner[file_type])
+	Term_run(runner[file_type], WindowStyle)
 end
 -- }}}
 -- Compile {{{
 function TriggerCompile(file_type)
-	local src_name = expand('%')
-	local out_name = expand('%:r')
+	local src_name = vim.fn.expand('%')
+	local out_name = vim.fn.expand('%:r')
 	local pandoc_path = string.format(' %s%s/%s%s ',
-		'~/.config/pandoc/defaults/', Pandoc_article_default,
-		Pandoc_article_default, '.yaml')
+	          '~/.config/pandoc/defaults/', Pandoc_article_default,
+	          Pandoc_article_default, '.yaml')
 	local rmd_path 
 
 	local compiler = {
@@ -337,14 +232,14 @@ function TriggerCompile(file_type)
 		csh = 'csh ' .. src_name,
 		zsh = 'zsh ' .. src_name,
 --		nroff = string.format('pdfroff -U -mspdf %s > %s.pdf',
---			src_name, out_name),
+--		            src_name, out_name),
 		nroff = string.format('groff %s %s > %s.pdf',
-			src_name, '-mspdf -keUs -Tpdf', out_name), -- -egGjkpRstU
+		            src_name, '-mspdf -keUs -Tpdf', out_name), -- -egGjkpRstU
 		tex = 'xelatex ' .. src_name,
 		sent = 'sent -i ' .. src_name,
 		text = 'sent -i ' .. src_name,
 		markdown = string.format('pandoc --defaults %s %s -o %s.pdf',
-			pandoc_path, src_name, out_name),
+		               pandoc_path, src_name, out_name),
 		rmd = string.format([[%s(input='%s', %s, params='%s')"]],
 			[[Rscript -e "rmarkdown::render]], src_name,
 			[[output_format = 'all']], pandoc_path)
@@ -355,24 +250,22 @@ function TriggerCompile(file_type)
 		return 1
 	end
 
-	RUNterminal(compiler[file_type])
+	Term_run(compiler[file_type], WindowStyle)
 end
 -- }}}
 -- Extra {{{
 function TriggerExtra(file_type)
-	local src_name = expand('%')
-	local out_name = expand('%:r')
-	local pdf_viewer = 'nohup zathura '
-	local log_handler =  '.pdf & 2>&1 > /dev/null'
+	local src_name = vim.fn.expand('%')
+	local out_name = vim.fn.expand('%:r')
 	local extra = {
-		rmd = pdf_viewer .. out_name .. log_handler,
-		nroff = pdf_viewer .. out_name ..log_handler,
+		c = string.format('gcc -ggdb %s -o debug-%s && gdb -q ./debug-%s',
+		        src_name, out_name, out_name),
 		sent = "sent -f 'Source Sans Pro' " .. src_name,
 		text = "sent -f 'Source Sans Pro' " .. src_name,
 		tex = 'xelatex -interaction=nonstopmode -synctex=1 ' .. src_name,
 		markdown = string.format('pandoc %s%s%s %s -o %s.pdf ',
-			'--defaults ~/.config/pandoc/defaults/beamer/',
-				Pandoc_beamer_default, '.yaml', src_name, out_name)
+		               '--defaults ~/.config/pandoc/defaults/beamer/',
+		               Pandoc_beamer_default, '.yaml', src_name, out_name)
 
 	}
 
@@ -381,7 +274,7 @@ function TriggerExtra(file_type)
 		return 1
 	end
 
-	RUNterminal(extra[file_type])
+	Term_run(extra[file_type], WindowStyle)
 end
 -- }}}
 
@@ -395,20 +288,20 @@ map('n', '<leader>fq',  ':lua TriggerExtra(vim.bo.filetype)<CR>',
 	{ silent = true, desc = 'command3 › Extra thing' })
 
 ---- makefile
-map('n', '<leader>cc', ':lua RUNterminal("make")<CR>',
+map('n', '<leader>cc', ':lua Term_run("make")<CR>',
 		{ silent = true, desc = 'make › all' })
-map('n', '<leader>cd', ':lua RUNterminal("make clean")<CR>',
+map('n', '<leader>cd', ':lua Term_run("make clean")<CR>',
 		{ silent = true, desc = 'make › clean' })
-map('n', '<leader>cf', ':lua RUNterminal("make force")<CR>',
+map('n', '<leader>cf', ':lua Term_run("make force")<CR>',
 		{ silent = true, desc = 'make › force' })
-map('n', '<leader>ca', ':lua RUNterminal("make full")<CR>',
+map('n', '<leader>ca', ':lua Term_run("make full")<CR>',
 		{ silent = true, desc = 'make › full' })
 
----- Run terminal
-map('n', '<leader>tt', ':lua RUNterminal("bash")<CR>',
-		{ silent = true, desc = 'term › bash shell' })
-map('n', '<leader>tz', ':lua RUNterminal("zsh")<CR>',
-		{ silent = true, desc = 'term › zsh shell' })
-map('n', '<leader>td', ':lua RUNterminal("dash")<CR>',
-		{ silent = true, desc = 'term › dash shell' })
+------ Run terminal
+map('n', '<leader>ts', ':lua Term_run("bash", WindowStyle)<CR>',
+	  { silent = true, desc = 'term › bash shell' })
+--map('n', '<leader>tz', ':lua Term_run("zsh")<CR>',
+--	  { silent = true, desc = 'term › zsh shell' })
+--map('n', '<leader>td', ':lua Term_run("dash")<CR>',
+--	  { silent = true, desc = 'term › dash shell' })
 -- }}}
