@@ -138,6 +138,7 @@ return packer.startup(function(use)
 
 	use 'nvim-lualine/lualine.nvim' -- statusline
 	use 'lewis6991/gitsigns.nvim' -- git signs
+	-- use 'tpope/vim-fugitive' -- git
 	use 'nvim-tree/nvim-tree.lua' -- tree file-manager
 
 	use 'goolord/alpha-nvim' -- greeting

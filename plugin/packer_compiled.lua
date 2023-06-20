@@ -242,12 +242,7 @@ _G.packer_plugins = {
   ["vim-256noir"] = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/vim-256noir",
-    url = "/data/dev/hossein-lap/vim-colors/vim-256noir"
-  },
-  ["vim-hos"] = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/vim-hos",
-    url = "/data/dev/hossein-lap/vim-colors/vim-hos"
+    url = "https://github.com/hossein-lap/vim-256noir"
   },
   ["vim-hybrid"] = {
     loaded = true,
@@ -272,12 +267,7 @@ _G.packer_plugins = {
   ["vim-sunbather"] = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/vim-sunbather",
-    url = "/data/dev/hossein-lap/vim-colors/vim-sunbather"
-  },
-  ["vim-test"] = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/vim-test",
-    url = "/data/dev/hossein-lap/vim-colors/vim-test"
+    url = "https://github.com/hossein-lap/vim-sunbather"
   },
   ["which-key.nvim"] = {
     loaded = true,
