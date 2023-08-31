@@ -1,17 +1,9 @@
 local Term  = require('toggleterm.terminal').Terminal
 
--- keymap function {{{
-local function map(mode, key, command, opts)
-	local options = { noremap = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.api.nvim_set_keymap(mode, key, command, options)
-end
--- }}}
-
-local width = vim.api.nvim_get_option("columns") / 2
-local height = vim.api.nvim_get_option("lines") / 2
+local width = math.floor(vim.api.nvim_get_option("columns") / 2)
+local height = math.floor(vim.api.nvim_get_option("lines") / 2)
+local xpad = (width * 2) - math.floor(vim.api.nvim_get_option("columns") / 8)
+local ypad = (height * 2) - math.floor(vim.api.nvim_get_option("lines") / 5)
 
 require'toggleterm'.setup {
 	size = function(term)
@@ -30,15 +22,26 @@ require'toggleterm'.setup {
 	},
 
 	highlights = {
+		Normal = {
+			guibg = 'NONE',
+		},
+		NormalFloat = {
+			link = 'Normal'
+		},
 		FloatBorder = {
-			guifg = "#ff7777",
+			link = 'Number',
+--			guifg = "#ff7777",
+--			guifg = "#77ff77",
 		},
 	},
 
 	direction = 'float',
 	float_opts = {
 		border = 'curved',
-		winblend = 1,
+		winblend = 0,
+		width  = xpad,
+		height = ypad,
+		zindex = 50,
 	},
 
 	shell = 'bash',
@@ -83,6 +86,7 @@ function TermW(type)
 	local src_name = vim.fn.expand('%')
 	local out_name = vim.fn.expand('%:r')
 	local filetype = vim.bo.filetype
+
 	-- command tables {{{
 	local command = {
 		-- run {{{
@@ -152,11 +156,13 @@ function TermW(type)
 		return 17
 	end
 
-	print(command[type][filetype])
+	TermH(command[type][filetype])
 end
 -- }}}
 
-map('n', '<leader>ft', ":lua TermW('run')<CR>")
-map('n', '<leader>tt', ':lua TermF("bash")<CR>')
-map('n', '<leader>tv', ':lua TermV("dash %")<CR>')
-map('n', '<leader>th', ':lua TermH("file vim.bo.file")<CR>')
+vim.keymap.set('n', '<leader>f1', ":lua TermW('run')<CR>")
+vim.keymap.set('n', '<leader>f2', ":lua TermW('compile')<CR>")
+vim.keymap.set('n', '<leader>f3', ":lua TermW('extra')<CR>")
+vim.keymap.set('n', '<leader>ts', ':lua TermF("bash")<CR>')
+vim.keymap.set('n', '<leader>tv', ':lua TermV("dash %")<CR>')
+vim.keymap.set('n', '<leader>th', ':lua TermH(string.format("echo %s", vim.bo.file))<CR>')

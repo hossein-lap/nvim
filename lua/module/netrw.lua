@@ -126,111 +126,111 @@ vim.cmd [[
 ---- }}}
 
 vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 0
-vim.g.netrw_browse_split = 3
-vim.g.netrw_winsize = 20
-vim.g.netrw_menu = 1
-vim.g.netrw_altv = 1
-vim.g.netrw_cursor = 0
-vim.g.netrw_fastbrowse = 2
+vim.g.netrw_liststyle = 3
+vim.g.netrw_browse_split = 0
+vim.g.netrw_winsize = 75
+--vim.g.netrw_menu = 1
+--vim.g.netrw_altv = 1
+--vim.g.netrw_cursor = 0
+--vim.g.netrw_fastbrowse = 2
 vim.g.netrw_sort_by = "name"
 vim.g.netrw_sort_direction = "normal"
 vim.g.netrw_special_syntax = 1
 vim.g.netrw_keepdir = 0
 
 vim.keymap.set('n', '<leader>fm', vim.cmd.Ex, {noremap = true, desc = 'Open nertw', silent = true})
-vim.keymap.set('n', '<leader>fa', ':Lex<CR>', {noremap = true, desc = 'Open nertw on left', silent = true})
+vim.keymap.set('n', '<leader>fa', ':25Lex<CR>', {noremap = true, desc = 'Open nertw on left', silent = true})
 --vim.keymap.set('n', '<leader>fm', vim.cmd ':20Lex<CR>', {noremap = true, desc = 'Open nertw on left'})
-vim.cmd [[
-let g:NetrwIsOpen = 1
-" Netrw keymap functions {{{
-function! OpenToRight()
-	:normal v
-	let g:path=expand('%:p')
-	execute 'q!'
-	execute 'belowright vnew' g:path
-	:normal <C-w>l
-endfunction
-
-function! OpenBelow()
-	:normal v
-	let g:path=expand('%:p')
-	execute 'q!'
-	execute 'belowright new' g:path
-	:normal <C-w>l
-endfunction
-
-function! OpenTab()
-	:normal v
-	let g:path=expand('%:p')
-	execute 'q!'
-	execute 'tabedit' g:path
-	:normal <C-w>l
-endfunction
-
-function! NetrwMappings()
-	noremap <buffer> V :call OpenToRight()<cr>
-	noremap <buffer> H :call OpenBelow()<cr>
-	noremap <buffer> T :call OpenTab()<cr>
-endfunction
-
-" Allow for netrw to be toggled
-function! ToggleNetrw()
-	if g:NetrwIsOpen
-		let i = bufnr("$")
-		while (i >= 1)
-			if (getbufvar(i, "&filetype") == "netrw")
-				silent exe "bwipeout " . i
-			endif
-			let i-=1
-		endwhile
-		let g:NetrwIsOpen=0
-	else
-		let g:NetrwIsOpen=1
-		silent 20Lexplore
-		exe "call win_gotoid(1000)"
-	endif
-endfunction
-
-" Allow for netrw to be refreshed
-function! RefreshNetrw()
-	if g:NetrwIsOpen
-		let i = bufnr("$")
-		while (i >= 1)
-			if (getbufvar(i, "&filetype") == "netrw")
-				silent exe "bwipeout " . i
-			endif
-			let i-=1
-		endwhile
-		let g:NetrwIsOpen=0
-		call ToggleNetrw()
-		exe "call win_gotoid(1000)"
-	endif
-endfunction
-
-" Check before opening buffer on any file
-function! NetrwOnBufferOpen()
-	if exists('b:noNetrw')
-		return
-	endif
-	call ToggleNetrw()
-endfun
-
-"}}}
-
-augroup netrw_mappings
-	autocmd!
-	autocmd filetype netrw call NetrwMappings()
-augroup END
-
-"" Close Netrw if it's the only opened buffer
-autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" || &buftype == 'quickfix' |q|endif
-
-" Make netrw act like a project Draw
-augroup ProjectDrawer
-	autocmd!
-	" Don't open Netrw
-"	autocmd VimEnter ~/.config/joplin/tmp/*,/tmp/calcurse*,~/.calcurse/notes/*,~/vimwiki/*,*/.git/COMMIT_EDITMSG let b:noNetrw=1
-	autocmd VimEnter * :call NetrwOnBufferOpen()
-augroup END
-]]
+--vim.cmd [[
+--let g:NetrwIsOpen = 1
+--" Netrw keymap functions {{{
+--function! OpenToRight()
+--	:normal v
+--	let g:path=expand('%:p')
+--	execute 'q!'
+--	execute 'belowright vnew' g:path
+--	:normal <C-w>l
+--endfunction
+--
+--function! OpenBelow()
+--	:normal v
+--	let g:path=expand('%:p')
+--	execute 'q!'
+--	execute 'belowright new' g:path
+--	:normal <C-w>l
+--endfunction
+--
+--function! OpenTab()
+--	:normal v
+--	let g:path=expand('%:p')
+--	execute 'q!'
+--	execute 'tabedit' g:path
+--	:normal <C-w>l
+--endfunction
+--
+--function! NetrwMappings()
+--	noremap <buffer> V :call OpenToRight()<cr>
+--	noremap <buffer> H :call OpenBelow()<cr>
+--	noremap <buffer> T :call OpenTab()<cr>
+--endfunction
+--
+--" Allow for netrw to be toggled
+--function! ToggleNetrw()
+--	if g:NetrwIsOpen
+--		let i = bufnr("$")
+--		while (i >= 1)
+--			if (getbufvar(i, "&filetype") == "netrw")
+--				silent exe "bwipeout " . i
+--			endif
+--			let i-=1
+--		endwhile
+--		let g:NetrwIsOpen=0
+--	else
+--		let g:NetrwIsOpen=1
+--		silent 20Lexplore
+--		exe "call win_gotoid(1000)"
+--	endif
+--endfunction
+--
+--" Allow for netrw to be refreshed
+--function! RefreshNetrw()
+--	if g:NetrwIsOpen
+--		let i = bufnr("$")
+--		while (i >= 1)
+--			if (getbufvar(i, "&filetype") == "netrw")
+--				silent exe "bwipeout " . i
+--			endif
+--			let i-=1
+--		endwhile
+--		let g:NetrwIsOpen=0
+--		call ToggleNetrw()
+--		exe "call win_gotoid(1000)"
+--	endif
+--endfunction
+--
+--" Check before opening buffer on any file
+--function! NetrwOnBufferOpen()
+--	if exists('b:noNetrw')
+--		return
+--	endif
+--	call ToggleNetrw()
+--endfun
+--
+--"}}}
+--
+--augroup netrw_mappings
+--	autocmd!
+--	autocmd filetype netrw call NetrwMappings()
+--augroup END
+--
+--"" Close Netrw if it's the only opened buffer
+--autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw" || &buftype == 'quickfix' |q|endif
+--
+--" Make netrw act like a project Draw
+--augroup ProjectDrawer
+--	autocmd!
+--	" Don't open Netrw
+--"	autocmd VimEnter ~/.config/joplin/tmp/*,/tmp/calcurse*,~/.calcurse/notes/*,~/vimwiki/*,*/.git/COMMIT_EDITMSG let b:noNetrw=1
+--	autocmd VimEnter * :call NetrwOnBufferOpen()
+--augroup END
+--]]

@@ -12,23 +12,27 @@ require("mason").setup({
 	---@type '"prepend"' | '"append"' | '"skip"'
 	PATH = "prepend",
 
-	-- Controls to which degree logs are written to the log file. It's useful to set this to vim.log.levels.DEBUG when
+	-- Controls to which degree logs are written to the log file.
+	-- It's useful to set this to vim.log.levels.DEBUG when
 	-- debugging issues with package installations.
-	log_level = vim.log.levels.INFO,
+	log_level = vim.log.levels.DEBUG,
 
 	-- Limit for the maximum amount of packages to be installed at the same time. Once this limit is reached, any further
 	-- packages that are requested to be installed will be put in a queue.
 	max_concurrent_installers = 1,
 
 	-- [Advanced setting]
-	-- The registries to source packages from. Accepts multiple entries. Should a package with the same name exist in
+	-- The registries to source packages from.
+	-- Accepts multiple entries. Should a package with the same name exist in
 	-- multiple registries, the registry listed first will be used.
 	registries = {
 		"github:mason-org/mason-registry",
 	},
 
-	-- The provider implementations to use for resolving supplementary package metadata (e.g., all available versions).
-	-- Accepts multiple entries, where later entries will be used as fallback should prior providers fail.
+	-- The provider implementations to use for resolving supplementary
+	-- package metadata (e.g., all available versions).
+	-- Accepts multiple entries, where later entries will be used as
+	-- fallback should prior providers fail.
 	-- Builtin providers are:
 	--   - mason.providers.registry-api  - uses the https://api.mason-registry.dev API
 	--   - mason.providers.client        - uses only client-side tooling to resolve metadata
@@ -47,14 +51,16 @@ require("mason").setup({
 	},
 
 	pip = {
-		-- Whether to upgrade pip to the latest version in the virtual environment before installing packages.
+		-- Whether to upgrade pip to the latest version in the
+		-- virtual environment before installing packages.
 		upgrade_pip = false,
 
-		-- These args will be added to `pip install` calls. Note that setting extra args might impact intended behavior
+		-- These args will be added to `pip install` calls.
+		-- Note that setting extra args might impact intended behavior
 		-- and is not recommended.
 		--
 		-- Example: { "--proxy", "https://proxyserver" }
-		install_args = {},
+--		install_args = {"--proxy", "socks://127.0.0.1:10808"},
 	},
 
 	ui = {
@@ -74,18 +80,10 @@ require("mason").setup({
 		-- - Float in the range of 0-1 for a percentage of screen height.
 		height = 0.7,
 
---		icons = {
---			-- The list icon to use for installed packages.
---			package_installed = "◍",
---			-- The list icon to use for packages that are installing, or queued for installation.
---			package_pending = "◍",
---			-- The list icon to use for packages that are not installed.
---			package_uninstalled = "◍",
---		},
 		icons = {
 			package_installed = "✓ ",
-			package_pending = "➜ ",
-			package_uninstalled = "✗ "
+			package_pending = "> ",
+			package_uninstalled = "× "
 		},
 
 		keymaps = {
@@ -110,5 +108,52 @@ require("mason").setup({
 		},
 	},
 })
+
+local registry = require('mason-registry')
+
+local list = {
+	-- lsp
+		'clangd', -- C/C++
+		'gopls', -- Golang
+		'lua-language-server', -- Lua
+		'bash-language-server', -- Bash/Shell
+		'perlnavigator', -- Perl
+		'pyright', -- Python
+		'vim-language-server', -- Vim
+--		'typescript-language-server', -- TypeScript / JavaScript
+	-- linter
+--		'vale', -- Natural language
+--		'write-good', -- Natural language
+--		'alex', -- Natural language
+		'proselint', -- Natural language
+--		'textlint', -- Natural language
+	-- writting
+		'texlab',
+--		'grammarly-languageserver',
+}
+
+for _,pkg in pairs(list) do
+	if not registry.is_installed(pkg) then
+		vim.notify(string.format('[mason]: %s: package not found\n', pkg), 3)
+		vim.cmd(string.format(':MasonInstall --force %s', pkg))
+	end
+end
+
+local pkgs_list = registry.get_installed_package_names()
+function table.item(input_table, input_string)
+	for index,_ in ipairs(input_table) do
+		if input_table[index] == input_string then
+			return index
+		end
+	end
+	return 0
+end
+
+for _,value in ipairs(pkgs_list) do
+	if table.item(list, value) == 0 then
+		vim.notify('152: '..value, 3)
+		vim.cmd(string.format(':MasonUninstall %s', value))
+	end
+end
 
 vim.keymap.set('n', '<leader>ma', vim.cmd.Mason, {desc = 'Open mason lsp manager'})

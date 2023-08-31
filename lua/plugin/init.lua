@@ -54,7 +54,7 @@ packer.init {
 			submodules = 'submodule update --init --recursive --progress'
 		},
 		depth = 1, -- Git clone depth
-		clone_timeout = 600, -- Timeout, in seconds, for git clones
+		clone_timeout = 6000, -- Timeout, in seconds, for git clones
 		default_url_format = 'https://github.com/%s' -- Lua format string used for "aaa/bbb" style plugins
 	},
 	display = {
@@ -115,33 +115,22 @@ packer.init {
 -- plugins {{{
 return packer.startup(function(use)
 	use 'wbthomason/packer.nvim' -- plugin manager
-	use 'numToStr/Comment.nvim' -- handle commentings
---	use 'neovim/nvim-lspconfig' -- configurations for Nvim LSP
---	use 'L3MON4D3/LuaSnip' -- snippets plugin
---	use 'hrsh7th/nvim-cmp' -- autocompletion plugin based on nvim's builtin lsp
-		use 'hrsh7th/cmp-nvim-lsp' -- nvim builtin lsp source for nvim-cmp
-		use 'hrsh7th/cmp-nvim-lua' -- nvim Lua API source for nvim-cmp
-		use 'hrsh7th/cmp-buffer' -- buffer source for nvim-cmp
-		use 'hrsh7th/cmp-path' -- path source for nvim-cmp
---		use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-----		use 'uga-rosa/cmp-dictionary' -- dictionary source for nvim-cmp
-----	use 'windwp/nvim-ts-autotag' -- autoclose tags
---	use 'hrsh7th/nvim-gtd' -- go to definition plugin for neovim
+	use 'hrsh7th/nvim-gtd' -- go to definition plugin for neovim
 
 	use 'simrat39/symbols-outline.nvim' -- program symbols
 	use 'mbbill/undotree' -- undotree
 --	use 'shydefoo/trouble-nvim' -- quickfix and more list
 
-	use {'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}}-- treesitter [more syntax color]
+	use 'nvim-treesitter/nvim-treesitter' -- treesitter [more syntax color]
 
 	use 'norcalli/nvim-colorizer.lua' -- hex color preview
 
 	use 'nvim-lualine/lualine.nvim' -- statusline
 	use 'lewis6991/gitsigns.nvim' -- git signs
-	-- use 'tpope/vim-fugitive' -- git
-	use 'nvim-tree/nvim-tree.lua' -- tree file-manager
+--	use 'tpope/vim-fugitive' -- git
+--	use 'nvim-tree/nvim-tree.lua' -- tree file-manager
 
-	use 'goolord/alpha-nvim' -- greeting
+--	use 'goolord/alpha-nvim' -- greeting
 	use 'folke/which-key.nvim' -- show mapps
 
 	use 'kyazdani42/nvim-web-devicons' -- icons
@@ -154,64 +143,76 @@ return packer.startup(function(use)
 --		branch = '0.1.x',
 		requires = {
 			{'nvim-lua/plenary.nvim'},
-			{"kdheepak/lazygit.nvim"}
+			{"kdheepak/lazygit.nvim"},
 		}
 	}
+	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
-	use 'akinsho/toggleterm.nvim' -- terminal plugin
+	-- auto indentation
+	use 'nmac427/guess-indent.nvim'
+	use 'tenxsoydev/tabs-vs-spaces.nvim'
 
-	use 'vim-scripts/DrawIt' -- draw ascii diagrams
+
+--	-- terminal plugin
+--	use 'akinsho/toggleterm.nvim'
+
+	-- draw ascii diagrams
+--	use 'vim-scripts/DrawIt'
 	use 'jbyuki/venn.nvim' -- draw ascii diagrams
 
 	-- lsp
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v2.x',
-		requires = {
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},         -- Required
-			{                                  -- Optional
-				'williamboman/mason.nvim', -- lsp manager
-				run = function()
-					pcall(vim.cmd, 'MasonUpdate')
-				end,
-			},
-			{'williamboman/mason-lspconfig.nvim'}, -- Optional
-			{'mfussenegger/nvim-dap'}, -- debug Adapter Protocol
-			{'jose-elias-alvarez/null-ls.nvim'}, -- linter and formatter
+		-- LSP Support
+		use 'neovim/nvim-lspconfig' -- Required
+		use 'mfussenegger/nvim-dap' -- debug Adapter Protocol
 
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},     -- Required
-			{'hrsh7th/cmp-nvim-lsp'}, -- Required
-			{'L3MON4D3/LuaSnip'},     -- Required
+		-- Autocompletion
+		use 'hrsh7th/nvim-cmp'      -- Required
+		use 'hrsh7th/cmp-nvim-lua'  -- nvim Lua API source for nvim-cmp
+		use 'hrsh7th/cmp-buffer'    -- buffer source for nvim-cmp
+		use 'hrsh7th/cmp-path'      -- path source for nvim-cmp
+		use 'hrsh7th/cmp-nvim-lsp'  -- Required
+		use 'L3MON4D3/LuaSnip'      -- Required
+		use 'windwp/nvim-autopairs' -- autopair
 
-			-- Linting
-		}
-	}
+		-- Linting
+		use 'jose-elias-alvarez/null-ls.nvim' -- linter and formatter
 
-	---- colorschemes
+		-- Third-party tools
+		use 'williamboman/mason.nvim'
+
+	-- colorschemes
+	use 'hossein-lap/vim-hybrid'
 	use 'Shatur/neovim-ayu'
 	use 'hossein-lap/vim-256noir' -- black-red
 	use 'hossein-lap/vim-sunbather' -- black-pink
 	use 'hossein-lap/vim-paramount' -- black-purple
 	use 'hossein-lap/vim-lupper' -- black-blue
-	use 'hossein-lap/vim-octave' -- black-orange
-	-- use '/data/dev/hossein-lap/vim-colors/vim-sunbather' -- custom
-	-- use '/data/dev/hossein-lap/vim-colors/vim-256noir' -- custom
-	-- use '/data/dev/hossein-lap/vim-colors/vim-hos' -- custom
-	-- use '/data/dev/hossein-lap/vim-colors/vim-test' -- custom
+--	use 'hossein-lap/vim-octave' -- black-orange
+--	use(os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-octave') -- local
+--	use os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-paramount' -- local
+--	use os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-sunbather' -- local
+--	use os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-256noir' -- local
+--	use os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-hos' -- local
+--	use os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-test' -- local
 	use 'Mofiqul/dracula.nvim'
 	use 'tiagovla/tokyodark.nvim'
 	use 'ishan9299/nvim-solarized-lua'
-	use 'w0ng/vim-hybrid'
+	use 'ellisonleao/gruvbox.nvim'
+--	use 'w0ng/vim-hybrid'
 
 --	use 'folke/tokyonight.nvim'
---	use 'shaunsingh/nord.nvim'
+	use 'shaunsingh/nord.nvim'
 --	use { 'catppuccin/nvim', as = 'catppuccin' }
---	use 'EdenEast/nightfox.nvim'
---	use 'navarasu/onedark.nvim'
---	use 'marko-cerovac/material.nvim'
+	use 'EdenEast/nightfox.nvim'
+	use 'navarasu/onedark.nvim'
+	use 'marko-cerovac/material.nvim'
 --	use {'rose-pine/neovim', as = 'rose-pine'}
+
+	-- document
+
+	-- zen mode: chill (focus)
+	use 'Pocco81/true-zen.nvim'
+	use 'folke/twilight.nvim'
 
 	if packer_bootstrap then
 		require('packer').sync()

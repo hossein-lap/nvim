@@ -46,48 +46,66 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, desc = "Exit inser
 -- back to normal mode {{{
 vim.keymap.set('i', '<C-c>', '<Esc>', {noremap = true, desc = "Exit insert mode"})
 -- }}}
--- delete without changing what register contains {{{
-vim.keymap.set('x', '<localleader>p', '"_dP')
-
-vim.keymap.set('v', '<localleader>y', '"+y')
-vim.keymap.set('n', '<localleader>y', '"+y')
-vim.keymap.set('n', '<localleader>Y', '"+Y')
-
-vim.keymap.set('v', '<localleader>d', '"_d')
-vim.keymap.set('n', '<localleader>d', '"_d')
+-- to xclip / delete without changing what register contains {{{
+vim.keymap.set('x', '<localleader>p', '\"_dP', {})
+vim.keymap.set('v', '<localleader>y', '\"+y', {})
+vim.keymap.set('n', '<localleader>y', '\"+Y', {})
+vim.keymap.set('n', '<localleader>d', '\"_d', {})
+--vim.keymap.set('v', '<localleader>y', '\"+Y', {})
+vim.keymap.set('v', '<localleader>d', '\"_d', {})
 -- }}}
--- toggle paste mode {{{
-PasteModeEnable = 0
-function tmpNotify()
-	if PasteModeEnable == 1 then
-		PasteModeEnable = 0 -- it's off
-		vim.notify("paste mode enabled", 2)
-	else
-		PasteModeEnable = 1 -- it's on
-		vim.notify("paste mode disabled", 2)
-	end
-end
-vim.keymap.set('n', '<C-P>', ':set paste! nu! list!<CR>:lua <CR>',
-		{ silent = true, noremap = true, desc = "Toggle › paste mode, disable decorations" })
--- }}}
+---- toggle paste mode {{{
+--PasteModeEnable = 0
+--function tmpNotify()
+--	if PasteModeEnable == 1 then
+--		PasteModeEnable = 0 -- it's off
+--		vim.notify("paste mode enabled", 2)
+--	else
+--		PasteModeEnable = 1 -- it's on
+--		vim.notify("paste mode disabled", 2)
+--	end
+--end
+--vim.keymap.set('n', '<C-P>', ':set paste! nu! rnu! list!<CR>:lua <CR>',
+--		{ silent = true, noremap = true, desc = "Toggle › paste mode, disable decorations" })
+---- }}}
 -- spelling check {{{
 vim.keymap.set('n', '<leader>ss',  ':set spell!<CR>',
 		{ silent = true, noremap = true, desc = "Toggle › spell check" })
 -- }}}
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv") -- move line down in visual mode
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv") -- move line up in visual mode
-vim.keymap.set('n', 'J', 'mzJ`z') -- append lines
-vim.keymap.set('n', '<C-d>', '<C-d>zz') -- half-page down on the mid-page
-vim.keymap.set('n', '<C-u>', '<C-u>zz') -- half-page up on the mid-page
-vim.keymap.set('n', 'n', 'nzzzv') -- keep search on the mid-page
-vim.keymap.set('n', 'N', 'Nzzzv') -- keep search on the mid-page
-vim.keymap.set('n', 'Q', '<nop>') -- no ex-mode
--- quickfix navs
-vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
-vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz')
-vim.keymap.set('n', '<localleader>k', '<cmd>lnext<CR>zz')
-vim.keymap.set('n', '<localleader>j', '<cmd>lprev<CR>zz')
-vim.keymap.set('n', '<localleader>s', ':%s/\\<<C-r><C-w>\\>/<<C-r><C-w>/gI<Left><Left><Left>')
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv",
+	{silent = false, desc = 'move line down in visual mode'})
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv",
+	{silent = false, desc = 'move line up in visual mode'})
+vim.keymap.set('n', 'J', 'mzJ`z',
+	{silent = false, desc = 'append lines'})
+vim.keymap.set('n', '<C-d>', '<C-d>zz',
+	{silent = false, desc = 'half-page down on the mid-page'})
+vim.keymap.set('n', '<C-u>', '<C-u>zz',
+	{silent = false, desc = 'half-page up on the mid-page'})
+vim.keymap.set('n', 'n', 'nzzzv',
+	{silent = false, desc = 'keep search on the mid-page'})
+vim.keymap.set('n', 'N', 'Nzzzv',
+	{silent = false, desc = 'keep search on the mid-page'})
+vim.keymap.set('n', 'Q', '<nop>',
+	{silent = false, desc = 'no ex-mode'})
+-- quickfix navs {{{
+vim.keymap.set('n', '<C-l>', '<cmd>cnext<CR>zz',
+	{silent = true, desc = 'quickfix menu - next'})
+vim.keymap.set('n', '<C-h>', '<cmd>cprev<CR>zz',
+	{silent = true, desc = 'quickfix menu - previous'})
+vim.keymap.set('n', '<C-j>', '<cmd>lnext<CR>zz',
+	{silent = true, desc = 'location list - next'})
+vim.keymap.set('n', '<C-k>', '<cmd>lprev<CR>zz',
+	{silent = true, desc = 'location list - previous'})
+vim.keymap.set('n', '<localleader>oq', '<cmd>copen<CR>zz',
+	{silent = true, desc = 'quickfix menu - open'})
+vim.keymap.set('n', '<localleader>ol', '<cmd>lopen<CR>zz',
+	{silent = true, desc = 'location list - open'})
+-- }}}
+vim.keymap.set('n', '<localleader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>',
+	{silent = false, desc = 'replace current word'})
+vim.keymap.set('n', '<localleader>x', '<cmd>!chmod +x %<CR>',
+	{ silent = true, desc = 'chmod +x %' })
 -- go to next/previous buffer {{{
 vim.keymap.set('n', '<C-n>',  ':bnext<CR>',
 		{ silent = true, noremap = true, desc = "Next buffer" })
@@ -126,28 +144,43 @@ au( [[let b:comment_leader = ';']],
 -- noremap <silent> + :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 -- keybinding
-vim.keymap.set('', '<leader>1',
+vim.keymap.set('', '-',
 	[[:<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>]],
-	{ silent = true, noremap = true, desc = "Comment line(s) - no indent" })
-vim.keymap.set('', '<leader>2',
+	{ silent = true, noremap = true, desc = "comment line at 0" })
+vim.keymap.set('', '+',
 	[[:<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>]],
-	{ silent = true, noremap = true, desc = "Uncomment line(s) - no indent" })
+	{ silent = true, noremap = true, desc = "uncomment line at 0" })
 
 vim.keymap.set('', '<localleader>1',
 	[[:s=\v^(\s*)=\1<C-R>=escape(b:comment_leader,'\ ')<CR><CR>:nohlsearch<CR>]],
-	{ silent = true, noremap = true, desc = "Comment line(s) - with indent" })
+	{ silent = true, noremap = true, desc = "comment lines at ^" })
 vim.keymap.set('', '<localleader>2',
 	[[:s=\v^(\s*)\<C-R>=escape(b:comment_leader,'\= ')<CR>=\1=<CR>:nohlsearch<CR>]],
-	{ silent = true, noremap = true, desc = "Uncomment line(s) - with indent" })
+	{ silent = true, noremap = true, desc = "uncomment lines at ^" })
+
+vim.keymap.set('n', '<leader>A', [[]],
+	{ silent = true, noremap = true, desc = "Append comment" })
 
 -- }}}
--- autofill {{{
-vim.keymap.set('n', '<leader>aa', ':lua AutoFill()<CR>',
-		{ silent = true, noremap = true, desc = "Toggle autofill (all)" })
-vim.keymap.set('n', '<leader>af', ':lua AutoFillToggle()<CR>',
-		{ silent = true, noremap = true, desc = "Toggle basic autofill" })
-vim.keymap.set('n', '<leader>ad', ':lua AutoFillMarkdownToggle()<CR>',
-		{ silent = true, noremap = true, desc = "Toggle markdown autofill" })
-vim.keymap.set('n', '<leader>as', ':lua AutoFillSentToggle()<CR>',
-		{ silent = true, noremap = true, desc = "Toggle sent autofill" })
+---- autofill {{{
+--vim.keymap.set('n', '<leader>aa', ':lua AutoFill()<CR>',
+--		{ silent = true, noremap = true, desc = "Toggle autofill (all)" })
+--vim.keymap.set('n', '<leader>af', ':lua AutoFillToggle()<CR>',
+--		{ silent = true, noremap = true, desc = "Toggle basic autofill" })
+--vim.keymap.set('n', '<leader>ad', ':lua AutoFillMarkdownToggle()<CR>',
+--		{ silent = true, noremap = true, desc = "Toggle markdown autofill" })
+--vim.keymap.set('n', '<leader>as', ':lua AutoFillSentToggle()<CR>',
+--		{ silent = true, noremap = true, desc = "Toggle sent autofill" })
+---- }}}
+-- lsp {{{
+vim.keymap.set('n', '<leader>lb', ':LspStart<CR>',
+	{silent = true, desc = 'LSP Start'})
+vim.keymap.set('n', '<leader>lr', ':LspRestart<CR>',
+	{silent = true, desc = 'LSP Restart'})
+vim.keymap.set('n', '<leader>ls', ':LspStop<CR>',
+	{silent = true, desc = 'LSP Stop'})
+vim.keymap.set('n', '<leader>li', ':LspInfo<CR>',
+	{silent = true, desc = 'LSP Info'})
+vim.keymap.set('n', '<leader>ll', ':LspLog<CR>',
+	{silent = true, desc = 'LSP Logs'})
 -- }}}

@@ -15,45 +15,88 @@ vim.g.maplocalleader = ' '
 vim.go.python3_host_prog = '/bin/python3'
 vim.opt.termguicolors = true
 -- }}}
--- colorscheme {{{
-CurrentColorscheme = 'ayu-dark'
-AlphaEnable = 1 -- 0 means no alpha
--- }}}
+
+-- colorscheme
+CurrentColorscheme = 'onedark'
+AlphaEnable = 0 -- 0 means no alpha
+vim.go.fontfaces = 1
+TermWindowStyle = 'h'
+
 -- modules {{{
 require('module.main') -- main options
 require('module.extra') -- ftype specific extra options
 require('module.skel') -- to input templates
 require('module.keybind') -- set the keybindings and shortcuts
+require('module.netrw') -- built-in Tree explorer
 require('module.rce') -- compile and execute with built-in term
 require('module.sudo') -- write with sudo premission
+require('module.figlet') -- write with sudo premission
 -- these modules are in `lua/module.tmp/`
---require('module.netrw') -- built-in Tree explorer
 -- }}}
 -- plugins {{{
 require('plugin') -- packer plugin-manager
--- -- require('plugin.cmp') -- snippet manager configs
--- require('plugin.lsp') -- lsp usage configs
--- require('plugin.comment') -- comment handler config
--- require('plugin.mason') -- lsp installer configs
--- require('plugin.null-ls') -- null-ls
--- require('plugin.trouble') -- debug adapter protocol
--- require('plugin.symbols-outline') -- symbols
--- require('plugin.colorizer') -- render colors
--- require('plugin.lualine') -- status line
--- require('plugin.treesitter') -- treesitter settings
--- require('plugin.which-key') -- show keybinds
--- require('plugin.gitsigns') -- show `git diff` in line-number
--- require('plugin.alpha') -- greetings at empty buffers
--- require('plugin.telescope') -- Telescope
--- require('plugin.toggleterm') -- ToggleTerm
--- require('plugin.undotree') -- undotree
--- require('plugin.venn') -- undotree
--- require('plugin.nvimtree') -- nvim-tree
--- -- these modules are in `lua/module/.tmp/`
--- --require('plugin.harpoon') -- new filebuffer
--- --require('plugin.git-worktree') -- git worktree
--- --require('plugin.neotree') -- NeoTree
--- --require('plugin.notify') -- notification manager
+
+local plugins = {
+	'cmp',             -- lsp setup
+	'mason',           -- lsp installer
+	'symbols-outline', -- symbols
+	'colorizer',       -- render colors
+	'lualine',         -- status line
+	'treesitter',      -- treesitter settings
+	'which-key',       -- show keybinds
+	'gitsigns',        -- show `git diff` in line-number
+	'telescope',       -- Telescope
+	'undotree',        -- undotree
+	'venn',            -- draw ascii diagram
+	'truezen',         -- zen-mode: focus
+	'autopairs',       -- auto-close pairs
+	'guess-indent',
+	'tabs-vs-spaces',
+--	'toggleterm',      -- terminal
+	'null-ls',         -- null-ls
+-- tmp {{{
+--	'lsp',             -- lsp usage configs
+--	'cmp.bashls',
+--	'cmp.clangd',
+--	'cmp.gopls',
+--	'cmp.html-css',
+--	'cmp.lua_ls',
+--	'cmp.pyright',
+--	'cmp.texlab',
+--	'nvimtree',        -- nvim-tree
+--	'alpha',           -- greetings at empty buffers
+--	'comment',         -- comment handler config
+---- these modules are in `lua/module/.tmp/`
+--	'trouble',      -- debug adapter protocol
+--	'harpoon',      -- new filebuffer
+--	'git-worktree', -- git worktree
+--	'neotree',      -- NeoTree
+--	'notify',       -- notification manager
+-- }}}
+}
+
+-- configurations {{{
+local function plugthem(pluglist)
+	for _,name in ipairs(pluglist) do
+		local plugname = 'plugin.'..name
+		local stat = pcall(require, plugname)
+		if stat == false then
+			vim.notify(name..' is not installed or has a syntax error',
+			           3, {title = 'plugthem()'})
+--			vim.cmd ':PackerInstall'{{{
+--			if name == 'mason' then
+--				vim.cmd ':MasonUpdate'
+--			elseif name == 'treesitter' then
+--				vim.cmd ':TSUpdate'
+--			end}}}
+		else
+			require(plugname)
+		end
+	end
+end
+
+plugthem(plugins)
+-- }}}
 -- }}}
 -- gui {{{
 vim.o.guifont = "Fira Mono:h15"
@@ -61,7 +104,7 @@ vim.o.guifont = "Fira Mono:h15"
 -- }}}
 
 -- term color {{{
-local termcolor = 'tango'
+local termcolor = 'solarized'
 
 if termcolor == 'dracula' then
 	vim.g.terminal_color_0  = "#21222c"
@@ -154,4 +197,6 @@ end
 --local terminal_color_foreground	 = "#cccccc"
 --
 --vim.cmd [[highlight FloatBorder guibg='#002b36' guifg='#cccccc']]
--- }}
+-- }}}
+
+vim.cmd('so ~/.config/nvim/vim/ls.vim')

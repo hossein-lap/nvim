@@ -4,21 +4,21 @@ local options = {
 	grepprg = "rg --vimgrep --smart-case --no-heading", -- search with rg
 	grepformat = "%f:%l:%c:%m", -- filename:line number:column number:error message
 	mousescroll = "ver:3,hor:0", -- scroll vertically by 3 lines, no horizontal scrolling
-	signcolumn = "yes", -- show the sign column always
+	signcolumn = "yes", -- always show the signcolumn
 
-	backup = false, -- do not create backup file
+	backup = false, -- do create backup file
 	swapfile = false, -- do not create swapfile
 	undofile = true,
 	undodir = os.getenv("HOME")..'/.config/nvim/undodir',
 	number = true, -- enable line number
 	relativenumber = true, -- enable relative number
 	wrap = true, -- enable wrapping
-	laststatus = 3, -- status line
+	laststatus = 2, -- status line
 	autochdir = true, -- auto-switch base directory
 	linebreak = true, -- set wrapping on words (and breaking chars. e.g. `,`)
 	wildmenu = true, -- enable popup menu
 	wildmode = { -- popmenu style in `ex` prompt
-	-- 'longest:list',
+--		'longest:list',
 		'full',
 	},
     --          --        
@@ -26,29 +26,29 @@ local options = {
 		'menuone',
 		'noselect'
 	},
-	clipboard = { -- enable clipboard and sync it with system's clipboard
-		'unnamed',
-		'unnamedplus'
-	},
+	-- clipboard = { -- enable clipboard and sync it with system's clipboard
+	-- 	'unnamed',
+	-- 	'unnamedplus'
+	-- },
 	showcmd = true, -- show presses keys in normal mode
 	showmode = true, -- do not show vim-mode in `ex` prompt
 	tabstop = 8, -- set actual tab width
-	shiftwidth = 4, -- set tab key shift width
+	shiftwidth = 8, -- set tab key shift width
 	autoindent = true, -- enable indentation
 	smartindent = true, -- more indentation
 	incsearch = true, -- live highligh search
-	hlsearch = false, -- highligh search keywords
+	hlsearch = true, -- highligh search keywords
 	cursorline = true, -- highlight current line
-	scrolloff = 2, -- set where scrolling begins
+	scrolloff = 4, -- set where scrolling begins
 	foldmethod = 'marker', -- folding style (set to use `{{{ ... }}}` characters)
 	foldenable = true, -- enable folding
-	foldnestmax = 15, -- maximum od folds
+	foldnestmax = 99, -- maximum of folds
 	foldlevel = 0, -- starting fold level
 	splitbelow = true, -- set horizontal split-style
 	splitright = true, -- set vertical split-style
 	spelllang = { -- spell-check languages
 		'en_us',
-	-- 'de',
+		'de',
 	},
 	spellsuggest = 'best', -- suggestion method
 	hidden = true, -- hide the buffer
