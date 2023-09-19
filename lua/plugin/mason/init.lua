@@ -113,23 +113,24 @@ local registry = require('mason-registry')
 
 local list = {
 	-- lsp
-		'clangd', -- C/C++
+		-- 'clangd', -- C/C++
 		'gopls', -- Golang
 		'lua-language-server', -- Lua
 		'bash-language-server', -- Bash/Shell
 		'perlnavigator', -- Perl
 		'pyright', -- Python
 		'vim-language-server', -- Vim
---		'typescript-language-server', -- TypeScript / JavaScript
+		'rust-analyzer', -- rust
+		'typescript-language-server', -- TypeScript / JavaScript
 	-- linter
---		'vale', -- Natural language
---		'write-good', -- Natural language
---		'alex', -- Natural language
-		'proselint', -- Natural language
---		'textlint', -- Natural language
+		-- 'vale', -- Natural language
+		-- 'write-good', -- Natural language
+		-- 'alex', -- Natural language
+		-- 'proselint', -- Natural language
+		-- 'textlint', -- Natural language
 	-- writting
 		'texlab',
---		'grammarly-languageserver',
+		-- 'grammarly-languageserver',
 }
 
 for _,pkg in pairs(list) do

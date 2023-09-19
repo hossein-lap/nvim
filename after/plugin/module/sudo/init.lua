@@ -43,4 +43,4 @@ function PRE_WRITE(tmpfile, filepath)
 	vim.fn.delete(tmpfile)
 end
 
-vim.keymap.set('n', '<leader>ww', ':lua PRE_WRITE()<CR>')
+vim.keymap.set('n', '<leader>ws', ':lua PRE_WRITE()<CR>', {desc = 'privileged write'})

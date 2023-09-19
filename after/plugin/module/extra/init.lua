@@ -12,8 +12,8 @@ local function au(commands, patterns, evnt)
 --		 group = patterns .. 'groups'
 	})
 end
---}}}
--- key map function {{{
+-- }}}
+-- keymap function {{{
 local function map(mode, key, command, opts)
 	if not mode or not key then
 		vim.notify('map(mode, key) must have at least two arguments', 4,
@@ -35,7 +35,7 @@ local function umap(mode, key)
 	end
 	api.nvim_del_keymap(mode, key)
 end
---}}}
+-- }}}
 -- }}}
 
 -- autocmds {{{
@@ -71,7 +71,7 @@ au("set shiftwidth=4", {
 })
 au("set expandtab", {
 	'python', 'toml', 'yaml', 'markdown', 'nim', 'rmd',
-	'sent', 'text', 'html', 'xml'
+	'sent', 'text',
 })
 
 --vim.api.nvim_create_autocmd("ExitPre", {

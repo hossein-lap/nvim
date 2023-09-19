@@ -25,8 +25,8 @@ vim.cmd [[
 "" split char
 "set fillchars+=vert:\|
 
-"noremap <silent> <leader>qf :call ToggleNetrw()<CR>
-"noremap <silent> <leader>fe :call RefreshNetrw()<CR>
+"noremap <silent> <localleader>qf :call ToggleNetrw()<CR>
+"noremap <silent> <localleader>fe :call RefreshNetrw()<CR>
 
 "au BufWritePost buffer silent call RefreshNetrw()<CR>
 "au BufWritePost *.md silent :!bash markdown-create.sh %:p %:p:r.htm
@@ -126,7 +126,7 @@ vim.cmd [[
 ---- }}}
 
 vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
+vim.g.netrw_liststyle = 1
 vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 75
 --vim.g.netrw_menu = 1
@@ -138,9 +138,9 @@ vim.g.netrw_sort_direction = "normal"
 vim.g.netrw_special_syntax = 1
 vim.g.netrw_keepdir = 0
 
-vim.keymap.set('n', '<leader>fm', vim.cmd.Ex, {noremap = true, desc = 'Open nertw', silent = true})
-vim.keymap.set('n', '<leader>fa', ':25Lex<CR>', {noremap = true, desc = 'Open nertw on left', silent = true})
---vim.keymap.set('n', '<leader>fm', vim.cmd ':20Lex<CR>', {noremap = true, desc = 'Open nertw on left'})
+vim.keymap.set('n', '<localleader>fm', vim.cmd.Ex, {noremap = true, desc = 'Open nertw', silent = true})
+vim.keymap.set('n', '<localleader>fa', ':25Lex<CR>', {noremap = true, desc = 'Open nertw on left', silent = true})
+--vim.keymap.set('n', '<localleader>fm', vim.cmd ':20Lex<CR>', {noremap = true, desc = 'Open nertw on left'})
 --vim.cmd [[
 --let g:NetrwIsOpen = 1
 --" Netrw keymap functions {{{

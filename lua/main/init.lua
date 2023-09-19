@@ -14,11 +14,11 @@ local options = {
 	relativenumber = true, -- enable relative number
 	wrap = true, -- enable wrapping
 	laststatus = 2, -- status line
-	autochdir = true, -- auto-switch base directory
+	autochdir = false, -- auto-switch base directory
 	linebreak = true, -- set wrapping on words (and breaking chars. e.g. `,`)
 	wildmenu = true, -- enable popup menu
 	wildmode = { -- popmenu style in `ex` prompt
---		'longest:list',
+		'longest:list',
 		'full',
 	},
     --          --        
@@ -31,7 +31,7 @@ local options = {
 	-- 	'unnamedplus'
 	-- },
 	showcmd = true, -- show presses keys in normal mode
-	showmode = true, -- do not show vim-mode in `ex` prompt
+	showmode = false, -- do not show vim-mode in `ex` prompt
 	tabstop = 8, -- set actual tab width
 	shiftwidth = 8, -- set tab key shift width
 	autoindent = true, -- enable indentation
@@ -55,15 +55,15 @@ local options = {
 	list = true, -- enable special characters (e.g: `EOL`, `TAB`, `TRAIL`)
 	listchars = {
 		tab = '› ', -- <Tab> special character
-	-- tab = '⎪ ', -- <Tab> special character
-	-- trail = '⋅',
-	-- lead = '-',
-	-- eol = ' ', -- <End Of Line> special character
-	-- nbsp = "␣",
-	-- extends = "+",
-	-- precedes = "·",
-	-- multispace = "…", -- show chars if I have multiple spaces between text
-	-- leadmultispace = "—", -- also show when they're at the start
+		-- tab = '⎪ ', -- <Tab> special character
+		-- trail = '⋅',
+		-- lead = '-',
+		-- eol = ' ', -- <End Of Line> special character
+		-- nbsp = "␣",
+		-- extends = "+",
+		-- precedes = "·",
+		-- multispace = "…", -- show chars if I have multiple spaces between text
+		-- leadmultispace = "—", -- also show when they're at the start
 	},
 	termbidi = true, -- enable bidirectional support
 	background = 'dark', -- set background style

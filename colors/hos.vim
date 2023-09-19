@@ -1,1 +1,0 @@
-/data/dev/hossein-lap/vim-colors/vim-hos/colors/hos.vim
