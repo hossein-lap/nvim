@@ -129,6 +129,11 @@ _G.packer_plugins = {
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/guess-indent.nvim",
     url = "https://github.com/nmac427/guess-indent.nvim"
   },
+  ["lsp-zero.nvim"] = {
+    loaded = true,
+    path = "/home/hos/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
+    url = "https://github.com/VonHeikemen/lsp-zero.nvim"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/lualine.nvim",
@@ -159,6 +164,11 @@ _G.packer_plugins = {
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
     url = "https://github.com/EdenEast/nightfox.nvim"
   },
+  ["none-ls.nvim"] = {
+    loaded = true,
+    path = "/home/hos/.local/share/nvim/site/pack/packer/start/none-ls.nvim",
+    url = "https://github.com/nvimtools/none-ls.nvim"
+  },
   ["nord.nvim"] = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nord.nvim",
@@ -178,16 +188,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
     url = "https://github.com/norcalli/nvim-colorizer.lua"
-  },
-  ["nvim-dap"] = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-dap",
-    url = "https://github.com/mfussenegger/nvim-dap"
-  },
-  ["nvim-gtd"] = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-gtd",
-    url = "https://github.com/hrsh7th/nvim-gtd"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -209,15 +209,15 @@ _G.packer_plugins = {
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-solarized-lua",
     url = "https://github.com/ishan9299/nvim-solarized-lua"
   },
-  ["nvim-tree.lua"] = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
-    url = "https://github.com/nvim-tree/nvim-tree.lua"
-  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-treesitter-context"] = {
+    loaded = true,
+    path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -234,15 +234,15 @@ _G.packer_plugins = {
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
+  playground = {
+    loaded = true,
+    path = "/home/hos/.local/share/nvim/site/pack/packer/start/playground",
+    url = "https://github.com/nvim-treesitter/playground"
+  },
   ["plenary.nvim"] = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
-  },
-  ["rust-tools.nvim"] = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/rust-tools.nvim",
-    url = "https://github.com/simrat39/rust-tools.nvim"
   },
   ["symbols-outline.nvim"] = {
     loaded = true,
@@ -323,11 +323,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/vim-sunbather",
     url = "https://github.com/hossein-lap/vim-sunbather"
-  },
-  vimwiki = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/vimwiki",
-    url = "https://github.com/vimwiki/vimwiki"
   },
   ["which-key.nvim"] = {
     loaded = true,

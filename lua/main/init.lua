@@ -17,11 +17,11 @@ local options = {
 	autochdir = false, -- auto-switch base directory
 	linebreak = true, -- set wrapping on words (and breaking chars. e.g. `,`)
 	wildmenu = true, -- enable popup menu
-	wildmode = { -- popmenu style in `ex` prompt
-		'longest:list',
-		'full',
-	},
-    --          --        
+	-- wildmode = { -- popmenu style in `ex` prompt
+	-- 	'longest:list',
+	-- 	'full',
+	-- },
+
 	completeopt = { -- luasnippet complition option
 		'menuone',
 		'noselect'
@@ -31,7 +31,7 @@ local options = {
 	-- 	'unnamedplus'
 	-- },
 	showcmd = true, -- show presses keys in normal mode
-	showmode = false, -- do not show vim-mode in `ex` prompt
+	showmode = true, -- do not show vim-mode in `ex` prompt
 	tabstop = 8, -- set actual tab width
 	shiftwidth = 8, -- set tab key shift width
 	autoindent = true, -- enable indentation
@@ -39,7 +39,7 @@ local options = {
 	incsearch = true, -- live highligh search
 	hlsearch = true, -- highligh search keywords
 	cursorline = true, -- highlight current line
-	scrolloff = 4, -- set where scrolling begins
+	scrolloff = 8, -- set where scrolling begins
 	foldmethod = 'marker', -- folding style (set to use `{{{ ... }}}` characters)
 	foldenable = true, -- enable folding
 	foldnestmax = 99, -- maximum of folds

@@ -131,7 +131,7 @@ return packer.startup(function(use)
 	use 'nvim-lualine/lualine.nvim' -- statusline
 	use 'lewis6991/gitsigns.nvim' -- git signs
 	use 'tpope/vim-fugitive' -- git
-	use 'nvim-tree/nvim-tree.lua' -- tree file-manager
+	-- use 'nvim-tree/nvim-tree.lua' -- tree file-manager
 
 	-- use 'ThePrimeagen/harpoon' -- the harpoon man
 
@@ -141,8 +141,8 @@ return packer.startup(function(use)
 	use 'nvim-tree/nvim-web-devicons'
 	-- use 'kyazdani42/nvim-web-devicons' -- icons
 
-	-- notification manager
-	use 'rcarriga/nvim-notify'
+	-- -- notification manager
+	-- use 'rcarriga/nvim-notify'
 
 	use {
 		'nvim-telescope/telescope.nvim',
@@ -211,6 +211,7 @@ return packer.startup(function(use)
 	--
 	-- 	-- -- Linting
 	-- 	-- use 'jose-elias-alvarez/null-ls.nvim' -- linter and formatter
+	use 'nvimtools/none-ls.nvim'
 	--
 	-- 	-- Third-party tools
 	-- 	use 'williamboman/mason.nvim'
@@ -254,8 +255,8 @@ return packer.startup(function(use)
 		use 'Pocco81/true-zen.nvim'
 		use 'folke/twilight.nvim'
 
-	-- yeah you know it
-	use 'vimwiki/vimwiki'
+	-- -- yeah you know it
+	-- use 'vimwiki/vimwiki'
 
 	if packer_bootstrap then
 		require('packer').sync()
