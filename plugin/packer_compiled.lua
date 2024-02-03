@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/hos/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/hos/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/hos/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/hos/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/hos/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/home/hos/.cache/nvim/packer_hererocks/2.1.1702233742/share/lua/5.1/?.lua;/home/hos/.cache/nvim/packer_hererocks/2.1.1702233742/share/lua/5.1/?/init.lua;/home/hos/.cache/nvim/packer_hererocks/2.1.1702233742/lib/luarocks/rocks-5.1/?.lua;/home/hos/.cache/nvim/packer_hererocks/2.1.1702233742/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/hos/.cache/nvim/packer_hererocks/2.1.1702233742/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -124,11 +124,6 @@ _G.packer_plugins = {
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
     url = "https://github.com/ellisonleao/gruvbox.nvim"
   },
-  ["guess-indent.nvim"] = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/guess-indent.nvim",
-    url = "https://github.com/nmac427/guess-indent.nvim"
-  },
   ["lsp-zero.nvim"] = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
@@ -164,11 +159,6 @@ _G.packer_plugins = {
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
     url = "https://github.com/EdenEast/nightfox.nvim"
   },
-  ["none-ls.nvim"] = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/none-ls.nvim",
-    url = "https://github.com/nvimtools/none-ls.nvim"
-  },
   ["nord.nvim"] = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nord.nvim",
@@ -189,6 +179,11 @@ _G.packer_plugins = {
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
     url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
+  ["nvim-lint"] = {
+    loaded = true,
+    path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-lint",
+    url = "https://github.com/mfussenegger/nvim-lint"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
@@ -198,11 +193,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-markdown",
     url = "https://github.com/ixru/nvim-markdown"
-  },
-  ["nvim-notify"] = {
-    loaded = true,
-    path = "/home/hos/.local/share/nvim/site/pack/packer/start/nvim-notify",
-    url = "https://github.com/rcarriga/nvim-notify"
   },
   ["nvim-solarized-lua"] = {
     loaded = true,
@@ -303,6 +293,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hos/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-hos"] = {
+    loaded = true,
+    path = "/home/hos/.local/share/nvim/site/pack/packer/start/vim-hos",
+    url = "/home/hos/dev/hossein-lap/vim-colors/vim-hos"
   },
   ["vim-hybrid"] = {
     loaded = true,

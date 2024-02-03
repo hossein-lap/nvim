@@ -7,7 +7,6 @@ vim.g.maplocalleader = '\\'
 require("main")
 
 -- vim.go.python3_host_prog = '/bin/python3'
-vim.opt.termguicolors = true
 
 -- colorscheme
 CurrentColorscheme = 'ayu-dark'
@@ -23,7 +22,7 @@ if vim.g.neovide then
 	vim.o.guifont = "Fira Code:h16"
 
 	-- colorscheme
-	CurrentColorscheme = 'onedark'
+	-- CurrentColorscheme = 'onedark'
 end
 
 -- نمونه شماره یک

@@ -22,18 +22,18 @@
 --end
 ---- }}}
 
--- au {{{
-local function au(commands, patterns, evnt)
-	if evnt == nil then
-		evnt = 'FileType'
-	end
-	vim.api.nvim_create_autocmd(evnt, {
-		pattern = patterns,
-		command = commands,
---		group = patterns .. 'groups'
-	})
-end
--- }}}
+-- -- au {{{
+-- local function au(commands, patterns, evnt)
+-- 	if evnt == nil then
+-- 		evnt = 'FileType'
+-- 	end
+-- 	vim.api.nvim_create_autocmd(evnt, {
+-- 		pattern = patterns,
+-- 		command = commands,
+-- --		group = patterns .. 'groups'
+-- 	})
+-- end
+-- -- }}}
 
 -- }}}
 
@@ -84,6 +84,8 @@ vim.keymap.set('n', '<localleader>ss',  ':set spell!<CR>',
 		{ silent = true, noremap = true, desc = "Toggle › spell check" })
 -- }}}
 
+vim.keymap.set('n', '<leader>wr', ":set wrap!<CR>",
+	{silent = false, desc = 'toggle line wrapping'})
 
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv",
 	{silent = false, desc = 'move line down in visual mode'})
@@ -135,14 +137,14 @@ vim.keymap.set('n', '<leader>bk',  ':bd<CR>',
 vim.keymap.set('n', '<leader>bl',  ':ls<CR>',
 		{ silent = true, noremap = true, desc = "List buffers" })
 
-vim.keymap.set('n', '<leader>tc',  ':tabnew<CR>',
-		{ silent = true, noremap = true, desc = "Create tab" })
-vim.keymap.set('n', '<leader>td',  ':tabclose<CR>',
-		{ silent = true, noremap = true, desc = "Close tab" })
-vim.keymap.set('n', '<leader>tn',  ':tabnext<CR>',
-		{ silent = true, noremap = true, desc = "Next tab" })
-vim.keymap.set('n', '<leader>tp',  ':tabprevious<CR>',
-		{ silent = true, noremap = true, desc = "Previous tab" })
+-- vim.keymap.set('n', '<leader>tc',  ':tabnew<CR>',
+-- 		{ silent = true, noremap = true, desc = "Create tab" })
+-- vim.keymap.set('n', '<leader>td',  ':tabclose<CR>',
+-- 		{ silent = true, noremap = true, desc = "Close tab" })
+-- vim.keymap.set('n', '<leader>tn',  ':tabnext<CR>',
+-- 		{ silent = true, noremap = true, desc = "Next tab" })
+-- vim.keymap.set('n', '<leader>tp',  ':tabprevious<CR>',
+-- 		{ silent = true, noremap = true, desc = "Previous tab" })
 -- }}}
 
 ---- switch tabs {{{
@@ -222,3 +224,7 @@ vim.keymap.set('n', '<localleader>ll', ':LspLog<CR>',
 	{silent = true, desc = 'LSP Logs'})
 -- }}}
 
+-- tmux sessionizer {{{
+vim.keymap.set("n", "<C-f>", ":!tmux neww tmux-sessionizer<CR>",
+	{ silent = true, desc = "tmux" })
+-- }}}

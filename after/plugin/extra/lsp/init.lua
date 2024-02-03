@@ -169,20 +169,23 @@ lsp.setup_servers({
 	'clangd',
 	'rust_analyzer',
 
-	'html',
-	'cssls',
-	'jsonls',
-	'tsserver',
-
 	'gopls',
 	'lua_ls',
-	'pyright',
 	'texlab',
 
-	'bashls',
-	'perlnavigator',
+	-- 'qmllint',
+	-- 'html',
+	-- 'cssls',
+	-- 'jsonls',
+	-- 'tsserver',
 
-	'vale_ls',
+	'pylsp',
+	-- 'bashls',
+	-- 'perlnavigator',
+	-- 'ansiblels',
+	-- 'dockerls',
+	-- 'vale_ls',
+	-- -- 'grammarly',
 })
 
 -- lsp.ensure_installed({
@@ -225,11 +228,11 @@ cmp.setup({
 
 	-- sources {{{
 	sources = {
-		{name = 'path', keyword_length = 1},
 		{name = 'nvim_lsp', keyword_length = 1},
 		{name = 'nvim_lua', keyword_length = 1},
-		{name = 'buffer', keyword_length = 1},
-		{name = 'luasnip', keyword_length = 1},
+		{name = 'path', keyword_length = 2},
+		{name = 'buffer', keyword_length = 2},
+		{name = 'luasnip', keyword_length = 3},
 	},
 	-- }}}
 
@@ -248,8 +251,8 @@ cmp.setup({
 		end),
 		['<C-y>'] = cmp.mapping.confirm({select = true}),
 		['<C-e>'] = cmp.mapping.abort(),
-		['<C-u>'] = cmp.mapping.scroll_docs(-4),
-		['<C-d>'] = cmp.mapping.scroll_docs(4),
+		['<C-k>'] = cmp.mapping.scroll_docs(-4),
+		['<C-j>'] = cmp.mapping.scroll_docs(4),
 		--		['<Up>'] = cmp.mapping.select_prev_item(cmp_select_opts),
 		--		['<Down>'] = cmp.mapping.select_next_item(cmp_select_opts),
 		["<C-s>"] = cmp.mapping(function(fallback)
@@ -340,12 +343,15 @@ cmp.setup({
 		-- documentation = cmp.config.window.bordered(),
 
 		completion = {
-			winhighlight =  "Normal:CmpPmenu,CursorLine:CursorLine,Search:None",
-			border = borders["rounded"]
+			winhighlight =  "Normal:CmpPmenu,CursorLine:Visual,Search:None",
+			border = "single",
 		},
 		documentation = {
-			winhighlight =  "Normal:CmpPmenu,CursorLine:CursorLine,Search:None",
-			border = borders["rounded"]
+			winhighlight =  "Normal:CmpPmenu,CursorLine:Visual,Search:None",
+			border = "single",
+		},
+		diagnostic = {
+			border = "single",
 		}
 	},
 	-- }}}
@@ -390,7 +396,7 @@ map("n", "K", function() vim.lsp.buf.hover() end)
 map("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end)
 map("n", "<leader>vd", function() vim.diagnostic.open_float() end)
 map("n", "[d", function() vim.diagnostic.goto_prev() end, {desc = "diagnostic next"})
-map("n", "]d", function() vim.diagnostic.goto_next() end)
+map("n", "]d", function() vim.diagnostic.goto_next() end, {desc = "diagnostic prev"})
 map("n", "<leader>vca", function() vim.lsp.buf.code_action() end )
 map("n", "<leader>vrr", function() vim.lsp.buf.references() end )
 map("n", "<leader>vrn", function() vim.lsp.buf.rename() end)

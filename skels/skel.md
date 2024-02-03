@@ -2,15 +2,15 @@
 title: ''
 subtitle: ''
 author: ''
-date: ''
 institute: ''
+date: ''
 abstract: ''
-dir: ltr
-toc: false
-lof: false
-lot: false
-# beamer
-aspectratio: 169
-theme: Warsaw
+# dir: ltr
+# toc: false
+# lof: false
+# lot: false
+# # beamer
+# aspectratio: 169
+# theme: Warsaw
 ---
 

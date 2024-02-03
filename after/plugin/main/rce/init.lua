@@ -104,7 +104,7 @@ function float_term(opts)
 	local col = math.ceil((width - win_width) / 2)
 	-- }}}
 	-- border style {{{
-	local border_color = 'Number'
+	local border_color = 'String'
 	local borderstyle = {
 		ascii = {
 			{ "/", border_color },
@@ -148,7 +148,7 @@ function float_term(opts)
 	opts = {
 		noautocmd = true,
 		style = "minimal",
-		border = borderstyle.double,
+		border = borderstyle.single,
 		relative = "editor",
 		width = win_width,
 		height = win_height,
@@ -167,16 +167,16 @@ function float_term(opts)
 
 	-- run cmd in terminal {{{
 	if work == "shell" then
-		vim.api.nvim_buf_call(buf, function() vim.cmd("set nornu nonu") end)
+		vim.api.nvim_buf_call(buf, function() vim.cmd("setlocal nornu nonu") end)
 		if cmd then
 			vim.api.nvim_buf_call(buf, function() vim.cmd("term " .. cmd) end)
 		else
 			vim.api.nvim_buf_call(buf, function() vim.cmd("term") end)
 		end
 		vim.api.nvim_buf_call(buf, function() vim.cmd("startinsert") end)
-	else
-		vim.api.nvim_buf_call(buf, function() vim.cmd("term") end)
-		vim.api.nvim_buf_call(buf, function() vim.cmd("startinsert") end)
+	-- else
+	-- 	vim.api.nvim_buf_call(buf, function() vim.cmd("term") end)
+	-- 	vim.api.nvim_buf_call(buf, function() vim.cmd("startinsert") end)
 	end
 
 	vim.api.nvim_buf_set_name(buf, title)
@@ -187,38 +187,46 @@ end
 
 -- _run {{{
 function _run(wrapped, style)
-	-- work = work or 'wrap'
-	-- local style = {
-	-- 	vertical = 'vs ',
-	-- 	horizontal = 'split ',
-	-- }
 
-	local buffercmd = style or TermWindowStyle or 'float'
-
-	if wrapped then
-		if buffercmd == 'float' then
-			TermF(wrapped)
-		elseif buffercmd == 'vertical' then
-			TermV(wrapped)
-		else
-			TermH(wrapped)
-		end
+	if wrapped == nil and style == nil then
+		vim.api.nvim_command("term")
+		vim.api.nvim_command("setlocal nonu nornu")
+		vim.api.nvim_command("startinsert")
+		return 0
 	end
 
-	-- if buffercmd == 'float' then
-	-- 	float_term(wrapped, work)
-	-- else
-	-- 	vim.api.nvim_command(buffercmd)
-	-- 	vim.api.nvim_command('set nornu nonu signcolumn=no')
-	-- 	if wrapped then
-	-- 		vim.api.nvim_command("term " .. wrapped)
+	local split = {
+		vertical = 'vs ',
+		horizontal = 'split ',
+	}
+
+	local buffercmd = split[style] or "float"
+	-- local buffercmd = 'float'
+
+	-- if wrapped then
+	-- 	if buffercmd == 'float' then
+	-- 		TermF(wrapped)
+	-- 	elseif buffercmd == 'vertical' then
+	-- 		TermV(wrapped)
 	-- 	else
-	-- 		vim.api.nvim_command('term')
+	-- 		TermH(wrapped)
 	-- 	end
-	-- 	vim.api.nvim_command('startinsert')
-	-- 	vim.notify(string.format('[%s]: %s', work, wrapped), 2,
-	-- 		        {title = '_run()'})
 	-- end
+
+	if buffercmd == 'float' then
+		float_term({work = 'shell', cmd = wrapped})
+	else
+		vim.api.nvim_command(buffercmd)
+		vim.api.nvim_command('set nornu nonu signcolumn=no')
+		if wrapped then
+			vim.api.nvim_command("term " .. wrapped)
+		else
+			vim.api.nvim_command('term')
+		end
+		vim.api.nvim_command('startinsert')
+		vim.notify(string.format('[%s]: %s', work, wrapped), 2,
+			        {title = '_run()'})
+	end
 end
 -- }}}
 
@@ -245,7 +253,15 @@ function _quickfix(opts)
 		cmd = string.format(':cexpr system("%s")', command)
 	end
 	vim.api.nvim_command(cmd)
-	vim.notify(string.format('[%s]: %s', prompt, string.gsub(command, '\n', '')), 2)
+	if vim.v.shell_error ~= 0 then
+		vim.notify(string.format('[error]: %s: [%s]: %s',
+			                      vim.v.shell_error,
+			                      prompt,
+			                      string.gsub(command, '\n', '')
+					), 3)
+	else
+		vim.notify(string.format('[%s]: %s', prompt, string.gsub(command, '\n', '')), 2)
+	end
 	if prompt == 'debug' then
 		vim.api.nvim_command('copen')
 	end
@@ -266,13 +282,14 @@ function _commands(filetype, output)
 
 	local commands = {
 		run = {
+			javascript = 'node '..src_name,
 			c = out_name,
 			cpp = out_name,
 			rust = out_name,
 			go = out_name,
-			sent = 'sent ' .. src_name,
-			text = 'sent ' .. src_name,
-			perl = 'perl ' .. src_name,
+			sent = 'sent '..src_name,
+			text = 'sent '..src_name,
+			perl = 'perl '..src_name,
 			markdown = string.format('pandoc %s %s -o %s.pdf',
 				        pandoc_path, src_name, out_name),
 			nroff = string.format('groff %s %s > %s.pdf',
@@ -286,7 +303,7 @@ function _commands(filetype, output)
 			c = string.format('gcc %s -o %s', src_name, out_name),
 			cpp = string.format('g++ %s -o %s', src_name, out_name),
 			rust = string.format('rustc %s -o %s', src_name, out_name),
-			go = 'go build ' .. src_name,
+			go = 'go build '..src_name,
 
 			-- documents
 			nroff = string.format('pdfroff -U -mspdf %s > %s.pdf', src_name,
@@ -302,12 +319,12 @@ function _commands(filetype, output)
 			c = string.format('gcc -Wall %s -o %s', src_name, out_name),
 			cpp = string.format('g++ -Wall %s -o %s', src_name, out_name),
 			rust = string.format('rustc %s -o %s', src_name, out_name),
-			go = 'go build ' .. src_name,
+			go = 'go build '..src_name,
 
 			-- documents
 			nroff = string.format('pdfroff -Wall -U -mspdf %s > %s.pdf',
 				        src_name, out_name),
-			tex = 'xelatex ' .. src_name,
+			tex = 'xelatex '..src_name,
 			markdown = string.format('pandoc %s %s -o %s.pdf',
 				        beamer_args, src_name, out_name),
 			rmd = string.format([[%s(input='%s', %s)\"]],
@@ -361,38 +378,44 @@ end
 
 -- Keymaps {{{
 ---- Compile/Run/Debug
-vim.keymap.set('n', '<localleader>fq',
-	        ':lua wrapcmd({ft = vim.bo.filetype, w = "run", split = "horizontal"})<CR>',
-	        { silent = true, desc = 'Run current file - horizontal' })
-vim.keymap.set('n', '<localleader>fQ',
-	        ':lua wrapcmd({ft = vim.bo.filetype, w = "run", split = "vertical"})<CR>',
-	        { silent = true, desc = 'Run current file - vertical' })
-vim.keymap.set('n', '<localleader>fe',
-	        ':lua wrapcmd({ft = vim.bo.filetype, w = "compile", silent = true})<CR>',
-	        { silent = true, desc = 'quickfix › Compile current file' })
-vim.keymap.set('n', '<localleader>fw',
-	        ':lua wrapcmd({ft = vim.bo.filetype, w = "debug", silent = true})<CR>',
-	        { silent = true, desc = 'quickfix › Debug current file' })
+vim.keymap.set('n', '<localleader>fq', function()
+		wrapcmd({ft = vim.bo.filetype, w = "run", style = "horizontal"})
+	end, { silent = true, desc = 'Run current file - horizontal' })
+vim.keymap.set('n', '<localleader>fQ', function()
+		wrapcmd({ft = vim.bo.filetype, w = "run", style = "vertical"})
+	end, { silent = true, desc = 'Run current file - vertical' })
+vim.keymap.set('n', '<localleader>fe', function()
+		wrapcmd({ft = vim.bo.filetype, w = "compile", silent = true})
+	end, { silent = true, desc = 'quickfix › Compile current file' })
+vim.keymap.set('n', '<localleader>fw', function()
+		wrapcmd({ft = vim.bo.filetype, w = "debug", silent = true})
+	end, { silent = true, desc = 'quickfix › Debug current file' })
 
 ---- makefile
-vim.keymap.set('n', '<localleader>ca', ':lua _run("make")<CR>',
-	        { silent = true, desc = 'make › all' })
-vim.keymap.set('n', '<localleader>cc', ':lua _quickfix({cmd = "make", silent = true})<CR>',
-	        { silent = true, desc = 'quickfix › make' })
-vim.keymap.set('n', '<localleader>cd', ':lua _quickfix({cmd = "make clean", silent = true})<CR>',
-	        { silent = true, desc = 'quickfix › make clean' })
-vim.keymap.set('n', '<localleader>cf', ':lua _quickfix({cmd = "make force", silent = true})<CR>',
-	        { silent = true, desc = 'quickfix › make force' })
-vim.keymap.set('n', '<localleader>cb', ':lua _quickfix({cmd = "make build", silent = true})<CR>',
-	        { silent = true, desc = 'quickfix › make build' })
-vim.keymap.set('n', '<localleader>cF', ':lua _quickfix({cmd = "make full", silent = true})<CR>',
-	        { silent = true, desc = 'quickfix › make full' })
+vim.keymap.set('n', '<localleader>ca', function()
+		_run("make", "horizontal")
+	end, { silent = true, desc = 'make › all' })
+vim.keymap.set('n', '<localleader>cc', function()
+		_quickfix({cmd = "make", silent = true})
+	end, { silent = true, desc = 'quickfix › make' })
+vim.keymap.set('n', '<localleader>cd', function()
+		_quickfix({cmd = "make clean", silent = true})
+	end, { silent = true, desc = 'quickfix › make clean' })
+vim.keymap.set('n', '<localleader>cf', function()
+		_quickfix({cmd = "make force", silent = true})
+	end, { silent = true, desc = 'quickfix › make force' })
+vim.keymap.set('n', '<localleader>cb', function()
+		_quickfix({cmd = "make build", silent = true})
+	end, { silent = true, desc = 'quickfix › make build' })
+vim.keymap.set('n', '<localleader>cF', function()
+		_quickfix({cmd = "make full", silent = true})
+	end, { silent = true, desc = 'quickfix › make full' })
 
 -- ---- intractive shells
--- vim.keymap.set('n', '<localleader>tb', ':lua _run("bash")<CR>',
---	        { silent = true, desc = 'term › bash shell' })
--- vim.keymap.set('n', '<localleader>ts', ':lua _run("zsh")<CR>',
---	        { silent = true, desc = 'term › zsh shell' })
--- --vim.keymap.set('n', '<localleader>td', ':lua _run("dash")<CR>',
--- --	        { silent = true, desc = 'term › dash shell' })
+vim.keymap.set('n', '<C-q>', function() _run("mksh")
+	end, { silent = true, desc = 'term › bash shell' })
+vim.keymap.set('n', '<localleader>ts', function() _run("tcsh")
+	end, { silent = true, desc = 'term › zsh shell' })
+-- vim.keymap.set('n', '<localleader>td', function() _run("dash")
+-- 	end, { silent = true, desc = 'term › dash shell' })
 -- }}}

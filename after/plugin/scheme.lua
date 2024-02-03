@@ -40,7 +40,7 @@ function ColorThem(color, alpha)
 
 	alpha = alpha or AlphaEnable
 
-	local defaultcolor = 'ayu-dark'
+	local defaultcolor = 'sunbather'
 	if color == nil or color == '' then
 		color = defaultcolor
 	end
@@ -106,17 +106,24 @@ function ColorThem(color, alpha)
 			'SignColumn',
 			'WhichKeyFloat',
 			'VertSplit',
-			-- 'TabLineSel',
-			-- 'FoldColumn',
+			'TabLineSel',
+			'FoldColumn',
 			-- 'Folded',
+			-- 'EndOfBuffer',
+			-- 'LineNr',
+			'CursorLineNr',
 		}
 
 		for i = 1, #sections do
 			vim.api.nvim_set_hl(0, sections[i], {bg = 'none'})
 		end
 
-		vim.g.terminal_color_0 = 'none'
-		vim.g.terminal_color_background = 'none'
+		-- colorscheme
+		vim.api.nvim_set_hl(0, "StatusLine", {bg = '#121212', fg = '#ccccce'})
+		vim.api.nvim_set_hl(0, "StatusLineNC", {bg = '#ccccce', fg = '#121212'})
+
+		-- vim.g.terminal_color_0 = 'none'
+		-- vim.g.terminal_color_background = 'none'
 	end
 end
 
@@ -217,3 +224,4 @@ end
 -- -- }}}
 
 ColorThem(CurrentColorscheme, AlphaEnable)
+

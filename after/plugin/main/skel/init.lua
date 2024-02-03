@@ -84,7 +84,7 @@ function Skel_filelist()
 	-- calculate our floating window size {{{
 	local scale = 0.45
 	local win_height = math.ceil(height * scale)
-	local win_width = math.ceil(width * (scale / 2))
+	local win_width = math.ceil(width * (scale / 1))
 	-- }}}
 	-- and its starting position {{{
 	local row = math.ceil((height - win_height) / 2 - 2)
@@ -135,7 +135,7 @@ function Skel_filelist()
 	local opts = {
 		noautocmd = true,
 		style = "minimal",
-		border = borderstyle.double,
+		border = borderstyle.single,
 		relative = "editor",
 		width = win_width,
 		height = win_height,

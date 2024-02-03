@@ -68,7 +68,7 @@ require("mason").setup({
 		check_outdated_packages_on_open = true,
 
 		-- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
-		border = "rounded",
+		border = "single",
 
 		-- Width of the window. Accepts:
 		-- - Integer greater than 1 for fixed width.
@@ -113,27 +113,28 @@ local registry = require('mason-registry')
 
 local list = {
 	-- -- lsp
-		-- 'clangd', -- c/c++
+		'clangd', -- c/c++
 		'gopls', -- golang
 		'lua-language-server', -- lua
-		'bash-language-server', -- bash/shell
-		'perlnavigator', -- perl
-		'pyright', -- python
 		'rust-analyzer', -- rust
-		'vim-language-server', -- Vim
-
 		'texlab', -- latex
+		--
+		-- 'bash-language-server', -- bash/shell
+		-- 'perlnavigator', -- perl
+		'python-lsp-server', -- python
+		-- 'vim-language-server', -- Vim
 
-		'typescript-language-server', -- TypeScript / JavaScript
-		'html-lsp',
-		'css-lsp',
-		'json-lsp',
+		-- 'typescript-language-server', -- TypeScript / JavaScript
+		-- 'html-lsp',
+		-- 'css-lsp',
+		-- 'json-lsp',
+
 	-- -- linter
 	-- 	-- 'write-good', -- Natural language
 	-- 	-- 'alex', -- Natural language
 	-- -- writting
 	-- 	-- 'grammarly-languageserver',
-		'vale-ls', -- Natural language
+		-- 'vale', -- Natural language
 		-- 'textlint', -- Natural language
 		-- 'proselint', -- Natural language
 }
@@ -144,22 +145,5 @@ for _,pkg in pairs(list) do
 		vim.cmd(string.format(':MasonInstall --force %s', pkg))
 	end
 end
-
--- local pkgs_list = registry.get_installed_package_names()
--- function table.item(input_table, input_string)
--- 	for index,_ in ipairs(input_table) do
--- 		if input_table[index] == input_string then
--- 			return index
--- 		end
--- 	end
--- 	return 0
--- end
---
--- for _,value in ipairs(pkgs_list) do
--- 	if table.item(list, value) == 0 then
--- 		vim.notify('152: '..value, 3)
--- 		vim.cmd(string.format(':MasonUninstall %s', value))
--- 	end
--- end
 
 vim.keymap.set('n', '<leader>ma', vim.cmd.Mason, {desc = 'Open mason lsp manager'})

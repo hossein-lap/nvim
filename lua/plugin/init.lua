@@ -158,7 +158,7 @@ return packer.startup(function(use)
 	-- comment
 	use 'numToStr/Comment.nvim'
 	-- auto indentation
-	use 'nmac427/guess-indent.nvim'
+	-- use 'nmac427/guess-indent.nvim'
 	use 'tenxsoydev/tabs-vs-spaces.nvim'
 
 
@@ -183,7 +183,7 @@ return packer.startup(function(use)
 			{'hrsh7th/nvim-cmp'},     -- Required
 			{'hrsh7th/cmp-nvim-lsp'}, -- Required
 			{'L3MON4D3/LuaSnip'},     -- Required
-			
+
 			-- Extra sources
 			{'hrsh7th/cmp-nvim-lua'},  -- nvim Lua API source for nvim-cmp
 			{'hrsh7th/cmp-buffer'},    -- buffer source for nvim-cmp
@@ -211,7 +211,8 @@ return packer.startup(function(use)
 	--
 	-- 	-- -- Linting
 	-- 	-- use 'jose-elias-alvarez/null-ls.nvim' -- linter and formatter
-	use 'nvimtools/none-ls.nvim'
+	-- use 'nvimtools/none-ls.nvim'
+	use 'mfussenegger/nvim-lint'
 	--
 	-- 	-- Third-party tools
 	-- 	use 'williamboman/mason.nvim'
@@ -231,7 +232,7 @@ return packer.startup(function(use)
 -- 	use os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-sunbather' -- local
 	use '/home/hos/dev/hossein-lap/vim-colors/vim-256noir' -- local
 	use '/home/hos/dev/hossein-lap/vim-colors/vim-hybrid' -- local
--- 	use os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-hos' -- local
+	use {os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-hos'} -- local
 -- 	use os.getenv("HOME")..'/dev/hossein-lap/vim-colors/vim-test' -- local
 	use 'Mofiqul/dracula.nvim'
 	use 'tiagovla/tokyodark.nvim'
@@ -245,11 +246,12 @@ return packer.startup(function(use)
 	use 'EdenEast/nightfox.nvim'
 	use 'navarasu/onedark.nvim'
 	use 'marko-cerovac/material.nvim'
--- 	use {'rose-pine/neovim', as = 'rose-pine'}
+	use {'rose-pine/neovim', as = 'rose-pine'}
+	-- use 'dylanaraps/wal.vim'
 
 	-- document
-		-- markdown
-		use 'ixru/nvim-markdown'
+		-- -- markdown
+		-- use 'ixru/nvim-markdown'
 
 		-- zen mode: chill (focus)
 		use 'Pocco81/true-zen.nvim'

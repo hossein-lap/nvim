@@ -48,30 +48,28 @@ au("set filetype=json",  {'*.theme'}, {'BufRead', 'BufNewFile'})
 au("set filetype=nasm",  {'*.s'},     {'BufRead', 'BufNewFile'})
 au("set filetype=sent",  {'*.sent'},  {'BufRead', 'BufNewFile'})
 au("set filetype=tex",   {'plaintex'})
+au("set filetype=nasm",  {'asm'})
+au("set filetype=qml",   {'*.qml'},   {'BufRead', 'BufNewFile'})
 
 au("set noexpandtab",    {'c', 'make', 'nasm'})
-au("set tabstop=8",      {'c', 'make', 'nasm'})
-au("set softtabstop=8",  {'c', 'make', 'nasm'})
-au("set shiftwidth=8",   {'c', 'make', 'nasm'})
+-- au("set tabstop=8",      {'c', 'make', 'nasm'})
+-- au("set softtabstop=8",  {'c', 'make', 'nasm'})
+-- au("set shiftwidth=8",   {'c', 'make', 'nasm'})
 au("set tabstop=2",      {'sent', 'yaml', 'text', 'html', 'xml'})
 au("set softtabstop=2",  {'sent', 'yaml', 'text', 'html', 'xml'})
 au("set shiftwidth=2",   {'sent', 'yaml', 'text', 'html', 'xml'})
 
-au("set tabstop=4", {
-	'python', 'bash', 'sh', 'toml', 'nvim', 'go',
-	'markdown', 'nim', 'rmd', 'lua', 'vim', 'tex'
-})
-au("set softtabstop=4", {
-	'python', 'bash', 'sh', 'toml', 'nvim', 'go',
-	'markdown', 'nim', 'rmd', 'lua', 'vim', 'tex'
-})
-au("set shiftwidth=4", {
-	'python', 'bash', 'sh', 'toml', 'nvim', 'go',
-	'markdown', 'nim', 'rmd', 'lua', 'vim', 'tex'
-})
-au("set expandtab", {
-	'python', 'toml', 'yaml', 'markdown', 'nim', 'rmd',
-	'sent', 'text',
+-- au("set tabstop=8", {
+-- 	'c', 'lua', 'sh', 'bash', 'tex', 'vim', 'go'
+-- })
+-- au("set softtabstop=8", {
+-- 	'c', 'lua', 'sh', 'bash', 'tex', 'vim', 'go'
+-- })
+-- au("set shiftwidth=8", {
+-- 	'c', 'lua', 'sh', 'bash', 'tex', 'vim', 'go'
+-- })
+au("set noexpandtab", {
+	'c', 'lua', 'sh', 'bash', 'tex', 'vim', 'go'
 })
 
 --vim.api.nvim_create_autocmd("ExitPre", {

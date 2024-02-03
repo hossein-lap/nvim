@@ -7,7 +7,7 @@ local options = {
 	signcolumn = "yes", -- always show the signcolumn
 
 	backup = false, -- do create backup file
-	swapfile = false, -- do not create swapfile
+	swapfile = true, -- do create swapfile
 	undofile = true,
 	undodir = os.getenv("HOME")..'/.config/nvim/undodir',
 	number = true, -- enable line number
@@ -32,14 +32,15 @@ local options = {
 	-- },
 	showcmd = true, -- show presses keys in normal mode
 	showmode = true, -- do not show vim-mode in `ex` prompt
-	tabstop = 8, -- set actual tab width
-	shiftwidth = 8, -- set tab key shift width
+	expandtab = true,
+	tabstop = 4, -- set actual tab width
+	shiftwidth = 4, -- set tab key shift width
 	autoindent = true, -- enable indentation
 	smartindent = true, -- more indentation
 	incsearch = true, -- live highligh search
 	hlsearch = true, -- highligh search keywords
 	cursorline = true, -- highlight current line
-	scrolloff = 8, -- set where scrolling begins
+	scrolloff = 16, -- set where scrolling begins
 	foldmethod = 'marker', -- folding style (set to use `{{{ ... }}}` characters)
 	foldenable = true, -- enable folding
 	foldnestmax = 99, -- maximum of folds
@@ -74,6 +75,7 @@ local options = {
 	-- guicursor = "n-v-c-i:block",
 	-- guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20",
 	updatetime = 50,
+	termguicolors = true,
 }
 
 for key, value in pairs(options) do

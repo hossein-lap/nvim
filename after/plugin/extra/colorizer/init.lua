@@ -33,7 +33,7 @@ require 'colorizer'.setup {
 	html = { names = false; }; -- Disable parsing "names" like Blue or Gray
 	c = { names = false; }; -- Disable parsing "names" like Blue or Gray
 	lua = { names = false; }; -- Disable parsing "names" like Blue or Gray
-	tex = { names = false; }; -- Disable parsing "names" like Blue or Gray
+	tex = { names = false; }; -- Disable parsing "names" like blue or Gray
 	python = { names = false; }; -- Disable parsing "names" like Blue or Gray
 }
 
@@ -43,3 +43,7 @@ require 'colorizer'.setup {
 --	'!vim'; -- Exclude vim from highlighting.
 --	-- Exclusion Only makes sense if '*' is specified!
 --}
+
+-- keybind
+vim.keymap.set('n', '<leader>cb', ':ColorizerAttachToBuffer<CR>',
+	{silent = false, desc = 'Reload Colorizer'})

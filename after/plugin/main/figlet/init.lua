@@ -8,7 +8,7 @@ local bin = 'figlet'
 ---@param opts table
 function Figlet(opts)
 	if opts == nil then
-		opts = {}
+		opts = { upper = true }
 	end
 	local text = opts.text or nil
 	local size = opts.size or nil
@@ -25,7 +25,7 @@ function Figlet(opts)
 		go = '//',
 		rust = '//',
 		vim = '"',
-		latex = '\\%',
+		tex = '\\%',
 		nroff = '.\\"',
 		lisp = ';;',
 		elisp = ';;',
