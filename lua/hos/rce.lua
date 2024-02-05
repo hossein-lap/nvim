@@ -280,6 +280,7 @@ function _commands(filetype, output)
 
 	local commands = {
 		run = {
+			python = 'python3 '..src_name,
 			javascript = 'node '..src_name,
 			c = out_name,
 			cpp = out_name,

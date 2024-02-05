@@ -89,67 +89,113 @@ au("set noexpandtab", {
 
 -- ls {{{
 
-local lsp_server = function()
-	local msg = ''
-	local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-	local clients = vim.lsp.get_active_clients()
-	if next(clients) == nil then
-		return msg
-	end
-	for _, client in ipairs(clients) do
-		local filetypes = client.config.filetypes
-		if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-			-- return 'lsp'
-			return client.name
-		end
-	end
-	return msg
-end
-
--- vim.cmd [[
--- 	set showtabline=2
--- 	set tabline=%!MyTabLine()  " custom tab pages line
---
--- 	function MyTabLine()
--- 		let s = ''
--- 		for i in range(tabpagenr('$'))
--- 			" select the highlighting
--- 			if i + 1 == tabpagenr()
--- 				let s ..= '%#TabLineSel#'
--- 			else
--- 				let s ..= '%#TabLine#'
--- 			endif
---
--- 			" set the tab page number (for mouse clicks)
--- 			let s ..= '%' .. (i + 1) .. 'T'
---
--- 			" " the label is made by MyTabLabel()
--- 			" let s ..= ' %{MyTabLabel(' .. (i + 1) .. ')} '
--- 		endfor
---
--- 		" after the last tab fill with TabLineFill and reset tab page nr
--- 		let s ..= '%#TabLineFill#%T'
---
--- 		" right-align the label to close the current tab page
--- 		if tabpagenr('$') > 1
--- 			let s ..= '%=%#TabLine#%999Xclose'
--- 		endif
---
--- 		return s
--- 	endfunction
--- ]]
-
-local lsp_diag = function ()
-	return " "
-end
-
 -- show status line
 vim.opt.laststatus = 2
 vim.opt.showtabline = 2
 
 -- -- status line config
--- vim.opt.statusline = " %f %m %r%h%w %= "..string.format('     [%s]     ', lsp_diag()).." %c:%l/%L %P "..string.format('  %s  %s', vim.bo.filetype, lsp_server())
--- vim.opt.tabline = "%1*%.20t %= %b" -- string.format('%s', lsp_server())
+-- vim.cmd [[
+-- 	" git function {{{
+-- 	function! StatuslineGitBranch()
+-- 		if exists("g:git_branch")
+-- 			return g:git_branch
+-- 		else
+-- 			return ''
+-- 		endif
+-- 	endfunction
+--
+-- 	function! GetGitBranch()
+-- 		let l:is_git_dir = system('echo -n $(git rev-parse --is-inside-work-tree)')
+-- 		let g:git_branch = l:is_git_dir == 'true' ?
+-- 			\ system('bash -c "echo -n \"($(git rev-parse --abbrev-ref HEAD 2>/dev/null)) \""') : ''
+-- 	"        \ system('bash -c "echo -n $(git rev-parse --abbrev-ref HEAD)"') : ''
+-- 	endfunction
+--
+-- 	autocmd BufEnter * call GetGitBranch()
+-- 	" }}}
+-- 	" Show current vim mode{{{
+-- 	let g:currentmode={
+-- 		\ 'n'  : 'Normal',
+-- 		\ 'no' : 'Normal·Operator Pending',
+-- 		\ 'v'  : 'Visual',
+-- 		\ 'V'  : 'V·Line',
+-- 	\ "\<C-V>" : 'V·Block',
+-- 		\ 's'  : 'Select',
+-- 		\ 'S'  : 'S·Line',
+-- 		\ '^S' : 'S·Block',
+-- 		\ 'i'  : 'Insert',
+-- 		\ 'R'  : 'Replace',
+-- 		\ 'Rv' : 'V·Replace',
+-- 		\ 'c'  : 'Command',
+-- 		\ 'cv' : 'Vim Ex',
+-- 		\ 'ce' : 'Ex',
+-- 		\ 'r'  : 'Prompt',
+-- 		\ 'rm' : 'More',
+-- 		\ 'r?' : 'Confirm',
+-- 		\ '!'  : 'Shell',
+-- 		\ 't'  : 'Terminal'
+-- 		\}
+--
+-- 	" }}}
+-- 	"
+-- 	"" Colors {{{ 
+-- 	"hi User1 ctermbg=168	ctermfg=234	guibg=#ff7799	guifg=#282a2e	cterm=bold	gui=bold
+-- 	"hi User2 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=bold	gui=bold
+-- 	"hi User3 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	"hi User4 ctermfg=168	ctermbg=234	guifg=#ff7799	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	""hi User3 ctermfg=12		ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	""hi User4 ctermfg=10		ctermbg=234	guifg=#cccccc	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	"hi User5 ctermfg=11		ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	"hi User6 ctermfg=175	ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	"
+-- 	"hi Unfoc ctermbg=243 ctermfg=235 guibg=#767676 guifg=#121212 cterm=NONE gui=NONE
+-- 	"hi! link StatusLineNC Unfoc
+-- 	"" }}}
+-- 	" Colors {{{ 
+-- 	hi User2 ctermbg=9		ctermfg=234	guibg=#f92633	guifg=#282a2e	cterm=NONE	gui=NONE
+-- 	hi User1 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=NONE	gui=NONE
+-- 	hi User3 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	hi User4 ctermfg=168	ctermbg=234	guifg=#ff7799	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	"hi User3 ctermfg=12		ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	"hi User4 ctermfg=10		ctermbg=234	guifg=#cccccc	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	hi User5 ctermfg=11		ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
+-- 	hi User6 ctermfg=175	ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
+--
+-- 	hi Unfoc ctermbg=243 ctermfg=235 guibg=#767676 guifg=#121212 cterm=NONE gui=NONE
+-- 	hi! link StatusLineNC Unfoc
+-- 	hi! link TabLine StatusLine
+-- 	hi! link TabLineSel User6
+-- 	" }}}
+--
+-- " current config section {{{
+-- set laststatus=2                                      " show status line
+-- set statusline=                                       " status line config
+-- " set statusline+=\ %{toupper(g:currentmode[mode()])}\  " The current mode
+-- " set statusline+=\⟩\                                   " blank space
+-- " set statusline+=%<%f\ .20t                            " Full path
+-- set statusline+=%1*%F\                                 " Full path
+-- set statusline+=\ %m\ %r%h%w                          " blank space
+-- set statusline+=%=                                    " Switch to the right side
+-- set statusline+=\                                     " blank space
+-- set statusline+=%{StatuslineGitBranch()}              " git brunch in current directory
+-- set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
+-- set statusline+=\ \                                   " blank space
+-- set statusline+=\ %{&ff}                              " FileFormat (dos/unix..)
+-- set statusline+=\ \                                   " blank space
+-- set statusline+=\ %c:%l/%L                            " cursor current position
+-- " set statusline+=\                                     " blank space
+-- " set statusline+=%Y                                    " file type
+-- " set statusline+=\                                     " blank space
+-- " }}}
+-- ]]
+
+vim.cmd [[
+	hi User1 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=NONE	gui=NONE
+	hi! link StatusLineNC User1
+]]
+
+vim.opt.statusline = " %f %m %r%h%w %=    %{&ff}   %c:%l/%L   %P    "..vim.bo.filetype
+vim.opt.tabline = "%F %= %b" -- string.format('%s', lsp_server())
 
 -- }}}
 

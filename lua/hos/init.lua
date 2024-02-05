@@ -5,4 +5,4 @@ require("hos.extra")
 require("hos.lazy")
 
 require("hos.rce")
--- require("hos.skel")
+require("hos.skel")

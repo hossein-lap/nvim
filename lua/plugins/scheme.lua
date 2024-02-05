@@ -33,16 +33,16 @@ return {
 
 	{
 		'Shatur/neovim-ayu',
-		-- config = function()
-		-- 	ColorThem("ayu-dark")
-		-- end
+		config = function()
+			ColorThem("ayu-dark")
+		end
 	},
 
 	{
 		'hossein-lap/vim-hybrid',
-		config = function ()
-			ColorThem("hybrid")
-		end
+		-- config = function ()
+		-- 	ColorThem("hybrid")
+		-- end
 	},
 
 	{

@@ -48,8 +48,10 @@ return {
 		-- require('nvim-autopairs').setup(autopari_options)
 
 		require("fidget").setup({
-			display = {
-				done_icon = "✓",
+			progress = {
+				display = {
+					done_icon = "✓",
+				}
 			}
 		})
 		require("mason").setup()
@@ -136,11 +138,11 @@ return {
 				fields = {'abbr', 'menu', 'kind'},
 				format = function(entry, item)
 					local short_name = {
-						nvim_lsp = 'lsp',
 						path = 'path',
+						luasnip = 'cmp',
+						nvim_lsp = 'lsp',
 						buffer = 'buf',
 						nvim_lua = 'nsp',
-						luasnip = 'cmp'
 					}
 					local menu_name = short_name[entry.source.name] or entry.source.name
 					item.menu = string.format('[%s]', menu_name)
