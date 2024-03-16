@@ -222,8 +222,12 @@ function _run(wrapped, style)
 			vim.api.nvim_command('term')
 		end
 		vim.api.nvim_command('startinsert')
-		vim.notify(string.format('[%s]: %s', work, wrapped), 2,
-			        {title = '_run()'})
+		if wrapped ~= nil then
+			-- print(wrapped)
+			-- vim.print(wrapped)
+			vim.notify(string.format('[%s]: %s', "run", wrapped), 2,
+				{title = '_run()'})
+		end
 	end
 end
 -- }}}
@@ -281,16 +285,17 @@ function _commands(filetype, output)
 	local commands = {
 		run = {
 			python = 'python3 '..src_name,
+			lua = 'lua5.4 '..src_name,
 			javascript = 'node '..src_name,
 			c = out_name,
 			cpp = out_name,
 			rust = out_name,
 			go = out_name,
 			sent = 'sent '..src_name,
-			text = 'sent '..src_name,
+			-- text = 'sent '..src_name,
 			perl = 'perl '..src_name,
-			markdown = string.format('pandoc %s %s -o %s.pdf',
-				        pandoc_path, src_name, out_name),
+			-- markdown = string.format('pandoc %s %s -o %s.pdf',
+			-- 	        pandoc_path, src_name, out_name),
 			nroff = string.format('groff %s %s > %s.pdf',
 				        src_name, '-m me -keUs -Tpdf', out_name), -- -egGjkpRstU
 			rmd = string.format([[Rscript -e "%s(input='%s', %s)"]],
@@ -324,8 +329,8 @@ function _commands(filetype, output)
 			nroff = string.format('pdfroff -Wall -U -mspdf %s > %s.pdf',
 				        src_name, out_name),
 			tex = 'xelatex '..src_name,
-			markdown = string.format('pandoc %s %s -o %s.pdf',
-				        beamer_args, src_name, out_name),
+			-- markdown = string.format('pandoc %s %s -o %s.pdf',
+			-- 	        beamer_args, src_name, out_name),
 			rmd = string.format([[%s(input='%s', %s)\"]],
 				        [[Rscript -e \"rmarkdown::render]], src_name,
 				        [[output_format = 'all']])

@@ -11,29 +11,29 @@ local function au(commands, patterns, evnt)
 	})
 end
 -- }}}
--- keymap function {{{
-local function map(mode, key, command, opts)
-	if not mode or not key then
-		vim.notify('map(mode, key) must have at least two arguments', 4,
-		           {title = 'Error on using map()'})
-		return 1
-	end
-	local options = { noremap = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	api.nvim_set_keymap(mode, key, command, options)
-end
--- umap 
-local function umap(mode, key)
-	if not mode or not key then
-		vim.notify('umap(mode, key) must have both arguments', 4,
-		           {title = 'Error on using umap()'})
-		return 1
-	end
-	api.nvim_del_keymap(mode, key)
-end
--- }}}
+-- -- keymap function {{{
+-- local function map(mode, key, command, opts)
+-- 	if not mode or not key then
+-- 		vim.notify('map(mode, key) must have at least two arguments', 4,
+-- 		           {title = 'Error on using map()'})
+-- 		return 1
+-- 	end
+-- 	local options = { noremap = true }
+-- 	if opts then
+-- 		options = vim.tbl_extend("force", options, opts)
+-- 	end
+-- 	api.nvim_set_keymap(mode, key, command, options)
+-- end
+-- -- umap 
+-- local function umap(mode, key)
+-- 	if not mode or not key then
+-- 		vim.notify('umap(mode, key) must have both arguments', 4,
+-- 		           {title = 'Error on using umap()'})
+-- 		return 1
+-- 	end
+-- 	api.nvim_del_keymap(mode, key)
+-- end
+-- -- }}}
 -- }}}
 
 -- autocmds {{{
@@ -87,117 +87,117 @@ au("set noexpandtab", {
 -- au("loadview", {}, { "BufRead" } )
 -- au("mkview", {}, { "BufWrite" } )
 
--- ls {{{
-
--- show status line
-vim.opt.laststatus = 2
-vim.opt.showtabline = 2
-
--- -- status line config
+-- -- ls {{{
+--
+-- -- show status line
+-- vim.opt.laststatus = 2
+-- vim.opt.showtabline = 2
+--
+-- -- -- status line config
+-- -- vim.cmd [[
+-- -- 	" git function {{{
+-- -- 	function! StatuslineGitBranch()
+-- -- 		if exists("g:git_branch")
+-- -- 			return g:git_branch
+-- -- 		else
+-- -- 			return ''
+-- -- 		endif
+-- -- 	endfunction
+-- --
+-- -- 	function! GetGitBranch()
+-- -- 		let l:is_git_dir = system('echo -n $(git rev-parse --is-inside-work-tree)')
+-- -- 		let g:git_branch = l:is_git_dir == 'true' ?
+-- -- 			\ system('bash -c "echo -n \"($(git rev-parse --abbrev-ref HEAD 2>/dev/null)) \""') : ''
+-- -- 	"        \ system('bash -c "echo -n $(git rev-parse --abbrev-ref HEAD)"') : ''
+-- -- 	endfunction
+-- --
+-- -- 	autocmd BufEnter * call GetGitBranch()
+-- -- 	" }}}
+-- -- 	" Show current vim mode{{{
+-- -- 	let g:currentmode={
+-- -- 		\ 'n'  : 'Normal',
+-- -- 		\ 'no' : 'Normal·Operator Pending',
+-- -- 		\ 'v'  : 'Visual',
+-- -- 		\ 'V'  : 'V·Line',
+-- -- 	\ "\<C-V>" : 'V·Block',
+-- -- 		\ 's'  : 'Select',
+-- -- 		\ 'S'  : 'S·Line',
+-- -- 		\ '^S' : 'S·Block',
+-- -- 		\ 'i'  : 'Insert',
+-- -- 		\ 'R'  : 'Replace',
+-- -- 		\ 'Rv' : 'V·Replace',
+-- -- 		\ 'c'  : 'Command',
+-- -- 		\ 'cv' : 'Vim Ex',
+-- -- 		\ 'ce' : 'Ex',
+-- -- 		\ 'r'  : 'Prompt',
+-- -- 		\ 'rm' : 'More',
+-- -- 		\ 'r?' : 'Confirm',
+-- -- 		\ '!'  : 'Shell',
+-- -- 		\ 't'  : 'Terminal'
+-- -- 		\}
+-- --
+-- -- 	" }}}
+-- -- 	"
+-- -- 	"" Colors {{{ 
+-- -- 	"hi User1 ctermbg=168	ctermfg=234	guibg=#ff7799	guifg=#282a2e	cterm=bold	gui=bold
+-- -- 	"hi User2 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=bold	gui=bold
+-- -- 	"hi User3 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	"hi User4 ctermfg=168	ctermbg=234	guifg=#ff7799	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	""hi User3 ctermfg=12		ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	""hi User4 ctermfg=10		ctermbg=234	guifg=#cccccc	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	"hi User5 ctermfg=11		ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	"hi User6 ctermfg=175	ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	"
+-- -- 	"hi Unfoc ctermbg=243 ctermfg=235 guibg=#767676 guifg=#121212 cterm=NONE gui=NONE
+-- -- 	"hi! link StatusLineNC Unfoc
+-- -- 	"" }}}
+-- -- 	" Colors {{{ 
+-- -- 	hi User2 ctermbg=9		ctermfg=234	guibg=#f92633	guifg=#282a2e	cterm=NONE	gui=NONE
+-- -- 	hi User1 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=NONE	gui=NONE
+-- -- 	hi User3 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	hi User4 ctermfg=168	ctermbg=234	guifg=#ff7799	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	"hi User3 ctermfg=12		ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	"hi User4 ctermfg=10		ctermbg=234	guifg=#cccccc	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	hi User5 ctermfg=11		ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
+-- -- 	hi User6 ctermfg=175	ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
+-- --
+-- -- 	hi Unfoc ctermbg=243 ctermfg=235 guibg=#767676 guifg=#121212 cterm=NONE gui=NONE
+-- -- 	hi! link StatusLineNC Unfoc
+-- -- 	hi! link TabLine StatusLine
+-- -- 	hi! link TabLineSel User6
+-- -- 	" }}}
+-- --
+-- -- " current config section {{{
+-- -- set laststatus=2                                      " show status line
+-- -- set statusline=                                       " status line config
+-- -- " set statusline+=\ %{toupper(g:currentmode[mode()])}\  " The current mode
+-- -- " set statusline+=\⟩\                                   " blank space
+-- -- " set statusline+=%<%f\ .20t                            " Full path
+-- -- set statusline+=%1*%F\                                 " Full path
+-- -- set statusline+=\ %m\ %r%h%w                          " blank space
+-- -- set statusline+=%=                                    " Switch to the right side
+-- -- set statusline+=\                                     " blank space
+-- -- set statusline+=%{StatuslineGitBranch()}              " git brunch in current directory
+-- -- set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
+-- -- set statusline+=\ \                                   " blank space
+-- -- set statusline+=\ %{&ff}                              " FileFormat (dos/unix..)
+-- -- set statusline+=\ \                                   " blank space
+-- -- set statusline+=\ %c:%l/%L                            " cursor current position
+-- -- " set statusline+=\                                     " blank space
+-- -- " set statusline+=%Y                                    " file type
+-- -- " set statusline+=\                                     " blank space
+-- -- " }}}
+-- -- ]]
+--
 -- vim.cmd [[
--- 	" git function {{{
--- 	function! StatuslineGitBranch()
--- 		if exists("g:git_branch")
--- 			return g:git_branch
--- 		else
--- 			return ''
--- 		endif
--- 	endfunction
---
--- 	function! GetGitBranch()
--- 		let l:is_git_dir = system('echo -n $(git rev-parse --is-inside-work-tree)')
--- 		let g:git_branch = l:is_git_dir == 'true' ?
--- 			\ system('bash -c "echo -n \"($(git rev-parse --abbrev-ref HEAD 2>/dev/null)) \""') : ''
--- 	"        \ system('bash -c "echo -n $(git rev-parse --abbrev-ref HEAD)"') : ''
--- 	endfunction
---
--- 	autocmd BufEnter * call GetGitBranch()
--- 	" }}}
--- 	" Show current vim mode{{{
--- 	let g:currentmode={
--- 		\ 'n'  : 'Normal',
--- 		\ 'no' : 'Normal·Operator Pending',
--- 		\ 'v'  : 'Visual',
--- 		\ 'V'  : 'V·Line',
--- 	\ "\<C-V>" : 'V·Block',
--- 		\ 's'  : 'Select',
--- 		\ 'S'  : 'S·Line',
--- 		\ '^S' : 'S·Block',
--- 		\ 'i'  : 'Insert',
--- 		\ 'R'  : 'Replace',
--- 		\ 'Rv' : 'V·Replace',
--- 		\ 'c'  : 'Command',
--- 		\ 'cv' : 'Vim Ex',
--- 		\ 'ce' : 'Ex',
--- 		\ 'r'  : 'Prompt',
--- 		\ 'rm' : 'More',
--- 		\ 'r?' : 'Confirm',
--- 		\ '!'  : 'Shell',
--- 		\ 't'  : 'Terminal'
--- 		\}
---
--- 	" }}}
--- 	"
--- 	"" Colors {{{ 
--- 	"hi User1 ctermbg=168	ctermfg=234	guibg=#ff7799	guifg=#282a2e	cterm=bold	gui=bold
--- 	"hi User2 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=bold	gui=bold
--- 	"hi User3 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
--- 	"hi User4 ctermfg=168	ctermbg=234	guifg=#ff7799	guibg=#282a2e	"cterm=bold	gui=bold
--- 	""hi User3 ctermfg=12		ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
--- 	""hi User4 ctermfg=10		ctermbg=234	guifg=#cccccc	guibg=#282a2e	"cterm=bold	gui=bold
--- 	"hi User5 ctermfg=11		ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
--- 	"hi User6 ctermfg=175	ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
--- 	"
--- 	"hi Unfoc ctermbg=243 ctermfg=235 guibg=#767676 guifg=#121212 cterm=NONE gui=NONE
--- 	"hi! link StatusLineNC Unfoc
--- 	"" }}}
--- 	" Colors {{{ 
--- 	hi User2 ctermbg=9		ctermfg=234	guibg=#f92633	guifg=#282a2e	cterm=NONE	gui=NONE
 -- 	hi User1 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=NONE	gui=NONE
--- 	hi User3 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
--- 	hi User4 ctermfg=168	ctermbg=234	guifg=#ff7799	guibg=#282a2e	"cterm=bold	gui=bold
--- 	"hi User3 ctermfg=12		ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
--- 	"hi User4 ctermfg=10		ctermbg=234	guifg=#cccccc	guibg=#282a2e	"cterm=bold	gui=bold
--- 	hi User5 ctermfg=11		ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
--- 	hi User6 ctermfg=175	ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
---
--- 	hi Unfoc ctermbg=243 ctermfg=235 guibg=#767676 guifg=#121212 cterm=NONE gui=NONE
--- 	hi! link StatusLineNC Unfoc
--- 	hi! link TabLine StatusLine
--- 	hi! link TabLineSel User6
--- 	" }}}
---
--- " current config section {{{
--- set laststatus=2                                      " show status line
--- set statusline=                                       " status line config
--- " set statusline+=\ %{toupper(g:currentmode[mode()])}\  " The current mode
--- " set statusline+=\⟩\                                   " blank space
--- " set statusline+=%<%f\ .20t                            " Full path
--- set statusline+=%1*%F\                                 " Full path
--- set statusline+=\ %m\ %r%h%w                          " blank space
--- set statusline+=%=                                    " Switch to the right side
--- set statusline+=\                                     " blank space
--- set statusline+=%{StatuslineGitBranch()}              " git brunch in current directory
--- set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
--- set statusline+=\ \                                   " blank space
--- set statusline+=\ %{&ff}                              " FileFormat (dos/unix..)
--- set statusline+=\ \                                   " blank space
--- set statusline+=\ %c:%l/%L                            " cursor current position
--- " set statusline+=\                                     " blank space
--- " set statusline+=%Y                                    " file type
--- " set statusline+=\                                     " blank space
--- " }}}
+-- 	hi! link StatusLineNC User1
 -- ]]
-
-vim.cmd [[
-	hi User1 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=NONE	gui=NONE
-	hi! link StatusLineNC User1
-]]
-
-vim.opt.statusline = " %f %m %r%h%w %=    %{&ff}   %c:%l/%L   %P    "..vim.bo.filetype
-vim.opt.tabline = "%F %= %b" -- string.format('%s', lsp_server())
-
--- }}}
+--
+-- vim.opt.statusline = " %f %m %r%h%w %=    %{&ff}   %c:%l/%L   %P    "..vim.bo.filetype
+-- vim.opt.tabline = "%F %= %b" -- string.format('%s', lsp_server())
+--
+-- -- }}}
 
 -- sudo {{{
 

@@ -1,5 +1,5 @@
 local function map(mode, bind, command, extra)
-	
+	vim.keymap.set(mode, bind, command, extra)
 end
 
 return {
@@ -15,7 +15,6 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
-		-- "windwp/nvim-autopairs",
     },
 
 	config = function()
@@ -27,26 +26,6 @@ return {
 			vim.lsp.protocol.make_client_capabilities(),
 			cmp_lsp.default_capabilities())
 
-		-- local autopari_options = {
-		-- 	disable_filetype = { "TelescopePrompt", "spectre_panel" },
-		-- 	disable_in_macro = false,
-		-- 	disable_in_visualblock = false,
-		-- 	disable_in_replace_mode = true,
-		-- 	ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
-		-- 	enable_moveright = true,
-		-- 	enable_afterquote = true,
-		-- 	enable_check_bracket_line = true,
-		-- 	enable_bracket_in_quote = true,
-		-- 	enable_abbr = false,
-		-- 	break_undo = true,
-		-- 	check_ts = false,
-		-- 	map_cr = true,
-		-- 	map_bs = true,
-		-- 	map_c_h = false,
-		-- 	map_c_w = false,
-		-- }
-		-- require('nvim-autopairs').setup(autopari_options)
-
 		require("fidget").setup({
 			progress = {
 				display = {
@@ -54,6 +33,7 @@ return {
 				}
 			}
 		})
+
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = {

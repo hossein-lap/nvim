@@ -6,8 +6,8 @@ local action_state = require "telescope.actions.state"
 local skels = os.getenv("HOME")..'/.config/nvim/skels/'
 
 -- picker function
-local function skeleton(opts)
-	opts = opts or {}
+local function Skeleton()
+	local opts = require("telescope.themes").get_dropdown({test = true})
 	local tmp_table = {}
 	for _, value in pairs(vim.fn.readdir(skels)) do
 		if not value:match('%.tar.xz$') and not value:match('^%.') and not value:match('~$') then
@@ -27,7 +27,7 @@ local function skeleton(opts)
 				local selection = action_state.get_selected_entry()
 				local selected = skels..selection[1]
 
-				vim.cmd(string.format(':-1r %s', selected))
+				vim.cmd(':-1r '..selected)
 			end)
 			return true
 		end,
@@ -35,5 +35,5 @@ local function skeleton(opts)
 end
 
 vim.keymap.set("n", "<leader>tm", function()
-	skeleton(require("telescope.themes").get_dropdown {test = true})
+	Skeleton()
 end, {})

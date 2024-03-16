@@ -56,7 +56,7 @@ local options = {
 	},
 	termbidi = true,
 	background = 'dark',
-	colorcolumn= '80',
+	colorcolumn= '79',
 	guicursor = "",
 	updatetime = 50,
 	termguicolors = true,
