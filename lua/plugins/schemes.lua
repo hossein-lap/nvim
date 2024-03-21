@@ -13,6 +13,7 @@ return {
 			"hossein-lap/vim-paramount",
 			"hossein-lap/vim-lupper",
 			"hossein-lap/vim-octave",
+			"hossein-lap/vim-wal",
 		},
 
 		config = function()
