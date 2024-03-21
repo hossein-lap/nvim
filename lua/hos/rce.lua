@@ -416,7 +416,7 @@ vim.keymap.set('n', '<localleader>cF', function()
 	end, { silent = true, desc = 'quickfix › make full' })
 
 -- ---- intractive shells
-vim.keymap.set('n', '<C-q>', function() _run("mksh")
+vim.keymap.set('n', '<C-q>', function() _run("bash")
 	end, { silent = true, desc = 'term › bash shell' })
 vim.keymap.set('n', '<localleader>ts', function() _run("tcsh")
 	end, { silent = true, desc = 'term › zsh shell' })
