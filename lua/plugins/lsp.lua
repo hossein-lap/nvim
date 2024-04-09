@@ -34,15 +34,43 @@ return {
 			}
 		})
 
-		require("mason").setup()
+		require("mason").setup({
+			ui = {
+				icons = {
+					package_installed = "✓",
+					package_pending = "→",
+					package_uninstalled = "×"
+				}
+			}
+		})
+
 		require("mason-lspconfig").setup({
 			ensure_installed = {
-				"lua_ls",
-				"rust_analyzer",
+
+				-- programming
 				"gopls",
-				"pylsp",
 				"clangd",
+				"lua_ls",
+
+				"elixirls",
+				"elmls",
+				"ruby_ls",
+
+				"pylsp",
+				"rust_analyzer",
+				"perlnavigator",
+				"bashls",
+
+				-- extra
 				"texlab",
+				"vimls",
+
+				-- devops
+				"yamlls",
+				"ansiblels",
+				"dockerls",
+				"docker_compose_language_service",
+
 			},
 			handlers = {
 				function(server_name) -- default handler (optional)
