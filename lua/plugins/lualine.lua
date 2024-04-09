@@ -4,11 +4,12 @@ return {
 
 		-- colors {{{
 		local color_list = {
+
 		--	none {{{
 			none = {
-				black    = '#181818',
 				white    = '#ffffff',
-				bg       = '#232323',
+				bg    = '#181818',
+				black       = '#232323',
 				fg       = '#bbc2cf',
 				gray     = '#777777',
 				yellow   = '#F3E430',
@@ -25,9 +26,9 @@ return {
 		--	}}}
 		--	basic {{{
 			basic = {
-				black    = '#191919',
 				white    = '#ffffff',
-				bg       = '#232323',
+				bg    = '#191919',
+				black       = '#232323',
 				fg       = '#bbc2cf',
 				gray     = '#0D1016',
 				yellow   = '#ECBE7B',
@@ -44,9 +45,9 @@ return {
 		--	}}}
 		--	hybrid {{{
 			hybrid = {
-				black    = '#161616',
 				white    = '#c5c8c6',
-				bg       = '#161616',
+				black    = '#161616',
+				bg       = '#000000',
 				fg       = '#c5c8c6',
 				gray     = '#707880',
 				yellow   = '#f0c674',
@@ -61,12 +62,10 @@ return {
 				special  = '#ffaf5f',
 			},
 		--	}}}
-		--	ayu {{{
-		--	ayu = {
+		--	ayu-dark {{{
 			["ayu-dark"] = {
 				purple = '#c678dd',
 				accent = '#E6B450',
-				black = '#000000',
 				fg = '#B3B1AD',
 				ui = '#4D5566',
 				white = "#ffffff",
@@ -81,7 +80,8 @@ return {
 				yellow = '#FFEE99',
 				operator = '#F29668',
 				error = '#FF3333',
-				bg = '#00010A',
+				bg = '#000000',
+				black = '#11121b',
 				bg1 = '#1B2733',
 				bg2 = '#242A35',
 				bg3 = '#273747',
@@ -104,8 +104,8 @@ return {
 		--	}}}
 		--	dracula {{{
 			dracula = {
-				black = "#191A21",
-				bg = "#21222C",
+				bg = "#191A21",
+				black = "#21222C",
 				fg = "#F8F8F2",
 				selection = "#44475A",
 				comment = "#6272A4",
@@ -135,9 +135,9 @@ return {
 		-- tokyodark {{{
 			tokyodark = {
 		--		white = "#ffffff",
-				black = "#000000",
-				bg = "#06080A",
-				bg1 = "#11121D",
+				bg = "#000000",
+				bg1 = "#06080A",
+				black = "#11121D",
 				gray = "#1A1B2A",
 				bg2 = "#212234",
 				bg3 = "#353945",
@@ -169,7 +169,8 @@ return {
 			solarized = {
 				gray    = '#002b36',
 				fg      = '#fdf6e3',
-				bg      = '#073642',
+				black      = '#073642',
+				bg   = '#002028',
 				base02  = '#073642',
 				red     = '#dc322f',
 				green   = '#859900',
@@ -179,7 +180,6 @@ return {
 				cyan    = '#2aa198',
 				base2   = '#eee8d5',
 				base03  = '#002b36',
-				black   = '#002028',
 				orange  = '#cb4b16',
 				base01  = '#586e75',
 				base00  = '#657b83',
@@ -193,9 +193,9 @@ return {
 		--	}}}
 		--	gruvbox {{{
 			gruvbox = {
-				black    = '#1d2021',
 				white    = '#ebdbb2',
-				bg       = '#32302f',
+				bg    = '#1d2021',
+				black       = '#32302f',
 				fg       = '#ebdbb2',
 				gray     = '#928374',
 				yellow   = '#fabd2f',
@@ -212,9 +212,9 @@ return {
 		--	}}}
 		-- onedark {{{
 			onedark = {
-				black    = '#0e1013',
 				white    = '#b1b4b9',
-				bg       = '#181a1f',
+				bg    = '#0e1013',
+				black       = '#181a1f',
 				fg       = '#abb2bf',
 				gray     = '#5c6370',
 				yellow   = '#e5c07b',
@@ -229,11 +229,11 @@ return {
 				special  = '#ffaf5f',
 			},
 		-- }}}
-			-- noir {{{
+			-- 256_noir {{{
 			["256_noir"] = {
-				black    = '#181818',
 				white    = '#cccccc',
-				bg       = '#232323',
+				bg    = '#181818',
+				black       = '#232323',
 				fg       = '#bbc2cf',
 				gray     = '#777777',
 				yellow   = '#cccccc',
@@ -246,13 +246,29 @@ return {
 				blue     = '#cccccc',
 				red      = '#cccccc',
 				special  = '#ffaf5f',
-			}
+			},
 		-- }}}
+			-- rose-pine {{{
+			["rose-pine"] = {
+				bg       = '#16141f',
+				black    = '#26233a',
+				fg       = '#e0def4',
+				gray     = '#6e6a86',
+				yellow   = '#f6c177',
+				cyan     = '#ebbcba',
+				green    = '#31748f',
+				orange   = '#f6c177',
+				purple   = '#c4a7e7',
+				blue     = '#9ccfd8',
+				red      = '#eb6f92',
+				special  = '#ffaf5f',
+			},
+		-- }}}
+
 		}
 		-- }}}
 
-		-- local current_theme = color_list.noir
-		local current_theme = color_list.hybrid
+		local current_theme = color_list["onedark"]
 
 		-- configs {{{
 		local config = {
@@ -294,50 +310,48 @@ return {
 		-- }}}
 
 		-- special theme {{{
-		-- if CurrentColorscheme == '256_noir' then
 			config.options.theme = {
 				normal = {
-					a = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					b = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					c = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					x = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					y = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					z = { fg = current_theme.bg,    bg = current_theme.special,  gui = 'none' },
+					a = { fg = current_theme.bg,    bg = current_theme.green, gui = 'bold' },
+					b = { fg = current_theme.green, bg = current_theme.black, gui = 'none' },
+					c = { fg = current_theme.fg,    bg = current_theme.bg,    gui = 'none' },
+					x = { fg = current_theme.fg,    bg = current_theme.bg,    gui = 'none' },
+					y = { fg = current_theme.green, bg = current_theme.black, gui = 'none' },
+					z = { fg = current_theme.bg,    bg = current_theme.green, gui = 'bold' },
 				},
 				insert = {
-					a = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					b = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					c = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					x = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					y = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					z = { fg = current_theme.bg,    bg = current_theme.special,  gui = 'none' },
+					a = { fg = current_theme.bg,   bg = current_theme.blue,  gui = 'bold' },
+					b = { fg = current_theme.blue, bg = current_theme.black, gui = 'none' },
+					c = { fg = current_theme.fg,   bg = current_theme.bg,    gui = 'none' },
+					x = { fg = current_theme.fg,   bg = current_theme.bg,    gui = 'none' },
+					y = { fg = current_theme.blue, bg = current_theme.black, gui = 'none' },
+					z = { fg = current_theme.bg,   bg = current_theme.blue,  gui = 'bold' },
 				},
 				visual = {
-					a = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					b = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					c = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					x = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					y = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					z = { fg = current_theme.bg,    bg = current_theme.special,  gui = 'none' },
+					a = { fg = current_theme.bg,     bg = current_theme.yellow, gui = 'bold' },
+					b = { fg = current_theme.yellow, bg = current_theme.black,  gui = 'none' },
+					c = { fg = current_theme.fg,     bg = current_theme.bg,     gui = 'none' },
+					x = { fg = current_theme.fg,     bg = current_theme.bg,     gui = 'none' },
+					y = { fg = current_theme.yellow, bg = current_theme.black,  gui = 'none' },
+					z = { fg = current_theme.bg,     bg = current_theme.yellow, gui = 'bold' },
 				},
 				replace = {
-					a = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					b = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					c = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					x = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					y = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					z = { fg = current_theme.bg,    bg = current_theme.special,  gui = 'none' },
+					a = { fg = current_theme.bg,  bg = current_theme.red,   gui = 'bold' },
+					b = { fg = current_theme.red, bg = current_theme.black, gui = 'none' },
+					c = { fg = current_theme.fg,  bg = current_theme.bg,    gui = 'none' },
+					x = { fg = current_theme.fg,  bg = current_theme.bg,    gui = 'none' },
+					y = { fg = current_theme.red, bg = current_theme.black, gui = 'none' },
+					z = { fg = current_theme.bg,  bg = current_theme.red,   gui = 'bold' },
 				},
 				command = {
-					a = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					b = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					c = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					x = { fg = current_theme.fg,    bg = current_theme.bg,       gui = 'none' },
-					y = { fg = current_theme.fg,    bg = current_theme.black,    gui = 'none' },
-					z = { fg = current_theme.bg,    bg = current_theme.special,  gui = 'none' },
+					a = { fg = current_theme.bg,     bg = current_theme.purple,  gui = 'bold' },
+					b = { fg = current_theme.purple, bg = current_theme.black,   gui = 'none' },
+					c = { fg = current_theme.fg,     bg = current_theme.bg,      gui = 'none' },
+					x = { fg = current_theme.fg,     bg = current_theme.bg,      gui = 'none' },
+					y = { fg = current_theme.purple, bg = current_theme.black,   gui = 'none' },
+					z = { fg = current_theme.bg,     bg = current_theme.purple,  gui = 'bold' },
 				},
 			}
-		-- end
 		-- }}}
 
 		-- aliases {{{
@@ -351,16 +365,16 @@ return {
 		local function botinsert_left_b(component)
 			table.insert(config.sections.lualine_b, component)
 		end
-		-- -- lualine_c
-		-- local function botinsert_left_c(component)
-		-- 	table.insert(config.sections.lualine_c, component)
-		-- end
-		------------------------------------------------------------------------------
+		-- lualine_c
+		local function botinsert_left_c(component)
+			table.insert(config.sections.lualine_c, component)
+		end
+
 		-- lualine_b_inactive
 		local function botinsert_inact_b(component)
 			table.insert(config.inactive_sections.lualine_b, component)
 		end
-		------------------------------------------------------------------------------
+
 		-- lualine_x
 		local function botinsert_right_x(component)
 			table.insert(config.sections.lualine_x, component)
@@ -373,7 +387,7 @@ return {
 		local function botinsert_right_z(component)
 			table.insert(config.sections.lualine_z, component)
 		end
-		-- ---===≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡===---
+
 		-- tabline_a
 		local function topinsert_left_a(component)
 			table.insert(config.tabline.lualine_a, component)
@@ -386,7 +400,7 @@ return {
 		local function topinsert_left_c(component)
 			table.insert(config.tabline.lualine_c, component)
 		end
-		------------------------------------------------------------------------------
+
 		-- tabline_x
 		local function topinsert_right_x(component)
 			table.insert(config.tabline.lualine_x, component)
@@ -401,106 +415,56 @@ return {
 		end
 		-- }}}
 
-		-- -- basename {{{
-		-- local function Split(s, delimiter)
-		-- 	local result = {};
-		-- 	for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-		-- 		table.insert(result, match);
-		-- 	end
-		-- 	return result;
-		-- end
-		-- local function basename()
-		-- 	local myString = vim.fn.expand('%:p')
-		-- 	local split_string = Split(myString, "/")
-		--
-		-- 	local i = 0
-		-- 	for _ in pairs(split_string) do
-		-- 		i = i + 1
-		-- 	end
-		-- 	--   
-		-- 	local base = string.format('%s', split_string[i - 1])
-		-- 	if base == 'nil' then
-		-- 		return ''
-		-- 	else
-		-- 		return ''..base
-		-- 	end
-		-- end
-		-- -- }}}
-
-		-- -- filename {{{
-		-- local function filename()
-		-- 	local name = vim.fn.expand("%")
-		-- 	if name == nil then
-		-- 		return ''
-		-- 	else
-		-- 		return name
-		-- 	end
-		-- end
-		-- -- }}}
-
-		-- -- autofill sym {{{
-		-- local function showautofill()
-		-- 	local Achar = ''
-		-- 	local Mchar = ''
-		-- 	local Schar = ''
-		-- 	local ft = vim.bo.filetype
-		--
-		-- 	if Autofill then
-		-- 		Achar = 'α'
-		-- 	end
-		--
-		-- 	if ft == 'markdown' or ft == 'rmd' then
-		-- 		if Mautofill then
-		-- 			Mchar = 'μ'
-		-- 		end
-		-- 	end
-		--
-		-- 	if ft == 'sent' or ft == 'text' then
-		-- 		if Sautofill then
-		-- 			Mchar = 'Σ'
-		-- 		end
-		-- 	end
-		-- 	return Achar .. Mchar .. Schar
-		-- end
-		-- -- }}}
-
-		-- -- split sym {{{
-		-- local function ShowSplitMode()
-		-- 	if WindowStyle then
-		-- 		return WindowStyle:sub(1,length)
-		-- 	else
-		-- 		return ''
-		-- 	end
-		-- end
-		-- -- }}}
-
-		-- filetype {{{
-		local function currfiletype()
-			if vim.bo.filetype == '' then
-				return 'None'
-			else
-				return vim.bo.filetype
-			end
-		end
-		-- }}}
-
 		-- }}}
 
 		-- compnents {{{
 
 		-- top-line {{{
 
-		---- sep {{{
-		--topinsert_left_a {
-		--	function()
-		--		return '▊'
-		--	end,
-		--	current_theme = { fg = current_theme.blue }, -- Sets highlighting of component
-		--	padding = { left = 0, right = 0 }, -- We don't need space before this
-		--}
-		---- }}}
+		-- icon {{{
+
+		topinsert_left_a {
+			function()
+				local devicon = require("nvim-web-devicons")
+				if devicon.has_loaded() then
+					return ''
+				else
+					return "B"
+				end
+			end,
+			padding = { right = 1, left = 1 },
+		}
+		-- }}}
+
+		-- git branch {{{
+		topinsert_left_b {
+			'branch',
+			icon = '',
+			-- icon = '',
+		--	current_theme = { fg = current_theme.violet, gui = 'bold' },
+		}
+		-- }}}
+
+		-- git-diff {{{
 
 		topinsert_left_c {
+			'diff',
+			-- Is it me or the symbol for modified us really weird
+			--	symbols = { added = ' ', modified = '柳', removed = ' ' },
+			diff_color = {
+				removed  = { fg = current_theme.red },
+				modified = { fg = current_theme.cyan },
+				added    = { fg = current_theme.green },
+			},
+			--	cond = conditions.hide_in_width,
+		}
+		-- }}}
+
+		--########
+
+		-- buffers {{{
+
+		topinsert_right_x {
 			'buffers',
 			show_filename_only = true,   -- Shows shortened relative path when set to false.
 			hide_filename_extension = false,   -- Hide filename extension when set to true.
@@ -518,365 +482,29 @@ return {
 				alternate_file = '', -- # Text to show to identify the alternate file
 				directory =  '',     --  Text to show when the buffer is a directory
 			},
+			use_mode_color = false,
+
 		} -- autofill char
 
-		-- topinsert_left_a {
-		-- 	'tabs',
-		-- 	-- tabs_color = {
-		-- 	-- 	-- Same values as the general current_theme option can be used here.
-		-- 	-- 	active = current_theme.fg,     -- Color for active tab.
-		-- 	-- 	inactive = current_theme.bg, -- Color for inactive tab.
-		-- 	-- },
-		--
-		-- 	show_modified_status = false,  -- Shows a symbol next to the tab name if the file has been modified.
-		-- 	symbols = {
-		-- 		modified = '[+]',  -- Text to show when the file is modified.
-		-- 	},
-		-- }
-
-		-- -- sep {{{
-		-- topinsert_right_y {
-		-- function()
-		-- 	return '▊'
-		-- end,
-		-- current_theme = { fg = current_theme.blue }, -- Sets highlighting of component
-		-- padding = { left = 0, right = 0 }, -- We don't need space before this
-		-- }
-		-- -- }}}
-
 		-- }}}
 
-		-- inactive {{{
-		botinsert_inact_b { 'filename' } -- base dir
-		-- }}}
-
-		-- bottom-line {{{
-
-		-- -- tmp {{{
-
-		---- mode (evil) {{{
-		--botinsert_left_b {
-		--	-- mode component
-		--	function()
-		--		return ''
-		--	end,
-		--	current_theme = function()
-		--		-- auto change current_theme according to neovims mode
-		--		local mode_color = {
-		--			n = current_theme.red,
-		--			i = current_theme.green,
-		--			v = current_theme.blue,
-		--			[''] = current_theme.blue,
-		--			V = current_theme.blue,
-		--			c = current_theme.magenta,
-		--			no = current_theme.red,
-		--			s = current_theme.orange,
-		--			S = current_theme.orange,
-		--			[''] = current_theme.orange,
-		--			ic = current_theme.yellow,
-		--			R = current_theme.violet,
-		--			Rv = current_theme.violet,
-		--			cv = current_theme.red,
-		--			ce = current_theme.red,
-		--			r = current_theme.cyan,
-		--			rm = current_theme.cyan,
-		--			['r?'] = current_theme.cyan,
-		--			['!'] = current_theme.red,
-		--			t = current_theme.red,
-		--		}
-		--		return { fg = mode_color[vim.fn.mode()] }
-		--	end,
-		--	padding = { right = 1, left = 1 },
-		--}
-		---- }}}
-
-		-- -- sep {{{
-		-- botinsert_left_a {
-		-- 	function()
-		-- 		return ' '
-		-- 	end,
-		-- --	current_theme = { fg = current_theme.blue }, -- Sets highlighting of component
-		-- 	padding = { left = 0, right = 0 }, -- We don't need space before this
-		-- }
-		-- -- }}}
-
-		-- -- icon {{{
-		-- local function get_line(filename)
-		-- 	local i = 0
-		-- 	for line in io.lines(filename) do
-		-- 		i = i + 1
-		--
-		-- 		local stat = string.find(line, '^ID=')
-		-- 		if stat ~= nil then
-		-- 			line = string.gsub(line, 'ID=', '')
-		-- 			line = string.gsub(line, '"', '')
-		-- 			return line
-		-- 		end
-		-- 	end
-		-- 	return nil -- line not found
-		-- end
-		--
-		-- botinsert_left_a {
-		-- 	function()
-		-- -- 		local icon = {
-		-- -- 			alpine = '',
-		-- -- 			arch = '',
-		-- -- 			artix = '',
-		-- -- 			debian = '',
-		-- -- 			freebsd = '',
-		-- -- 			kali = '',
-		-- -- 			linuxmint = '',
-		-- -- 			manjaro = '',
-		-- -- 			nixos = '',
-		-- -- 			openbsd = '',
-		-- -- 			slackware = '',
-		-- -- 			ubuntu = '',
-		-- -- 			void = '',
-		-- -- 			none = '',
-		-- -- --			arcolinux = '',
-		-- -- --			elementary = '',
-		-- -- --			fedora = '',
-		-- -- --			gentoo = '',
-		-- -- --			parrot = '',
-		-- -- --			popos = '',
-		-- -- --			redhat = '󱄛',
-		-- -- --			rocky = '',
-		-- -- --			solus = '',
-		-- -- --			zorin = '',
-		-- -- --			archlabs = '',
-		-- -- --			XXX = '',
-		-- -- --			XXX = '',
-		-- -- --			XXX = '',
-		-- -- --			XXX = '',
-		-- -- --			XXX = '',
-		-- -- 		}
-		-- --
-		-- -- 		local dist = get_line("/etc/os-release")
-		-- -- 		if icon[dist] == nil then
-		-- -- 			dist = 'freebsd'
-		-- -- 		end
-		-- -- 		return icon[dist]
-		--
-		-- 		return ''
-		-- 	end,
-		-- --	--	current_theme {{{
-		-- --	current_theme = function()
-		-- --		-- auto change current_theme according to neovims mode
-		-- --		local mode_color = {
-		-- --			n = current_theme.red,
-		-- --			i = current_theme.green,
-		-- --			v = current_theme.blue,
-		-- --			[''] = current_theme.blue,
-		-- --			V = current_theme.blue,
-		-- --			c = current_theme.magenta,
-		-- --			no = current_theme.red,
-		-- --			s = current_theme.orange,
-		-- --			S = current_theme.orange,
-		-- --			[''] = current_theme.orange,
-		-- --			ic = current_theme.yellow,
-		-- --			R = current_theme.violet,
-		-- --			Rv = current_theme.violet,
-		-- --			cv = current_theme.red,
-		-- --			ce = current_theme.red,
-		-- --			r = current_theme.cyan,
-		-- --			rm = current_theme.cyan,
-		-- --			['r?'] = current_theme.cyan,
-		-- --			['!'] = current_theme.red,
-		-- --			t = current_theme.red,
-		-- --		}
-		-- --		return { fg = mode_color[vim.fn.mode()], bg = current_theme.bg }
-		-- --	end,
-		-- --	--	}}}
-		-- 	padding = { right = 1, left = 1 },
-		-- }
-		-- -- }}}
-
-		-- -- mode {{{
-		-- botinsert_left_a {
-		-- 'mode',
-		-- fmt = function(str)
-		-- 	return string.lower(str)
-		-- 	-- return str:sub(1,length)
-		-- end
-		-- }
-		-- -- }}}
-
-		-- -- filesize {{{
-		-- botinsert_right_x {
-		-- 	'filesize',
-		-- 	cond = conditions.buffer_not_empty,
-		-- }
-		-- -- }}}
-
-		---- evil icon {{{
-		--botinsert_right_z {
-		--	function()
-		--		return ''
-		--	end,
-		----	--	current_theme {{{
-		----	current_theme = function()
-		----		-- auto change current_theme according to neovims mode
-		----		local mode_color = {
-		----			n = current_theme.red,
-		----			i = current_theme.green,
-		----			v = current_theme.blue,
-		----			[''] = current_theme.blue,
-		----			V = current_theme.blue,
-		----			c = current_theme.magenta,
-		----			no = current_theme.red,
-		----			s = current_theme.orange,
-		----			S = current_theme.orange,
-		----			[''] = current_theme.orange,
-		----			ic = current_theme.yellow,
-		----			R = current_theme.violet,
-		----			Rv = current_theme.violet,
-		----			cv = current_theme.red,
-		----			ce = current_theme.red,
-		----			r = current_theme.cyan,
-		----			rm = current_theme.cyan,
-		----			['r?'] = current_theme.cyan,
-		----			['!'] = current_theme.red,
-		----			t = current_theme.red,
-		----		}
-		----		return { fg = mode_color[vim.fn.mode()], bg = current_theme.bg }
-		----	end,
-		----	--	}}}
-		--	padding = { right = 1, left = 1 },
-		--}
-		---- }}}
-
-		-- -- sep {{{
-		-- botinsert_right_z {
-		-- 	function()
-		-- 		return ' '
-		-- 	end,
-		-- --	current_theme = { fg = current_theme.blue }, -- Sets highlighting of component
-		-- 	padding = { left = 0, right = 0 }, -- We don't need space before this
-		-- }
-		-- -- }}}
-
-		-- -- vim icon {{{
-		-- botinsert_right_z {
-		-- 	function()
-		-- 		return ''
-		-- 	end,
-		-- --	-- current_theme {{{
-		-- --	current_theme = function()
-		-- --		-- auto change current_theme according to neovims mode
-		-- --		local mode_color = {
-		-- --			n = current_theme.red,
-		-- --			i = current_theme.green,
-		-- --			v = current_theme.blue,
-		-- --			[''] = current_theme.blue,
-		-- --			V = current_theme.blue,
-		-- --			c = current_theme.magenta,
-		-- --			no = current_theme.red,
-		-- --			s = current_theme.orange,
-		-- --			S = current_theme.orange,
-		-- --			[''] = current_theme.orange,
-		-- --			ic = current_theme.yellow,
-		-- --			R = current_theme.violet,
-		-- --			Rv = current_theme.violet,
-		-- --			cv = current_theme.red,
-		-- --			ce = current_theme.red,
-		-- --			r = current_theme.cyan,
-		-- --			rm = current_theme.cyan,
-		-- --			['r?'] = current_theme.cyan,
-		-- --			['!'] = current_theme.red,
-		-- --			t = current_theme.red,
-		-- --		}
-		-- --		return { fg = mode_color[vim.fn.mode()], bg = current_theme.bg }
-		-- --	end,
-		-- --	-- }}}
-		-- 	padding = { right = 1, left = 1 },
-		-- }
-		-- -- }}}
-
-		-- -- file progress {{{
-		-- botinsert_right_z {'progress'}
-		-- -- }}}
-
-		-- -- }}}
-
-		--########
-
-		-- filename {{{
-		botinsert_left_b {'%f'}
-		-- botinsert_left_c { basename } -- base dir
-		-- botinsert_left_c { 'filename' } -- filename
-		-- }}}
-
-		-- file status {{{
-		botinsert_left_b {'%m %r%h%w'}
-		-- }}}
-
-		--########
-
-		-- git-diff {{{
-		botinsert_right_x {
-			'diff',
-			-- Is it me or the symbol for modified us really weird
-		--	symbols = { added = ' ', modified = '柳', removed = ' ' },
-			diff_color = {
-				removed  = { fg = current_theme.fg },
-				modified = { fg = current_theme.fg },
-				added    = { fg = current_theme.fg },
+		-- diagnostics {{{
+		topinsert_right_y {
+			'diagnostics',
+			sources = { 'nvim_diagnostic' },
+			sections = { "error", "warn", "info", "hint" },
+			symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
+			diagnostics_color = {
+				error = { fg = current_theme.red },
+				warn  = { fg = current_theme.yellow },
+				info  = { fg = current_theme.cyan },
+				hint  = { fg = current_theme.green },
 			},
-		--	cond = conditions.hide_in_width,
 		}
 		-- }}}
-
-		-- git branch {{{
-		botinsert_right_x {
-			'branch',
-			icon = '',
-			-- icon = '',
-		--	current_theme = { fg = current_theme.violet, gui = 'bold' },
-		}
-		-- }}}
-
-		--########
-
-		-- fileformat {{{
-		botinsert_right_y {
-			'fileformat',
-			symbols = {
-				-- unix = '', -- e712
-				-- dos = '',  -- e70f
-				-- mac = '',  -- e711
-
-				-- unix = 'LF',
-				-- mac  = 'CR',
-				-- dos  = 'LFCR',
-
-				unix = 'Unix',
-				mac  = 'Mac',
-				dos  = 'Dos',
-			}
-		}
-		-- }}}
-
-		-- cursor position {{{
-		botinsert_right_y {'%l:%L/%c'}
-		-- }}}
-
-		-- filetype {{{
-		-- no icon
-		botinsert_right_y {currfiletype} -- file type
-
-		-- -- with icon
-		-- botinsert_right_y {
-		-- 	'filetype',
-		-- 	colored = false,
-		-- 	icon_only = false,
-		-- 	icon = { align = 'left' }
-		-- }
-		-- }}}
-
-		--########
 
 		-- lsp server name {{{
-		botinsert_right_y {
+		topinsert_right_y {
 			function()
 				local msg = ''
 				local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
@@ -898,18 +526,109 @@ return {
 		}
 		-- }}}
 
-		-- diagnostics {{{
+		-- filetype icon {{{
+		topinsert_right_z {
+		function()
+				local devicon = require("nvim-web-devicons")
+				local ft = vim.bo.filetype
+				-- local fn = vim.bo.filename
+				if devicon.has_loaded() then
+					local i = devicon.get_icon_by_filetype(ft, { default = true, color_icons = false })
+					return i
+				else
+					return "T"
+				end
+			end,
+			padding = { right = 1, left = 1 },
+
+		}
+		-- }}}
+
+		-- }}}
+
+		-- inactive {{{
+		botinsert_inact_b { 'filename' } -- base dir
+		-- }}}
+
+		-- bottom-line {{{
+
+		-- vim icon / mode {{{
+		botinsert_left_a {
+			function()
+				local devicon = require("nvim-web-devicons")
+				if devicon.has_loaded() then
+					return ""
+				else
+					return vim.api.nvim_get_mode()["mode"]:upper()
+				end
+			end,
+			padding = { right = 1, left = 1 },
+		}
+		-- }}}
+
+		-- filename {{{
+		botinsert_left_b {'%f'}
+		-- botinsert_left_b { basename } -- base dir
+		-- botinsert_left_b { 'filename' } -- filename
+		-- }}}
+
+		-- file status {{{
+		botinsert_left_c {'%m %r%h%w'}
+		-- }}}
+
+		--########
+
+		-- cursor position {{{
+		botinsert_right_x {'%l, %L, %c'}
+		-- }}}
+
+		-- filetype {{{
 		botinsert_right_y {
-			'diagnostics',
-			sources = { 'nvim_diagnostic' },
-			sections = { "error", "warn", "info", "hint" },
-			symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
-			diagnostics_color = {
-				error = { fg = current_theme.fg },
-				warn  = { fg = current_theme.fg },
-				info  = { fg = current_theme.fg },
-				hint  = { fg = current_theme.fg },
-			},
+		function()
+				local ft = vim.bo.filetype
+				if ft == '' then
+					return 'None'
+				elseif ft == "toggleterm" then
+					return "Terminal"
+				else
+					return ft
+				end
+			end
+		}
+		-- }}}
+
+		-- fileformat {{{
+		botinsert_right_z {
+			function()
+				local ff = string.format("%s", vim.bo.fileformat)
+				local icon = {
+					unix = '', -- e712
+					dos = '',  -- e70f
+					mac = '',  -- e711
+				}
+				local text = {
+
+					-- unix = 'LF',
+					-- mac  = 'CR',
+					-- dos  = 'LFCR',
+
+					unix = 'U',
+					mac  = 'M',
+					dos  = 'D',
+
+					-- unix = 'Unix',
+					-- mac  = 'Mac',
+					-- dos  = 'Dos',
+
+				}
+
+				local devicon = require("nvim-web-devicons")
+				if devicon.has_loaded() then
+					return icon[ff]
+				else
+					return text[ff]
+				end
+			end
 		}
 		-- }}}
 
@@ -925,6 +644,9 @@ return {
 			long        = { left = '⟩',  right = '⟨'  },
 			ascii       = { left = '>',  right = '<'  },
 			sharp       = { left = '',  right = ''  },
+			lift        = { left = '',  right = ' '  },
+			round       = { left = "",  right = ""  },
+			block       = { left = "█",  right = "█"  },
 			pipe        = { left = '|',  right = '|'  },
 			brokenpipe  = { left = '¦',  right = '¦'  },
 			dash        = { left = '-',  right = '-'  },
@@ -937,8 +659,8 @@ return {
 			equal       = { left = '=',  right = '='  },
 		}
 
-		config.options.section_separators = separators.none
-		config.options.component_separators = separators.none
+		config.options.section_separators = separators.lift
+		config.options.component_separators = separators.single
 		-- }}}
 
 		require('lualine').setup(config)
