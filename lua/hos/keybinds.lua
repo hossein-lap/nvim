@@ -137,8 +137,8 @@ vim.keymap.set('n', '<leader>bp',  ':bprevious<CR>',
 	{ silent = true, noremap = true, desc = "Previous buffer" })
 vim.keymap.set('n', '<leader>bk',  ':bd<CR>',
 	{ silent = true, noremap = true, desc = "Delete buffer" })
-vim.keymap.set('n', '<leader>bl',  ':ls<CR>',
-	{ silent = true, noremap = true, desc = "List buffers" })
+-- vim.keymap.set('n', '<leader>bl',  ':ls<CR>',
+-- 	{ silent = true, noremap = true, desc = "List buffers" })
 
 -- vim.keymap.set('n', '<leader>tc',  ':tabnew<CR>',
 -- 		{ silent = true, noremap = true, desc = "Create tab" })
@@ -231,3 +231,9 @@ vim.keymap.set('n', '<localleader>ll', ':LspLog<CR>',
 vim.keymap.set("n", "<C-f>", ":!tmux neww tmux-sessionizer<CR>",
 	{ silent = true, desc = "tmux" })
 -- }}}
+
+-- vim session manager {{{
+vim.keymap.set('n', '<leader>ms', ':mksession! session.vim<CR>',
+	{ silent = false, desc = 'Save current session' })
+-- }}}
+
