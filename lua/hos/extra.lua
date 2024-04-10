@@ -1,203 +1,49 @@
 -- helper {{{
+
 -- autocmd function {{{
 local function au(commands, patterns, evnt)
 	if evnt == nil then
-		evnt = 'FileType'
+		evnt = "FileType"
 	end
 	vim.api.nvim_create_autocmd(evnt, {
 		pattern = patterns,
 		command = commands,
---		 group = patterns .. 'groups'
+--		 group = patterns .. "groups"
 	})
 end
 -- }}}
--- -- keymap function {{{
--- local function map(mode, key, command, opts)
--- 	if not mode or not key then
--- 		vim.notify('map(mode, key) must have at least two arguments', 4,
--- 		           {title = 'Error on using map()'})
--- 		return 1
--- 	end
--- 	local options = { noremap = true }
--- 	if opts then
--- 		options = vim.tbl_extend("force", options, opts)
--- 	end
--- 	api.nvim_set_keymap(mode, key, command, options)
--- end
--- -- umap 
--- local function umap(mode, key)
--- 	if not mode or not key then
--- 		vim.notify('umap(mode, key) must have both arguments', 4,
--- 		           {title = 'Error on using umap()'})
--- 		return 1
--- 	end
--- 	api.nvim_del_keymap(mode, key)
--- end
--- -- }}}
+
 -- }}}
 
 -- autocmds {{{
-au("set filetype=nroff", {'*.me'},    {'BufRead', 'BufNewFile'})
-au("set filetype=nroff", {'*.ms'},    {'BufRead', 'BufNewFile'})
-au("set filetype=nroff", {'*.mm'},    {'BufRead', 'BufNewFile'})
-au("set filetype=nim",   {'*.nim'},   {'BufRead', 'BufNewFile'})
-au("set filetype=c",     {'*.h'},     {'BufRead', 'BufNewFile'})
-au("set filetype=json",  {'*.theme'}, {'BufRead', 'BufNewFile'})
-au("set filetype=nasm",  {'*.s'},     {'BufRead', 'BufNewFile'})
-au("set filetype=sent",  {'*.sent'},  {'BufRead', 'BufNewFile'})
-au("set filetype=tex",   {'plaintex'})
-au("set filetype=nasm",  {'asm'})
-au("set filetype=qml",   {'*.qml'},   {'BufRead', 'BufNewFile'})
 
-au("set noexpandtab",    {'c', 'make', 'nasm'})
--- au("set tabstop=8",      {'c', 'make', 'nasm'})
--- au("set softtabstop=8",  {'c', 'make', 'nasm'})
--- au("set shiftwidth=8",   {'c', 'make', 'nasm'})
-au("set tabstop=2",      {'sent', 'yaml', 'text', 'html', 'xml'})
-au("set softtabstop=2",  {'sent', 'yaml', 'text', 'html', 'xml'})
-au("set shiftwidth=2",   {'sent', 'yaml', 'text', 'html', 'xml'})
+au("set filetype=nroff", {"*.me"},    {"BufRead", "BufNewFile"})
+au("set filetype=nroff", {"*.ms"},    {"BufRead", "BufNewFile"})
+au("set filetype=nroff", {"*.mm"},    {"BufRead", "BufNewFile"})
+au("set filetype=nim",   {"*.nim"},   {"BufRead", "BufNewFile"})
+au("set filetype=c",     {"*.h"},     {"BufRead", "BufNewFile"})
+au("set filetype=json",  {"*.theme"}, {"BufRead", "BufNewFile"})
+au("set filetype=nasm",  {"*.s"},     {"BufRead", "BufNewFile"})
+au("set filetype=sent",  {"*.sent"},  {"BufRead", "BufNewFile"})
+au("set filetype=tex",   {"plaintex"})
+au("set filetype=nasm",  {"asm"})
+au("set filetype=qml",   {"*.qml"},   {"BufRead", "BufNewFile"})
 
--- au("set tabstop=8", {
--- 	'c', 'lua', 'sh', 'bash', 'tex', 'vim', 'go'
--- })
--- au("set softtabstop=8", {
--- 	'c', 'lua', 'sh', 'bash', 'tex', 'vim', 'go'
--- })
--- au("set shiftwidth=8", {
--- 	'c', 'lua', 'sh', 'bash', 'tex', 'vim', 'go'
--- })
+au("set tabstop=2",      {"sent", "yaml", "text"})
+au("set softtabstop=2",  {"sent", "yaml", "text"})
+au("set shiftwidth=2",   {"sent", "yaml", "text"})
+
 au("set noexpandtab", {
-	'c', 'lua', 'sh', 'bash', 'tex', 'vim', 'go'
+	"c", "lua", "sh", "bash", "vim", "go", "make", "nasm", "xml", "html",
 })
 
---vim.api.nvim_create_autocmd("ExitPre", {
---	pattern = "*.tex",
---	command = "silent !latexmk -c",
 --})
 
-
---au(":silent lua AutoFillAll()", {
---	'c', 'cpp', 'python', 'lua', 'sh', 'make', 'tex',
---	'rmd', 'markdown', 'sent', 'text', 'go', 'rust',
---	'yaml', 'vim'
---})
 -- }}}
 
 -- -- FoldMethod
 -- au("loadview", {}, { "BufRead" } )
 -- au("mkview", {}, { "BufWrite" } )
-
--- -- ls {{{
---
--- -- show status line
--- vim.opt.laststatus = 2
--- vim.opt.showtabline = 2
---
--- -- -- status line config
--- -- vim.cmd [[
--- -- 	" git function {{{
--- -- 	function! StatuslineGitBranch()
--- -- 		if exists("g:git_branch")
--- -- 			return g:git_branch
--- -- 		else
--- -- 			return ''
--- -- 		endif
--- -- 	endfunction
--- --
--- -- 	function! GetGitBranch()
--- -- 		let l:is_git_dir = system('echo -n $(git rev-parse --is-inside-work-tree)')
--- -- 		let g:git_branch = l:is_git_dir == 'true' ?
--- -- 			\ system('bash -c "echo -n \"($(git rev-parse --abbrev-ref HEAD 2>/dev/null)) \""') : ''
--- -- 	"        \ system('bash -c "echo -n $(git rev-parse --abbrev-ref HEAD)"') : ''
--- -- 	endfunction
--- --
--- -- 	autocmd BufEnter * call GetGitBranch()
--- -- 	" }}}
--- -- 	" Show current vim mode{{{
--- -- 	let g:currentmode={
--- -- 		\ 'n'  : 'Normal',
--- -- 		\ 'no' : 'Normal·Operator Pending',
--- -- 		\ 'v'  : 'Visual',
--- -- 		\ 'V'  : 'V·Line',
--- -- 	\ "\<C-V>" : 'V·Block',
--- -- 		\ 's'  : 'Select',
--- -- 		\ 'S'  : 'S·Line',
--- -- 		\ '^S' : 'S·Block',
--- -- 		\ 'i'  : 'Insert',
--- -- 		\ 'R'  : 'Replace',
--- -- 		\ 'Rv' : 'V·Replace',
--- -- 		\ 'c'  : 'Command',
--- -- 		\ 'cv' : 'Vim Ex',
--- -- 		\ 'ce' : 'Ex',
--- -- 		\ 'r'  : 'Prompt',
--- -- 		\ 'rm' : 'More',
--- -- 		\ 'r?' : 'Confirm',
--- -- 		\ '!'  : 'Shell',
--- -- 		\ 't'  : 'Terminal'
--- -- 		\}
--- --
--- -- 	" }}}
--- -- 	"
--- -- 	"" Colors {{{ 
--- -- 	"hi User1 ctermbg=168	ctermfg=234	guibg=#ff7799	guifg=#282a2e	cterm=bold	gui=bold
--- -- 	"hi User2 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=bold	gui=bold
--- -- 	"hi User3 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	"hi User4 ctermfg=168	ctermbg=234	guifg=#ff7799	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	""hi User3 ctermfg=12		ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	""hi User4 ctermfg=10		ctermbg=234	guifg=#cccccc	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	"hi User5 ctermfg=11		ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	"hi User6 ctermfg=175	ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	"
--- -- 	"hi Unfoc ctermbg=243 ctermfg=235 guibg=#767676 guifg=#121212 cterm=NONE gui=NONE
--- -- 	"hi! link StatusLineNC Unfoc
--- -- 	"" }}}
--- -- 	" Colors {{{ 
--- -- 	hi User2 ctermbg=9		ctermfg=234	guibg=#f92633	guifg=#282a2e	cterm=NONE	gui=NONE
--- -- 	hi User1 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=NONE	gui=NONE
--- -- 	hi User3 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	hi User4 ctermfg=168	ctermbg=234	guifg=#ff7799	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	"hi User3 ctermfg=12		ctermbg=234	guifg=#00afcc	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	"hi User4 ctermfg=10		ctermbg=234	guifg=#cccccc	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	hi User5 ctermfg=11		ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
--- -- 	hi User6 ctermfg=175	ctermbg=234	guifg=#ff9800	guibg=#282a2e	"cterm=bold	gui=bold
--- --
--- -- 	hi Unfoc ctermbg=243 ctermfg=235 guibg=#767676 guifg=#121212 cterm=NONE gui=NONE
--- -- 	hi! link StatusLineNC Unfoc
--- -- 	hi! link TabLine StatusLine
--- -- 	hi! link TabLineSel User6
--- -- 	" }}}
--- --
--- -- " current config section {{{
--- -- set laststatus=2                                      " show status line
--- -- set statusline=                                       " status line config
--- -- " set statusline+=\ %{toupper(g:currentmode[mode()])}\  " The current mode
--- -- " set statusline+=\⟩\                                   " blank space
--- -- " set statusline+=%<%f\ .20t                            " Full path
--- -- set statusline+=%1*%F\                                 " Full path
--- -- set statusline+=\ %m\ %r%h%w                          " blank space
--- -- set statusline+=%=                                    " Switch to the right side
--- -- set statusline+=\                                     " blank space
--- -- set statusline+=%{StatuslineGitBranch()}              " git brunch in current directory
--- -- set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
--- -- set statusline+=\ \                                   " blank space
--- -- set statusline+=\ %{&ff}                              " FileFormat (dos/unix..)
--- -- set statusline+=\ \                                   " blank space
--- -- set statusline+=\ %c:%l/%L                            " cursor current position
--- -- " set statusline+=\                                     " blank space
--- -- " set statusline+=%Y                                    " file type
--- -- " set statusline+=\                                     " blank space
--- -- " }}}
--- -- ]]
---
--- vim.cmd [[
--- 	hi User1 ctermfg=208	ctermbg=234	guifg=#00afcc	guibg=#282a2e	cterm=NONE	gui=NONE
--- 	hi! link StatusLineNC User1
--- ]]
---
--- vim.opt.statusline = " %f %m %r%h%w %=    %{&ff}   %c:%l/%L   %P    "..vim.bo.filetype
--- vim.opt.tabline = "%F %= %b" -- string.format('%s', lsp_server())
---
--- -- }}}
 
 -- sudo {{{
 
@@ -209,13 +55,13 @@ function PRE_EXEC(cmd, print_output)
 	local password = vim.fn.inputsecret("Password: ")
 	vim.fn.inputrestore()
 	if not password or #password == 0 then
-		vim.notify("Invalid password, ".. exec_with .." aborted", 3, {title = 'PRE_EXEC()'})
+		vim.notify("Invalid password, ".. exec_with .." aborted", 3, {title = "PRE_EXEC()"})
 		return false
 	end
 	local out = vim.fn.system(string.format("%s %s %s", exec_with, exec_args, cmd), password)
 	if vim.v.shell_error ~= 0 then
 		print("\r\n")
-		vim.notify(out, 4, {title = 'PRE_EXEC()'})
+		vim.notify(out, 4, {title = "PRE_EXEC()"})
 		return false
 	end
 	if print_output then
@@ -228,7 +74,7 @@ function PRE_WRITE(tmpfile, filepath)
 	if not tmpfile then tmpfile = vim.fn.tempname() end
 	if not filepath then filepath = vim.fn.expand("%") end
 	if not filepath or #filepath == 0 then
-		vim.notify("E32: No file name", 4, {title = 'PRE_EXEC()'})
+		vim.notify("E32: No file name", 4, {title = "PRE_EXEC()"})
 		return
 	end
 	-- `bs=1048576` is equivalent to `bs=1M` for GNU dd or `bs=1m` for BSD dd
@@ -239,14 +85,14 @@ function PRE_WRITE(tmpfile, filepath)
 	-- no need to check error as this fails the entire function
 	vim.api.nvim_exec(string.format("write! %s", tmpfile), true)
 	if PRE_EXEC(cmd) then
-		vim.notify('', 2)
-		vim.notify(string.format([["%s" written]], filepath), 2, {title = 'PRE_WRITE()'})
+		vim.notify("", 2)
+		vim.notify(string.format([["%s" written]], filepath), 2, {title = "PRE_WRITE()"})
 		vim.cmd("e!")
 	end
 	vim.fn.delete(tmpfile)
 end
 
-vim.keymap.set('n', '<leader>ws', ':lua PRE_WRITE()<CR>', {desc = 'privileged write'})
+vim.keymap.set("n", "<leader>ws", ":lua PRE_WRITE()<CR>", {desc = "privileged write"})
 
 -- }}}
 
@@ -267,7 +113,7 @@ vim.keymap.set("n", "<leader>fm", vim.cmd.Ex, {desc = "netrw - new buffer"})
 
 -- figlet {{{
 
-local bin = 'figlet'
+local bin = "figlet"
 
 ---echo text to `figlet` and append its output to current file as comment.
 --- `opts.text`: input string
@@ -318,16 +164,16 @@ function Figlet(opts)
 	end
 
 	if size == nil then
-		size = '-f small'
+		size = "-f small"
 	else
-		prompt = string.format('(%s) %s', size, prompt)
-		size = '-f '..size
+		prompt = string.format("(%s) %s", size, prompt)
+		size = "-f "..size
 	end
 
 	-- Insert the output into the current file
 	if input ~= nil then
-		cmd = string.format([[:-1r !sh -c "%s %s '%s' %s | sed 's,^,%s ,'"]],
-			bin, size, input, '2>/dev/null', comment[ft])
+		cmd = string.format([[:-1r !sh -c "%s %s "%s" %s | sed "s,^,%s ,""]],
+			bin, size, input, "2>/dev/null", comment[ft])
 		vim.cmd(cmd)
 	end
 end
@@ -345,206 +191,4 @@ vim.keymap.set("n", "<leader>Fb", ":lua Figlet({size = 'big'})<CR>",
 	{desc = bin.." output as comment - big font", silent = true, noremap = true})
 
 -- }}}
-
--- -- scheme {{{
--- 
--- -- Shout out to primeagen --
--- 
--- ---set colorscheme with or without transparency
--- ---@param color string name on the colorscheme
--- ---@param alpha int set it nil to disable alpha
--- --- • default colorscheme is `ayu-dark`
--- function ColorThem(color, alpha)
--- --	if alpha == nil or alpha == '' or alpha == false then
--- --		alpha = 0
--- --	end
--- 
--- 	alpha = alpha or AlphaEnable
--- 
--- 	local defaultcolor = 'sunbather'
--- 	if color == nil or color == '' then
--- 		color = defaultcolor
--- 	end
--- 
--- --	local term = os.getenv("TERM")
--- --	if term ~= 'st-256color' or term ~= 'xterm-256color' then
--- --		local options = {
--- --			termguicolors = true,
--- --		}
--- --
--- --		for key,value in pairs(options) do
--- --			vim.o[key] = value
--- --		end
--- --	else
--- --		local options = {
--- --			termguicolors = false,
--- --		}
--- --
--- --		for key,value in pairs(options) do
--- --			vim.o[key] = value
--- --		end
--- --
--- --		color = 'default'
--- --	end
--- 
--- 	local schemestatus = pcall(vim.cmd.colorscheme, color)
--- 	if schemestatus == false then
--- 		vim.notify(string.format('%s: %s\n%s: %s', 'Colorscheme not found',
--- 			            color, 'Fallback scheme', defaultcolor), 3,
--- 			            { title = 'ColorThem()' })
--- 		color = defaultcolor
--- 
--- 		if pcall(vim.cmd.colorscheme, color) == false then
--- 			vim.notify(string.format('%s: %s\n%s', 'Also not found',
--- 						color, 'Falling back to default'), 3,
--- 						{ title = 'ColorThem()' })
--- 			color = 'default'
--- 		end
--- 	else
--- 		if defaultcolor == 'ayu-dark' then
--- 			local colors = require('ayu.colors')
--- 			require('ayu').setup({
--- 				overrides = function()
--- 					return { Comment = { fg = colors.comment } }
--- 				end
--- 			})
--- 		end
--- 	end
--- 
--- 	vim.cmd.colorscheme(color)
--- 
--- 	if color == 'onedark' then
--- 		require('onedark').setup {
--- 			style = 'darker'
--- 		}
--- 		require('onedark').load()
--- 	end
--- 
--- 	if alpha ~= 0 then
--- 		local sections = {
--- 			'Normal',
--- 			'NormalFloat',
--- 			'SignColumn',
--- 			'WhichKeyFloat',
--- 			'VertSplit',
--- 			'TabLineSel',
--- 			'FoldColumn',
--- 			-- 'Folded',
--- 			-- 'EndOfBuffer',
--- 			-- 'LineNr',
--- 			'CursorLineNr',
--- 		}
--- 
--- 		for i = 1, #sections do
--- 			vim.api.nvim_set_hl(0, sections[i], {bg = 'none'})
--- 		end
--- 
--- 		-- colorscheme
--- 		vim.api.nvim_set_hl(0, "StatusLine", {bg = '#121212', fg = '#ccccce'})
--- 		vim.api.nvim_set_hl(0, "StatusLineNC", {bg = '#ccccce', fg = '#121212'})
--- 
--- 		-- vim.g.terminal_color_0 = 'none'
--- 		-- vim.g.terminal_color_background = 'none'
--- 	end
--- end
--- 
--- -- -- term color {{{
--- -- local termcolor = 'solarized'
--- --
--- -- if termcolor == 'dracula' then
--- -- 	vim.g.terminal_color_0  = "#21222c"
--- -- 	vim.g.terminal_color_1  = "#ff5555"
--- -- 	vim.g.terminal_color_2  = "#50fa7b"
--- -- 	vim.g.terminal_color_3  = "#f1fa8c"
--- -- 	vim.g.terminal_color_4  = "#bd93f9"
--- -- 	vim.g.terminal_color_5  = "#ff79c6"
--- -- 	vim.g.terminal_color_6  = "#8be9fd"
--- -- 	vim.g.terminal_color_7  = "#bbbbbb"
--- -- 	vim.g.terminal_color_8  = "#6272a4"
--- -- 	vim.g.terminal_color_9  = "#ff6e6e"
--- -- 	vim.g.terminal_color_10 = "#69ff94"
--- -- 	vim.g.terminal_color_11 = "#ffffa5"
--- -- 	vim.g.terminal_color_12 = "#d6acff"
--- -- 	vim.g.terminal_color_13 = "#ff92df"
--- -- 	vim.g.terminal_color_14 = "#a4ffff"
--- -- 	vim.g.terminal_color_15 = "#ffffff"
--- -- elseif termcolor == 'solarized' then
--- -- 	vim.g.terminal_color_0  = "#073642"
--- -- 	vim.g.terminal_color_1  = "#dc322f"
--- -- 	vim.g.terminal_color_2  = "#859900"
--- -- 	vim.g.terminal_color_3  = "#b58900"
--- -- 	vim.g.terminal_color_4  = "#268bd2"
--- -- 	vim.g.terminal_color_5  = "#d33682"
--- -- 	vim.g.terminal_color_6  = "#2aa198"
--- -- 	vim.g.terminal_color_7  = "#eee8d5"
--- -- 	vim.g.terminal_color_8  = "#002b36"
--- -- 	vim.g.terminal_color_9  = "#cb4b16"
--- -- 	vim.g.terminal_color_10 = "#586e75"
--- -- 	vim.g.terminal_color_11 = "#657b83"
--- -- 	vim.g.terminal_color_12 = "#839496"
--- -- 	vim.g.terminal_color_13 = "#6c71c4"
--- -- 	vim.g.terminal_color_14 = "#93a1a1"
--- -- 	vim.g.terminal_color_15 = "#fdf6e3"
--- -- elseif termcolor == 'tango' then
--- -- 	vim.g.terminal_color_0  = "#2e3436"
--- -- 	vim.g.terminal_color_1  = "#cc0000"
--- -- 	vim.g.terminal_color_2  = "#4e9a06"
--- -- 	vim.g.terminal_color_3  = "#c4a000"
--- -- 	vim.g.terminal_color_4  = "#3465a4"
--- -- 	vim.g.terminal_color_5  = "#75507b"
--- -- 	vim.g.terminal_color_6  = "#06989a"
--- -- 	vim.g.terminal_color_7  = "#d3d7cf"
--- -- 	vim.g.terminal_color_8  = "#555753"
--- -- 	vim.g.terminal_color_9  = "#ef2929"
--- -- 	vim.g.terminal_color_10 = "#8ae234"
--- -- 	vim.g.terminal_color_11 = "#fce94f"
--- -- 	vim.g.terminal_color_12 = "#729fcf"
--- -- 	vim.g.terminal_color_13 = "#ad7fa8"
--- -- 	vim.g.terminal_color_14 = "#34e2e2"
--- -- 	vim.g.terminal_color_15 = "#eeeeec"
--- -- elseif termcolor == 'breeze' then
--- -- 	vim.g.terminal_color_0  = "#232627"
--- -- 	vim.g.terminal_color_1  = "#ed1515"
--- -- 	vim.g.terminal_color_2  = "#11d116"
--- -- 	vim.g.terminal_color_3  = "#f67400"
--- -- 	vim.g.terminal_color_4  = "#1d99f3"
--- -- 	vim.g.terminal_color_5  = "#9b59b6"
--- -- 	vim.g.terminal_color_6  = "#1abc9c"
--- -- 	vim.g.terminal_color_7  = "#fcfcfc"
--- -- 	vim.g.terminal_color_8  = "#7f8c8d"
--- -- 	vim.g.terminal_color_9  = "#c0392b"
--- -- 	vim.g.terminal_color_10 = "#1cdc9a"
--- -- 	vim.g.terminal_color_11 = "#fdbc4b"
--- -- 	vim.g.terminal_color_12 = "#3daee9"
--- -- 	vim.g.terminal_color_13 = "#8e44ad"
--- -- 	vim.g.terminal_color_14 = "#16a085"
--- -- 	vim.g.terminal_color_15 = "#ffffff"
--- -- elseif termcolor == 'vscode' then
--- -- 	vim.g.terminal_color_0 = "#000000"
--- -- 	vim.g.terminal_color_1 = "#cd3131"
--- -- 	vim.g.terminal_color_2 = "#0dbc79"
--- -- 	vim.g.terminal_color_3 = "#e5e510"
--- -- 	vim.g.terminal_color_4 = "#2472c8"
--- -- 	vim.g.terminal_color_5 = "#bc3fbc"
--- -- 	vim.g.terminal_color_6 = "#11a8cd"
--- -- 	vim.g.terminal_color_7 = "#e5e5e5"
--- -- 	vim.g.terminal_color_8 = "#666666"
--- -- 	vim.g.terminal_color_9 = "#f14c4c"
--- -- 	vim.g.terminal_color_10 = "#50fa7b"
--- -- 	vim.g.terminal_color_11 = "#f1fa8c"
--- -- 	vim.g.terminal_color_12 = "#3b8eea"
--- -- 	vim.g.terminal_color_13 = "#d670d6"
--- -- 	vim.g.terminal_color_14 = "#29b8db"
--- -- 	vim.g.terminal_color_15 = "#e5e5e5"
--- -- end
--- --
--- -- --local terminal_color_background	 = "#002b36"
--- -- --local terminal_color_foreground	 = "#cccccc"
--- -- --
--- -- --vim.cmd [[highlight FloatBorder guibg='#002b36' guifg='#cccccc']]
--- -- -- }}}
--- 
--- ColorThem(CurrentColorscheme, AlphaEnable)
--- 
--- -- }}}
 
