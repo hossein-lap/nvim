@@ -1,5 +1,8 @@
 # nvim
 
+> [!WARNING]
+> This README is not accurate anymore, don't pay attention to it
+
 Hos's neovim config
 
 I've created some modules for specific type of works, and I did my best to
