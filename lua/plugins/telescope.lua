@@ -32,6 +32,7 @@ return {
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
         end, {desc = "Search files that contains string"})
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Serach help pages"})
+        vim.keymap.set('n', '<leader>bl', builtin.buffers, { desc = "List buffers"})
 
     end
 }
