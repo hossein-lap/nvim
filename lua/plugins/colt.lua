@@ -1,6 +1,5 @@
 return {
 	{
-
 		"hossein-lap/colt",
 		dependencies = {
 			"akinsho/toggleterm.nvim",
@@ -14,7 +13,8 @@ return {
 				colt.trigger({
 					filetype = vim.bo.filetype,
 					work = "run",
-					window = "t"
+					window = "t",
+					builtin = true,
 				}) end, {
 					silent = true,
 					desc = 'Run current file - new buffer',
@@ -25,7 +25,8 @@ return {
 				colt.trigger({
 					filetype = vim.bo.filetype,
 					work = "run",
-					window = "f"
+					window = "t",
+					builtin = false,
 				}) end, {
 					silent = true,
 					desc = 'Run current file - new buffer',
@@ -36,7 +37,8 @@ return {
 				colt.trigger({
 					filetype = vim.bo.filetype,
 					work = "compile",
-					silent = true
+					silent = true,
+					builtin = true,
 				}) end, {
 					silent = true,
 					desc = 'quickfix › Compile current file'
@@ -74,7 +76,6 @@ return {
 			vim.keymap.set('n', '<localleader>cF', function()
 					colt.quickfix("make full", {silent = true})
 			end, { silent = true, desc = 'quickfix › make full' })
-
 		end
 	}
 }
