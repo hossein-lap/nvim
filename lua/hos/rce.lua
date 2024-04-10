@@ -186,6 +186,39 @@ end
 -- _run {{{
 function _run(wrapped, style)
 
+	-- -- custom terminals {{{
+	-- local Term  = require('toggleterm.terminal').Terminal
+	--
+	-- -- horizontal terminal
+	-- function TermH(wrapand)
+	-- 	local theterm = Term:new({
+	-- 		direction = 'horizontal',
+	-- 		cmd = wrapand,
+	-- 	})
+	-- 	theterm:toggle()
+	-- end
+	--
+	-- -- vertical terminal
+	-- function TermV(wrapand)
+	-- 	local theterm = Term:new({
+	-- 		direction = 'vertical',
+	-- 		cmd = wrapand,
+	-- 	})
+	-- 	theterm:toggle()
+	-- end
+	--
+	-- -- float terminal
+	-- function TermF(wrapand)
+	-- 	local theterm = Term:new({
+	-- 		direction = 'float',
+	-- 		cmd = wrapand,
+	-- 		size = 0.1,
+	-- 	})
+	-- 	theterm:toggle()
+	-- end
+	-- -- }}}
+
+	-- old {{{
 	if wrapped == nil and style == nil then
 		vim.api.nvim_command("term")
 		vim.api.nvim_command("setlocal nonu nornu")
@@ -198,29 +231,20 @@ function _run(wrapped, style)
 		horizontal = 'split ',
 	}
 
-	local buffercmd = split[style] or "float"
-	-- local buffercmd = 'float'
-
-	-- if wrapped then
-	-- 	if buffercmd == 'float' then
-	-- 		TermF(wrapped)
-	-- 	elseif buffercmd == 'vertical' then
-	-- 		TermV(wrapped)
-	-- 	else
-	-- 		TermH(wrapped)
-	-- 	end
-	-- end
+	local buffercmd = split[style] or ""
 
 	if buffercmd == 'float' then
 		float_term({work = 'shell', cmd = wrapped})
 	else
-		vim.api.nvim_command(buffercmd)
-		vim.api.nvim_command('set nornu nonu signcolumn=no')
+		if buffercmd ~= nil or buffercmd ~= "" then
+			vim.api.nvim_command(buffercmd)
+		end
 		if wrapped then
 			vim.api.nvim_command("term " .. wrapped)
 		else
 			vim.api.nvim_command('term')
 		end
+		vim.api.nvim_command('setlocal nornu nonu signcolumn=yes')
 		vim.api.nvim_command('startinsert')
 		if wrapped ~= nil then
 			-- print(wrapped)
@@ -229,6 +253,8 @@ function _run(wrapped, style)
 				{title = '_run()'})
 		end
 	end
+	-- }}}
+
 end
 -- }}}
 
@@ -383,8 +409,8 @@ end
 -- Keymaps {{{
 ---- Compile/Run/Debug
 vim.keymap.set('n', '<localleader>fq', function()
-		wrapcmd({ft = vim.bo.filetype, w = "run", style = "horizontal"})
-	end, { silent = true, desc = 'Run current file - horizontal' })
+		wrapcmd({ft = vim.bo.filetype, w = "run", style = ""})
+	end, { silent = true, desc = 'Run current file - new buffer' })
 vim.keymap.set('n', '<localleader>fQ', function()
 		wrapcmd({ft = vim.bo.filetype, w = "run", style = "vertical"})
 	end, { silent = true, desc = 'Run current file - vertical' })
@@ -396,10 +422,10 @@ vim.keymap.set('n', '<localleader>fw', function()
 	end, { silent = true, desc = 'quickfix › Debug current file' })
 
 ---- makefile
-vim.keymap.set('n', '<localleader>ca', function()
+vim.keymap.set('n', '<localleader>cc', function()
 		_run("make", "horizontal")
 	end, { silent = true, desc = 'make › all' })
-vim.keymap.set('n', '<localleader>cc', function()
+vim.keymap.set('n', '<localleader>ca', function()
 		_quickfix({cmd = "make", silent = true})
 	end, { silent = true, desc = 'quickfix › make' })
 vim.keymap.set('n', '<localleader>cd', function()
@@ -416,10 +442,10 @@ vim.keymap.set('n', '<localleader>cF', function()
 	end, { silent = true, desc = 'quickfix › make full' })
 
 -- ---- intractive shells
-vim.keymap.set('n', '<C-q>', function() _run("bash")
-	end, { silent = true, desc = 'term › bash shell' })
-vim.keymap.set('n', '<localleader>ts', function() _run("tcsh")
-	end, { silent = true, desc = 'term › zsh shell' })
+-- vim.keymap.set('n', '<C-q>', function() _run("bash")
+-- 	end, { silent = true, desc = 'term › bash shell' })
+-- vim.keymap.set('n', '<localleader>ts', function() _run("tcsh")
+-- 	end, { silent = true, desc = 'term › zsh shell' })
 -- vim.keymap.set('n', '<localleader>td', function() _run("dash")
 -- 	end, { silent = true, desc = 'term › dash shell' })
 -- }}}
