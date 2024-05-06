@@ -23,7 +23,7 @@ return {
 				-- name = "vim-wal",
 				name = "rose-pine",
 				alpha_enable = true,
-				alpha_sec = "basic", -- basic, cols, folds, all
+				alpha_sec = "cols", -- basic, cols, folds, all
 			})
 		end
 	},
