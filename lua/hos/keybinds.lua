@@ -131,9 +131,9 @@ vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>',
 	{ silent = true, desc = 'chmod +x %' })
 
 -- go to next/previous buffer/tab {{{
-vim.keymap.set('n', '<leader>bn',  ':bnext<CR>',
+vim.keymap.set('n', ']b',  ':bnext<CR>',
 	{ silent = true, noremap = true, desc = "Next buffer" })
-vim.keymap.set('n', '<leader>bp',  ':bprevious<CR>',
+vim.keymap.set('n', '[b',  ':bprevious<CR>',
 	{ silent = true, noremap = true, desc = "Previous buffer" })
 vim.keymap.set('n', '<leader>bk',  ':bd<CR>',
 	{ silent = true, noremap = true, desc = "Delete buffer" })
