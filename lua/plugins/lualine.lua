@@ -2,14 +2,16 @@ return {
 	"nvim-lualine/lualine.nvim",
 	config = function()
 
+		local enable_icon = true
+
 		-- colors {{{
 		local color_list = {
 
 		--	none {{{
 			none = {
 				white    = '#ffffff',
-				bg    = '#181818',
-				black       = '#232323',
+				bg       = '#181818',
+				black    = '#232323',
 				fg       = '#bbc2cf',
 				gray     = '#777777',
 				yellow   = '#F3E430',
@@ -270,6 +272,23 @@ return {
 
 		local current_theme = color_list["onedark"]
 
+		if vim.g.colors_name == "vim-wal" then
+			current_theme = {
+				bg       = vim.g.color0,
+				black    = vim.g.color0,
+				fg       = vim.g.color15,
+				gray     = vim.g.color8,
+				yellow   = vim.g.color3,
+				cyan     = vim.g.color6,
+				green    = vim.g.color2,
+				orange   = vim.g.color3,
+				purple   = vim.g.color5,
+				blue     = vim.g.color4,
+				red      = vim.g.color1,
+				special  = vim.g.color0,
+			}
+		end
+
 		-- configs {{{
 		local config = {
 			options = {
@@ -426,7 +445,7 @@ return {
 		topinsert_left_a {
 			function()
 				local devicon = require("nvim-web-devicons")
-				if devicon.has_loaded() then
+				if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
 					return ''
 				else
 					return "B"
@@ -532,7 +551,7 @@ return {
 				local devicon = require("nvim-web-devicons")
 				local ft = vim.bo.filetype
 				-- local fn = vim.bo.filename
-				if devicon.has_loaded() then
+				if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
 					local i = devicon.get_icon_by_filetype(ft, { default = true, color_icons = false })
 					return i
 				else
@@ -556,7 +575,7 @@ return {
 		botinsert_left_a {
 			function()
 				local devicon = require("nvim-web-devicons")
-				if devicon.has_loaded() then
+				if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
 					return ""
 				else
 					return vim.api.nvim_get_mode()["mode"]:upper()
@@ -623,7 +642,7 @@ return {
 				}
 
 				local devicon = require("nvim-web-devicons")
-				if devicon.has_loaded() then
+				if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
 					return icon[ff]
 				else
 					return text[ff]
@@ -659,8 +678,14 @@ return {
 			equal       = { left = '=',  right = '='  },
 		}
 
-		config.options.section_separators = separators.lift
-		config.options.component_separators = separators.single
+		local devicon = require("nvim-web-devicons")
+		if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
+			config.options.section_separators = separators.lift
+			config.options.component_separators = separators.single
+		else
+			config.options.section_separators = separators.none
+			config.options.component_separators = separators.ascii
+		end
 		-- }}}
 
 		require('lualine').setup(config)
