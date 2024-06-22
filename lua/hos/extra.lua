@@ -33,9 +33,9 @@ au("set tabstop=2",      {"sent", "yaml", "text"})
 au("set softtabstop=2",  {"sent", "yaml", "text"})
 au("set shiftwidth=2",   {"sent", "yaml", "text"})
 
-au("set noexpandtab", {
-	"c", "lua", "sh", "bash", "vim", "go", "make", "nasm", "xml", "html",
-})
+-- au("set noexpandtab", {
+-- 	"c", "lua", "sh", "bash", "vim", "go", "make", "nasm", "xml", "html",
+-- })
 
 --})
 

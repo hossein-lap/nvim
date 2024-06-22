@@ -28,7 +28,7 @@ local options = {
 	incsearch = true,
 	hlsearch = true,
 	cursorline = true,
-	scrolloff = 16,
+	scrolloff = 8,
 	foldmethod = 'marker',
 	foldenable = true,
 	foldnestmax = 99,
@@ -40,20 +40,20 @@ local options = {
 		'de',
 	},
 	spellsuggest = 'best',
-	hidden = true,
-	list = true,
-	listchars = {
-		tab = '› ', -- <Tab> special character
-		-- tab = '⎪ ', -- <Tab> special character
-		-- trail = '⋅',
-		-- lead = '-',
-		-- eol = ' ', -- <End Of Line> special character
-		-- nbsp = "␣",
-		-- extends = "+",
-		-- precedes = "·",
-		-- multispace = "…", -- show chars if I have multiple spaces between text
-		-- leadmultispace = "—", -- also show when they're at the start
-	},
+	-- hidden = true,
+	-- list = true,
+	-- listchars = {
+	-- 	-- tab = '› ', -- <Tab> special character
+	-- 	tab = '⎪ ', -- <Tab> special character
+	-- 	-- trail = '⋅',
+	-- 	-- lead = '-',
+	-- 	-- eol = ' ', -- <End Of Line> special character
+	-- 	-- nbsp = "␣",
+	-- 	-- extends = "+",
+	-- 	-- precedes = "·",
+	-- 	-- multispace = "…", -- show chars if I have multiple spaces between text
+	-- 	-- leadmultispace = "—", -- also show when they're at the start
+	-- },
 	termbidi = true,
 	background = 'dark',
 	colorcolumn= '79',

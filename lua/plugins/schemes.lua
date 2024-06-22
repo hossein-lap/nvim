@@ -21,9 +21,12 @@ return {
 			local scheme = require("schemes")
 			scheme.ColorThem({
 				-- name = "vim-wal",
-				name = "rose-pine",
-				alpha_enable = true,
-				alpha_sec = "cols", -- basic, cols, folds, all
+				-- name = "hybrid",
+				name = "lunaperche",
+				-- name = "256_noir",
+				-- name = "solarized",
+				alpha_enable = false,
+				alpha_sec = "basic", -- basic, cols, folds, all
 			})
 		end
 	},

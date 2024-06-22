@@ -6,10 +6,14 @@ return {
 		},
 
 		branch = "testing",
-		-- dir = "~/dev/hossein-lap/colt",
+		dir = "~/dev/hossein-lap/colt",
 
 		config = function()
 			local colt = require("colt")
+
+            colt.config({
+                shell = "bash",
+            })
 
 			-- Compile/Run/Debug
 			vim.keymap.set('n', '<localleader>fq', function()

@@ -270,7 +270,7 @@ return {
 		}
 		-- }}}
 
-		local current_theme = color_list["onedark"]
+		local current_theme = color_list["none"]
 
 		if vim.g.colors_name == "vim-wal" then
 			current_theme = {
@@ -331,6 +331,14 @@ return {
 		-- special theme {{{
 			config.options.theme = {
 				normal = {
+					a = { fg = current_theme.bg,     bg = current_theme.yellow, gui = 'bold' },
+					b = { fg = current_theme.yellow, bg = current_theme.black,  gui = 'none' },
+					c = { fg = current_theme.fg,     bg = current_theme.bg,     gui = 'none' },
+					x = { fg = current_theme.fg,     bg = current_theme.bg,     gui = 'none' },
+					y = { fg = current_theme.yellow, bg = current_theme.black,  gui = 'none' },
+					z = { fg = current_theme.bg,     bg = current_theme.yellow, gui = 'bold' },
+				},
+				insert = {
 					a = { fg = current_theme.bg,    bg = current_theme.green, gui = 'bold' },
 					b = { fg = current_theme.green, bg = current_theme.black, gui = 'none' },
 					c = { fg = current_theme.fg,    bg = current_theme.bg,    gui = 'none' },
@@ -338,21 +346,13 @@ return {
 					y = { fg = current_theme.green, bg = current_theme.black, gui = 'none' },
 					z = { fg = current_theme.bg,    bg = current_theme.green, gui = 'bold' },
 				},
-				insert = {
+				visual = {
 					a = { fg = current_theme.bg,   bg = current_theme.blue,  gui = 'bold' },
 					b = { fg = current_theme.blue, bg = current_theme.black, gui = 'none' },
 					c = { fg = current_theme.fg,   bg = current_theme.bg,    gui = 'none' },
 					x = { fg = current_theme.fg,   bg = current_theme.bg,    gui = 'none' },
 					y = { fg = current_theme.blue, bg = current_theme.black, gui = 'none' },
 					z = { fg = current_theme.bg,   bg = current_theme.blue,  gui = 'bold' },
-				},
-				visual = {
-					a = { fg = current_theme.bg,     bg = current_theme.yellow, gui = 'bold' },
-					b = { fg = current_theme.yellow, bg = current_theme.black,  gui = 'none' },
-					c = { fg = current_theme.fg,     bg = current_theme.bg,     gui = 'none' },
-					x = { fg = current_theme.fg,     bg = current_theme.bg,     gui = 'none' },
-					y = { fg = current_theme.yellow, bg = current_theme.black,  gui = 'none' },
-					z = { fg = current_theme.bg,     bg = current_theme.yellow, gui = 'bold' },
 				},
 				replace = {
 					a = { fg = current_theme.bg,  bg = current_theme.red,   gui = 'bold' },
@@ -442,18 +442,20 @@ return {
 
 		-- icon {{{
 
-		topinsert_left_a {
-			function()
-				local devicon = require("nvim-web-devicons")
-				if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
-					return ''
-				else
-					return "B"
-				end
-			end,
-			padding = { right = 1, left = 1 },
-		}
-		-- }}}
+        topinsert_left_a {
+            function()
+                if enable_icon == true then
+                    local devicon = require("nvim-web-devicons")
+                    if devicon.has_loaded() and os.getenv("TERM") ~= "Xterm" then
+                        return ''
+                    end
+                else
+                    return "git"
+                end
+            end,
+            padding = { right = 1, left = 1 },
+        }
+        -- }}}
 
 		-- git branch {{{
 		topinsert_left_b {
@@ -527,7 +529,7 @@ return {
 			function()
 				local msg = ''
 				local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-				local clients = vim.lsp.get_active_clients()
+				local clients = vim.lsp.get_clients()
 				if next(clients) == nil then
 					return msg
 				end
@@ -548,15 +550,17 @@ return {
 		-- filetype icon {{{
 		topinsert_right_z {
 		function()
-				local devicon = require("nvim-web-devicons")
-				local ft = vim.bo.filetype
-				-- local fn = vim.bo.filename
-				if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
-					local i = devicon.get_icon_by_filetype(ft, { default = true, color_icons = false })
-					return i
-				else
-					return "T"
-				end
+                if enable_icon == true then
+                    local devicon = require("nvim-web-devicons")
+                    local ft = vim.bo.filetype
+                    -- local fn = vim.bo.filename
+                    if devicon.has_loaded() and os.getenv("TERM") ~= "Xterm" then
+                        local i = devicon.get_icon_by_filetype(ft, { default = true, color_icons = false })
+                        return i
+                    end
+                else
+                    return "Buf"
+                end
 			end,
 			padding = { right = 1, left = 1 },
 
@@ -566,7 +570,7 @@ return {
 		-- }}}
 
 		-- inactive {{{
-		botinsert_inact_b { 'filename' } -- base dir
+		botinsert_inact_b { '%F' } -- base dir
 		-- }}}
 
 		-- bottom-line {{{
@@ -574,11 +578,34 @@ return {
 		-- vim icon / mode {{{
 		botinsert_left_a {
 			function()
-				local devicon = require("nvim-web-devicons")
-				if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
-					return ""
-				else
-					return vim.api.nvim_get_mode()["mode"]:upper()
+                local modes = {
+                    ['n' ] = 'Normal',
+                    ['no'] = 'Normal·Operator Pending',
+                    ['v' ] = 'Visual',
+                    ['V' ] = 'V·Line',
+                    [""] = 'V·Block',
+                    ['s' ] = 'Select',
+                    ['S' ] = 'S·Line',
+                    ['^S'] = 'S·Block',
+                    ['i' ] = 'Insert',
+                    ['R' ] = 'Replace',
+                    ['Rv'] = 'V·Replace',
+                    ['c' ] = 'Command',
+                    ['cv'] = 'Vim Ex',
+                    ['ce'] = 'Ex',
+                    ['r' ] = 'Prompt',
+                    ['rm'] = 'More',
+                    ['r?'] = 'Confirm',
+                    ['!' ] = 'Shell',
+                    ['t' ] = 'Terminal'
+                }
+                if enable_icon == true then
+                    local devicon = require("nvim-web-devicons")
+                    if devicon.has_loaded() and os.getenv("TERM") ~= "Xterm" then
+                        return ""
+                    end
+                else
+                    return modes[vim.api.nvim_get_mode()["mode"]]
 				end
 			end,
 			padding = { right = 1, left = 1 },
@@ -627,13 +654,13 @@ return {
 				}
 				local text = {
 
-					-- unix = 'LF',
-					-- mac  = 'CR',
-					-- dos  = 'LFCR',
+					unix = 'LF',
+					mac  = 'CR',
+					dos  = 'LFCR',
 
-					unix = 'U',
-					mac  = 'M',
-					dos  = 'D',
+					-- unix = 'U',
+					-- mac  = 'M',
+					-- dos  = 'D',
 
 					-- unix = 'Unix',
 					-- mac  = 'Mac',
@@ -641,11 +668,13 @@ return {
 
 				}
 
-				local devicon = require("nvim-web-devicons")
-				if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
-					return icon[ff]
-				else
-					return text[ff]
+                if enable_icon == true then
+                    local devicon = require("nvim-web-devicons")
+                    if devicon.has_loaded() and os.getenv("TERM") ~= "Xterm" then
+                        return icon[ff]
+                    end
+                else
+                    return text[ff]
 				end
 			end
 		}
@@ -678,13 +707,20 @@ return {
 			equal       = { left = '=',  right = '='  },
 		}
 
-		local devicon = require("nvim-web-devicons")
-		if devicon.has_loaded() and os.getenv("TERM") ~= "xterm" and enable_icon == true then
-			config.options.section_separators = separators.lift
-			config.options.component_separators = separators.single
-		else
-			config.options.section_separators = separators.none
-			config.options.component_separators = separators.ascii
+        if enable_icon == true then
+            local devicon = require("nvim-web-devicons")
+            if devicon.has_loaded() and os.getenv("TERM") ~= "Xterm" then
+                config.options.section_separators = separators.lift
+                config.options.component_separators = separators.single
+            end
+        else
+            config.options.section_separators = separators.none
+            config.options.component_separators = separators.ascii
+		end
+
+        if os.getenv("TERM") == "xterm-256color" then
+            config.options.section_separators = separators.none
+            config.options.component_separators = separators.ascii
 		end
 		-- }}}
 

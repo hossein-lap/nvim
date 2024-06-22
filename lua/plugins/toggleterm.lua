@@ -7,6 +7,9 @@ return {
 			local height = math.floor(vim.api.nvim_get_option("lines") / 2)
 			local xpad = (width * 2) - math.floor(vim.api.nvim_get_option("columns") / 8)
 			local ypad = (height * 2) - math.floor(vim.api.nvim_get_option("lines") / 5)
+            local colt = require("colt").config({
+                shell = "zsh"
+            })
 
 			require'toggleterm'.setup {
 				size = function(term)
@@ -46,7 +49,7 @@ return {
 					zindex = 50,
 				},
 
-				shell = 'mksh',
+				shell = colt.shell,
 				open_mapping = [[<C-q>]],
 				hide_numbers = true, -- hide the number column in toggleterm buffers
 				shade_terminals = true,
