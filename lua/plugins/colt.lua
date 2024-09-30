@@ -20,7 +20,7 @@ return {
 				colt.trigger({
 					filetype = vim.bo.filetype,
 					work = "run",
-					window = "t",
+					window = "h",
 					builtin = true,
 				}) end, {
 					silent = true,
@@ -32,7 +32,7 @@ return {
 				colt.trigger({
 					filetype = vim.bo.filetype,
 					work = "run",
-					window = "t",
+					window = "h",
 					builtin = false,
 				}) end, {
 					silent = true,
@@ -69,19 +69,19 @@ return {
 			end, { silent = true, desc = 'make › all' })
 
 			vim.keymap.set('n', '<localleader>ca', function()
-					colt.quickfix("make", {silent = false})
+					colt.qf("make", {silent = false})
 			end, { silent = true, desc = 'quickfix › make' })
 			vim.keymap.set('n', '<localleader>cd', function()
-					colt.quickfix("make clean", {silent = true})
+					colt.qf("make clean", {silent = true})
 			end, { silent = true, desc = 'quickfix › make clean' })
 			vim.keymap.set('n', '<localleader>cf', function()
-					colt.quickfix("make force", {silent = true})
+					colt.qf("make force", {silent = true})
 			end, { silent = true, desc = 'quickfix › make force' })
 			vim.keymap.set('n', '<localleader>cb', function()
-					colt.quickfix("make build", {silent = true})
+					colt.qf("make build", {silent = true})
 			end, { silent = true, desc = 'quickfix › make build' })
 			vim.keymap.set('n', '<localleader>cF', function()
-					colt.quickfix("make full", {silent = true})
+					colt.qf("make full", {silent = true})
 			end, { silent = true, desc = 'quickfix › make full' })
 		end
 	}

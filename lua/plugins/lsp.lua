@@ -5,8 +5,8 @@ end
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        -- "williamboman/mason.nvim",
-        -- "williamboman/mason-lspconfig.nvim",
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -14,9 +14,10 @@ return {
         "hrsh7th/nvim-cmp",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
-        -- "j-hui/fidget.nvim",
+        "j-hui/fidget.nvim",
     },
 
+    -- config section
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
@@ -24,70 +25,101 @@ return {
             "force",
             {},
             vim.lsp.protocol.make_client_capabilities(),
-            cmp_lsp.default_capabilities())
+            cmp_lsp.default_capabilities()
+        )
 
-        -- require("fidget").setup({
-        --     progress = {
-        --         display = {
-        --             done_icon = "✓",
-        --         }
-        --     }
-        -- })
+        -- lsp log
+        require("fidget").setup({
+            progress = {
+                display = {
+                    done_icon = "✓",
+                }
+            }
+        })
 
-        -- require("mason").setup({
-        --     ui = {
-        --         icons = {
-        --             package_installed = "✓",
-        --             package_pending = "→",
-        --             package_uninstalled = "×"
-        --         }
-        --     }
-        -- })
+        -- lsp manager
+        require("mason").setup({
+            ui = {
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "→",
+                    package_uninstalled = "×"
+                }
+            }
+        })
 
-        -- require("mason-lspconfig").setup({
-        --     ensure_installed = {
-        --
-        --         -- programming
-        --         "gopls", "lua_ls",
-        --      "clangd",
-        --         "ruby_lsp",
-        --         "pylsp",
-        --
-        --         -- "rust_analyzer",
-        --         -- "perlnavigator", "bashls",
-        --         -- "elixirls", "elmls",
-        --
-        --         -- extra
-        --         "texlab", "vimls",
-        --
-        --         -- devops
-        --         "yamlls", "ansiblels", "dockerls",
-        --         "docker_compose_language_service",
-        --
-        --     },
-        --     handlers = {
-        --         function(server_name) -- default handler (optional)
-        --             require("lspconfig")[server_name].setup {
-        --                 capabilities = capabilities
-        --             }
-        --         end,
-        --
-        --         ["lua_ls"] = function()
-        --             local lspconfig = require("lspconfig")
-        --             lspconfig.lua_ls.setup {
-        --                 capabilities = capabilities,
-        --                 settings = {
-        --                     Lua = {
-        --                         diagnostics = {
-        --                             globals = { "vim", "it", "describe", "before_each", "after_each" },
-        --                         }
-        --                     }
-        --                 }
-        --             }
-        --         end,
-        --     }
-        -- })
+        local lspconfig = require('lspconfig')
+        local servers = {
+            -- 'html', 'cssls', 'jsonls', 'eslint',
+            'lua_ls',
+            'bashls',
+            "pylyzer",
+            -- 'pyright',
+            -- 'clangd',
+            'gopls',
+            'texlab',
+            'vimls',
+            -- "ruby-lsp",
+            "yamlls",
+            -- "ansible-language-server",
+            -- "helm-ls",
+            -- "terraform-ls",
+            -- "elixir-ls",
+            -- "nginx-language-server",
+            -- "docker-langserver",
+            -- "docker-compose-langserver",
+            -- 'perlnavigator',
+            -- 'rust_analyzer',
+        }
+        for _, lsp in ipairs(servers) do
+            lspconfig[lsp].setup {
+                -- on_attach = my_custom_on_attach,
+                capabilities = capabilities,
+            }
+        end
 
+        require("mason-lspconfig").setup({
+            ensure_installed = {
+                -- -- programming
+                "gopls", "lua_ls",
+                -- "clangd",
+                -- "ruby_lsp",
+                "pylyzer",
+                -- "rust_analyzer",
+                -- "perlnavigator",
+                "bashls",
+                -- "elixirls", "elmls",
+                -- -- extra
+                "texlab", "vimls",
+                -- devops
+                "yamlls", "ansiblels", "dockerls",
+                "docker_compose_language_service",
+            },
+
+            handlers = {
+                function(server_name) -- default handler (optional)
+                    require("lspconfig")[server_name].setup {
+                        capabilities = capabilities
+                    }
+                end,
+
+                ["lua_ls"] = function()
+                    -- local lspconfig = require("lspconfig")
+                    lspconfig.lua_ls.setup {
+                        capabilities = capabilities,
+                        settings = {
+                            Lua = {
+                                diagnostics = {
+                                    globals = { "vim", "it", "describe", "before_each", "after_each" },
+                                }
+                            }
+                        }
+                    }
+                end,
+            }
+        })
+
+        -- auto completion
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
         cmp.setup({
@@ -115,11 +147,11 @@ return {
                 -- end, { "i", "s", }),
             }),
             sources = cmp.config.sources({
-                -- { name = 'nvim_lsp' },
-                -- { name = 'luasnip' }, -- For luasnip users.
-                }, {
-                    { name = 'buffer' },
-                    { name = 'path' },
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' }, -- For luasnip users.
+            }, {
+                { name = 'buffer' },
+                { name = 'path' },
             }),
             window = {
                 completion = {
@@ -150,21 +182,22 @@ return {
                     return item
                 end,
             },
-
         })
 
+        -- diagnostic config
         vim.diagnostic.config({
             -- update_in_insert = true,
             float = {
                 focusable = false,
                 style = "minimal",
-                border = "rounded",
+                border = "single",
                 source = "always",
                 header = "",
                 prefix = "",
             },
         })
 
+        -- keybindings
         map("n", "<leader>D", vim.lsp.buf.type_definition, {desc = "Type definition (?!)"})
         map("n", "gD", function() vim.lsp.buf.declaration() end, {desc = "Jump to declaration"})
         map("n", "gi", function() vim.lsp.buf.implementation() end, {desc = "Jump to implementation"})

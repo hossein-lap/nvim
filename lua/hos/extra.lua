@@ -1,6 +1,5 @@
--- helper {{{
-
--- autocmd function {{{
+-- helper
+-- autocmd function
 local function au(commands, patterns, evnt)
 	if evnt == nil then
 		evnt = "FileType"
@@ -11,12 +10,8 @@ local function au(commands, patterns, evnt)
 --		 group = patterns .. "groups"
 	})
 end
--- }}}
 
--- }}}
-
--- autocmds {{{
-
+-- autocmds
 au("set filetype=nroff", {"*.me"},    {"BufRead", "BufNewFile"})
 au("set filetype=nroff", {"*.ms"},    {"BufRead", "BufNewFile"})
 au("set filetype=nroff", {"*.mm"},    {"BufRead", "BufNewFile"})
@@ -37,16 +32,11 @@ au("set shiftwidth=2",   {"sent", "yaml", "text"})
 -- 	"c", "lua", "sh", "bash", "vim", "go", "make", "nasm", "xml", "html",
 -- })
 
---})
-
--- }}}
-
 -- -- FoldMethod
 -- au("loadview", {}, { "BufRead" } )
 -- au("mkview", {}, { "BufWrite" } )
 
--- sudo {{{
-
+-- sudo
 function PRE_EXEC(cmd, print_output)
 	local exec_with = "sudo"
 	local exec_args = "-p '' -S"
@@ -94,10 +84,7 @@ end
 
 vim.keymap.set("n", "<leader>ws", ":lua PRE_WRITE()<CR>", {desc = "privileged write"})
 
--- }}}
-
--- netrw {{{
-
+-- netrw
 vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 80
@@ -109,12 +96,8 @@ vim.g.netrw_special_syntax = 1
 vim.keymap.set("n", "<leader>fa", vim.cmd.Ex, {desc = "netrw - new buffer"})
 vim.keymap.set("n", "<leader>fm", vim.cmd.Ex, {desc = "netrw - new buffer"})
 
--- }}}
-
--- figlet {{{
-
+-- figlet
 local bin = "figlet"
-
 ---echo text to `figlet` and append its output to current file as comment.
 --- `opts.text`: input string
 --- `opts.size`: figlet font/size
@@ -189,6 +172,4 @@ vim.keymap.set("n", "<leader>Fs", ":lua Figlet({size = 'small'})<CR>",
 
 vim.keymap.set("n", "<leader>Fb", ":lua Figlet({size = 'big'})<CR>",
 	{desc = bin.." output as comment - big font", silent = true, noremap = true})
-
--- }}}
 

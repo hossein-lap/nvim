@@ -14,18 +14,31 @@ return {
 			"hossein-lap/vim-lupper",
 			"hossein-lap/vim-octave",
 			"hossein-lap/vim-wal",
-			{ "rose-pine/neovim", name = "rose-pine" }
+			"hossein-lap/Alduin",
+            "rafi/awesome-vim-colorschemes",
+			{ "rose-pine/neovim", name = "rose-pine" },
+			{
+                "hossein-lap/vim-tf2",
+                name = "tf2",
+                dir = "~/dev/hossein-lap/vim-colors/vim-tf2",
+            },
+			{
+                "hossein-lap/vim-blud",
+                name = "blud",
+                dir = "~/dev/hossein-lap/vim-colors/vim-blud",
+            },
 		},
 
 		config = function()
 			local scheme = require("schemes")
+            vim.cmd [[
+                let g:alduin_Shout_Animal_Allegiance = 1
+            ]]
 			scheme.ColorThem({
+				name = "alduin",
+				-- name = "blud",
 				-- name = "vim-wal",
-				-- name = "hybrid",
-				name = "lunaperche",
-				-- name = "256_noir",
-				-- name = "solarized",
-				alpha_enable = false,
+				alpha_enable = true,
 				alpha_sec = "basic", -- basic, cols, folds, all
 			})
 		end

@@ -39,10 +39,11 @@ return {
 					},
 				},
 
-				direction = 'tab',
+				direction = 'float',
 
 				float_opts = {
-					border = 'curved',
+					border = 'single',
+					-- border = 'curved',
 					winblend = 0,
 					width  = xpad,
 					height = ypad,
@@ -53,6 +54,7 @@ return {
 				open_mapping = [[<C-q>]],
 				hide_numbers = true, -- hide the number column in toggleterm buffers
 				shade_terminals = true,
+				shade_filetypes = {"none"},
 				start_in_insert = true,
 				close_on_exit = false,
 			}
