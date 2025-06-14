@@ -113,7 +113,7 @@ return {
             end
         })
 
-        leftline("%.30F%m %r%h%w")
+        leftline("%.50F%m %r%h%w")
         leftline({
             "branch",
             icon = '',
@@ -146,10 +146,10 @@ return {
                     error   = #vim.diagnostic.get(0, {severity=vim.diagnostic.severity.ERROR}),
                 }
                 local diagnostics = string.format('%s %s %s %s',
-                    diag["hint"],
-                    diag["info"],
-                    diag["warning"],
-                    diag["error"]
+                    'E:'..diag["error"],
+                    'W:'..diag["warning"],
+                    'H:'..diag["hint"],
+                    'I:'..diag["info"]
                 )
                 return diagnostics
             end

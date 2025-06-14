@@ -5,8 +5,8 @@ end
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
+        -- "williamboman/mason.nvim",
+        -- "williamboman/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -37,16 +37,16 @@ return {
             }
         })
 
-        -- lsp manager
-        require("mason").setup({
-            ui = {
-                icons = {
-                    package_installed = "✓",
-                    package_pending = "→",
-                    package_uninstalled = "×"
-                }
-            }
-        })
+        -- -- lsp manager
+        -- require("mason").setup({
+        --     ui = {
+        --         icons = {
+        --             package_installed = "✓",
+        --             package_pending = "→",
+        --             package_uninstalled = "×"
+        --         }
+        --     }
+        -- })
 
         local lspconfig = require('lspconfig')
         local servers = {
@@ -78,46 +78,46 @@ return {
             }
         end
 
-        require("mason-lspconfig").setup({
-            ensure_installed = {
-                -- -- programming
-                "gopls", "lua_ls",
-                -- "clangd",
-                -- "ruby_lsp",
-                "pylyzer",
-                -- "rust_analyzer",
-                -- "perlnavigator",
-                "bashls",
-                -- "elixirls", "elmls",
-                -- -- extra
-                "texlab", "vimls",
-                -- devops
-                "yamlls", "ansiblels", "dockerls",
-                "docker_compose_language_service",
-            },
-
-            handlers = {
-                function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup {
-                        capabilities = capabilities
-                    }
-                end,
-
-                ["lua_ls"] = function()
-                    -- local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                diagnostics = {
-                                    globals = { "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
-                        }
-                    }
-                end,
-            }
-        })
+        -- require("mason-lspconfig").setup({
+        --     ensure_installed = {
+        --         -- -- programming
+        --         "gopls", "lua_ls",
+        --         -- "clangd",
+        --         -- "ruby_lsp",
+        --         "pylyzer",
+        --         -- "rust_analyzer",
+        --         -- "perlnavigator",
+        --         "bashls",
+        --         -- "elixirls", "elmls",
+        --         -- -- extra
+        --         "texlab", "vimls",
+        --         -- devops
+        --         "yamlls", "ansiblels", "dockerls",
+        --         "docker_compose_language_service",
+        --     },
+        --
+        --     handlers = {
+        --         function(server_name) -- default handler (optional)
+        --             require("lspconfig")[server_name].setup {
+        --                 capabilities = capabilities
+        --             }
+        --         end,
+        --
+        --         ["lua_ls"] = function()
+        --             -- local lspconfig = require("lspconfig")
+        --             lspconfig.lua_ls.setup {
+        --                 capabilities = capabilities,
+        --                 settings = {
+        --                     Lua = {
+        --                         diagnostics = {
+        --                             globals = { "vim", "it", "describe", "before_each", "after_each" },
+        --                         }
+        --                     }
+        --                 }
+        --             }
+        --         end,
+        --     }
+        -- })
 
         -- auto completion
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
