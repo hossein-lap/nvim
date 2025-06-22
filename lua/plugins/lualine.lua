@@ -2,7 +2,7 @@ return {
     "nvim-lualine/lualine.nvim",
     config = function()
 
-        -- separators
+        -- separators {{{
         local separators = {
             none        = { left = '',   right = '' },
             blank       = {
@@ -16,7 +16,8 @@ return {
             ascii       = { left = '>',  right = '<'  },
         }
 
-        -- config
+
+        -- config 
         local config = {
             options = {
                 always_divide_middle = true,
@@ -43,20 +44,20 @@ return {
                 lualine_z = {},
             },
 
-            -- tabline = {
-            --     -- these are to remove the defaults
-            --     lualine_a = {},
-            --     lualine_b = {},
-            --     lualine_c = {},
-            --     lualine_x = {},
-            --     lualine_y = {},
-            --     lualine_z = {},
-            --     -- These will be filled later
-            -- },
-
+            tabline = {
+                -- these are to remove the defaults
+                lualine_a = {},
+                lualine_b = {},
+                lualine_c = {},
+                lualine_x = {},
+                lualine_y = {},
+                lualine_z = {},
+                -- These will be filled later
+            },
         }
+-- }}}
 
-        -- color
+        -- color {{{
         local color = {
             white    = "#ffffff",
             black    = "#232323",
@@ -100,25 +101,84 @@ return {
                 y = { fg = color.fg, bg = color.cb, gui = "none" },
             },
         }
+-- }}}
 
-        -- left
-        local function leftline(component)
+        -- bottom left {{{
+
+        local function leftline_bottom(component)
             table.insert(config.sections.lualine_c, component)
         end
 
+        -- current mode {{{
         table.insert(config.sections.lualine_b, {
             function()
                 local mode = string.upper(vim.api.nvim_get_mode()["mode"])
+                mode = ''
+                mode = 'vim'
+                return mode
+            end
+        })
+        -- }}}
+
+        -- filename {{{
+        leftline_bottom("%.50F%m %r%h%w")
+        -- }}}
+
+        -- }}}
+
+        -- bottom right {{{
+
+        -- helper
+        local function rightline_bottom(component)
+            table.insert(config.sections.lualine_x, component)
+        end
+
+        -- filetype {{{
+        rightline_bottom({
+            function()
+                local ft = vim.bo.filetype
+                if ft ~= "" then
+                    return string.format("%s", ft)
+                else
+                    return ft
+                end
+            end
+        })
+        -- }}}
+        -- cursor pos and lines {{{
+        table.insert(config.sections.lualine_y, {
+            function()
+                return "%c:%l/%L"
+            end
+        })
+        -- }}}
+
+        -- }}}
+
+        -- top left {{{
+
+        -- helper
+        local function leftline_top(component)
+            table.insert(config.tabline.lualine_c, component)
+        end
+
+        table.insert(config.tabline.lualine_b, {
+            function()
+                local mode = 'Git'
+                mode = ''
+                mode = 'git'
                 return mode
             end
         })
 
-        leftline("%.50F%m %r%h%w")
-        leftline({
+        -- git branch {{{
+        leftline_top({
             "branch",
             icon = '',
         })
-        leftline({
+        -- }}}
+        -- git changes {{{
+        leftline_top({
             "diff",
             diff_color = {
                 removed  = { fg = color.fg },
@@ -131,13 +191,27 @@ return {
                 removed = '-'
             },
         })
+        -- }}}
 
-        -- right
-        local function rightline(component)
-            table.insert(config.sections.lualine_x, component)
+        -- }}}
+
+        -- top right {{{
+
+        -- helper
+        local function rightline_top(component)
+            table.insert(config.tabline.lualine_x, component)
         end
 
-        rightline({
+        -- LSP name {{{
+        rightline_top({
+            function()
+                local lsp_name = vim.lsp.get_clients()[1].name
+                return lsp_name
+            end
+        })
+        -- }}}
+        -- LSP diagnostic {{{
+        table.insert(config.tabline.lualine_y, {
             function()
                 local diag = {
                     hint = #vim.diagnostic.get(0, {severity=vim.diagnostic.severity.HINT}),
@@ -145,32 +219,19 @@ return {
                     warning = #vim.diagnostic.get(0, {severity=vim.diagnostic.severity.WARNING}),
                     error   = #vim.diagnostic.get(0, {severity=vim.diagnostic.severity.ERROR}),
                 }
-                local diagnostics = string.format('%s %s %s %s',
-                    'E:'..diag["error"],
-                    'W:'..diag["warning"],
-                    'H:'..diag["hint"],
-                    'I:'..diag["info"]
-                )
+                local diagnostics = string.format('%s %s %s', diag.error, diag.warning, diag.hint)
+
+                    -- 'E: '..diag["error"],
+                    -- 'W: '..diag["warning"],
+                    -- 'H: '..diag["hint"],
+                    -- 'I: '..diag["info"]
+
                 return diagnostics
             end
         })
+        -- }}}
 
-        rightline({
-            function()
-                local ft = vim.bo.filetype
-                if ft ~= "" then
-                    return string.format("%s", ft)
-                else
-                    return ft
-                end
-            end
-        })
-
-        table.insert(config.sections.lualine_y, {
-            function()
-                return "%c:%l/%L"
-            end
-        })
+        -- }}}
 
         config.options.section_separators = separators.none
         config.options.component_separators = separators.blank

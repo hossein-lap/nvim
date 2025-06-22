@@ -54,8 +54,8 @@ return {
             'lua_ls',
             'bashls',
             "pylyzer",
-            -- 'pyright',
-            -- 'clangd',
+            'pyright',
+            'clangd',
             'gopls',
             'texlab',
             'vimls',
@@ -68,7 +68,7 @@ return {
             -- "nginx-language-server",
             -- "docker-langserver",
             -- "docker-compose-langserver",
-            -- 'perlnavigator',
+            'perlnavigator',
             -- 'rust_analyzer',
         }
         for _, lsp in ipairs(servers) do
@@ -160,7 +160,7 @@ return {
                 },
                 documentation = {
                     winhighlight =  "Normal:CmpPmenu,CursorLine:Visual,Search:None",
-                    border = "single",
+                    border = "double",
                 },
                 diagnostic = {
                     border = "single",

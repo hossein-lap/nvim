@@ -17,33 +17,37 @@ return {
 			"hossein-lap/Alduin",
             "rafi/awesome-vim-colorschemes",
 			{ "rose-pine/neovim", name = "rose-pine" },
-			-- {
-   --              "hossein-lap/vim-tf2",
-   --              name = "tf2",
-   --              dir = "~/dev/hossein-lap/vim-colors/vim-tf2",
-   --          },
-			-- {
-   --              "hossein-lap/vim-blud",
-   --              name = "blud",
-   --              dir = "~/dev/hossein-lap/vim-colors/vim-blud",
-   --          },
-		},
+            -- {
+            --     "hossein-lap/vim-tf2",
+            --     name = "tf2",
+            --     dir = "~/dev/hossein-lap/vim-colors/vim-tf2",
+            -- },
+            -- {
+            --     "hossein-lap/vim-blud",
+            --     name = "blud",
+            --     dir = "~/dev/hossein-lap/vim-colors/vim-blud",
+            -- },
+        },
 
-		config = function()
-			local scheme = require("schemes")
+        config = function()
+            local scheme = require("schemes")
             vim.cmd [[
-                let g:alduin_Shout_Animal_Allegiance = 1
-                " set background=light
+            let g:alduin_Shout_Animal_Allegiance = 1
+            " set background=light
             ]]
-			scheme.ColorThem({
-                name = 'hybrid',
-				-- name = "alduin",
-				-- name = "blud",
-				-- name = "vim-wal",
+            scheme.ColorThem({
+                -- name = 'hybrid',
+                name = "alduin",
+                -- name = "blud",
+                -- name = "vim-wal",
                 -- name = 'lunaperche',
-				alpha_enable = true,
-				alpha_sec = "basic", -- basic, cols, folds, all
-			})
-		end
-	},
+                alpha_enable = true,
+                alpha_sec = "basic", -- basic, cols, folds, all
+            })
+
+            vim.api.nvim_set_hl(0, "CmpPmenu", {bg = '#121212', fg = '#ccccce'})
+        end
+
+
+    },
 }
