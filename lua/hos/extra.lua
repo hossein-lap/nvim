@@ -155,7 +155,7 @@ function Figlet(opts)
 
 	-- Insert the output into the current file
 	if input ~= nil then
-		cmd = string.format([[:-1r !sh -c "%s %s "%s" %s | sed "s,^,%s ,""]],
+		cmd = string.format([[:-1r !sh -c "%s %s "%s" %s | sed "s,^,%s ,"]],
 			bin, size, input, "2>/dev/null", comment[ft])
 		vim.cmd(cmd)
 	end

@@ -8,3 +8,4 @@ vim
 undodir
 _*
 colors
+*.vim

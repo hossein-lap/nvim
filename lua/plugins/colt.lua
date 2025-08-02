@@ -5,8 +5,8 @@ return {
 			"akinsho/toggleterm.nvim",
 		},
 
-		branch = "testing",
-		dir = "~/dev/hossein-lap/colt",
+		branch = "master",
+		-- dir = "~/dev/hossein-lap/colt",
 
 		config = function()
 			local colt = require("colt")

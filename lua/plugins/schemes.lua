@@ -3,6 +3,7 @@ return {
 		"hossein-lap/schemes-nvim",
 		dependencies = {
 			"tiagovla/tokyodark.nvim",
+            "folke/tokyonight.nvim",
 			"Shatur/neovim-ayu",
 			"hossein-lap/vim-hybrid",
 			"Mofiqul/dracula.nvim",
@@ -17,27 +18,33 @@ return {
 			"hossein-lap/Alduin",
             "rafi/awesome-vim-colorschemes",
 			{ "rose-pine/neovim", name = "rose-pine" },
-			{
-                "hossein-lap/vim-tf2",
-                name = "tf2",
-                dir = "~/dev/hossein-lap/vim-colors/vim-tf2",
-            },
-			{
-                "hossein-lap/vim-blud",
-                name = "blud",
-                dir = "~/dev/hossein-lap/vim-colors/vim-blud",
-            },
+			-- {
+   --              "hossein-lap/vim-tf2",
+   --              name = "tf2",
+   --              dir = "~/dev/hossein-lap/vim-colors/vim-tf2",
+   --          },
+			-- {
+   --              "hossein-lap/vim-blud",
+   --              name = "blud",
+   --              dir = "~/dev/hossein-lap/vim-colors/vim-blud",
+   --          },
 		},
 
 		config = function()
 			local scheme = require("schemes")
             vim.cmd [[
                 let g:alduin_Shout_Animal_Allegiance = 1
+                " set background=light
             ]]
 			scheme.ColorThem({
-				name = "alduin",
-				-- name = "blud",
+				-- name = "alduin",
+				-- name = "256_noir",
+				-- name = "lupper",
+				-- name = "onedark",
 				-- name = "vim-wal",
+                -- name = 'lunaperche',
+                -- name = 'ayu',
+				name = "tokyodark",
 				alpha_enable = true,
 				alpha_sec = "basic", -- basic, cols, folds, all
 			})

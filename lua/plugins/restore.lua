@@ -1,3 +1,4 @@
 return {
-    "hossein-lap/restore.vim",
+    -- "hossein-lap/restore.vim",
+    "vim-scripts/restore_view.vim",
 }

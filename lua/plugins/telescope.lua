@@ -28,11 +28,11 @@ return {
             local word = vim.fn.expand("<cWORD>")
             builtin.grep_string({ search = word })
         end)
-        vim.keymap.set('n', '<leader>ps', function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ") })
+        vim.keymap.set('n', '<C-s>', function()
+            builtin.grep_string({ search = vim.fn.input("Grep: ") })
         end, {desc = "Search files that contains string"})
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Serach help pages"})
-        vim.keymap.set('n', '<leader>bl', builtin.buffers, { desc = "List buffers"})
+        vim.keymap.set('n', '<C-o>', builtin.buffers, { desc = "List buffers"})
 
     end
 }

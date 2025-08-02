@@ -61,6 +61,7 @@ return {
             'vimls',
             -- "ruby-lsp",
             "yamlls",
+            -- "groovy-language-server",
             -- "ansible-language-server",
             -- "helm-ls",
             -- "terraform-ls",
@@ -95,22 +96,26 @@ return {
                 "yamlls", "ansiblels", "dockerls",
                 "docker_compose_language_service",
             },
-
             handlers = {
                 function(server_name) -- default handler (optional)
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
                 end,
-
                 ["lua_ls"] = function()
-                    -- local lspconfig = require("lspconfig")
+                    local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
                                 diagnostics = {
-                                    globals = { "vim", "it", "describe", "before_each", "after_each" },
+                                    globals = {
+                                        "vim", "awful",
+                                        "it",
+                                        "describe",
+                                        "before_each",
+                                        "after_each",
+                                    },
                                 }
                             }
                         }
